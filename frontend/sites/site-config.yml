@@ -1,0 +1,77 @@
+# Master Site Configuration
+# Defines all directory sites managed by this codebase
+
+# Default theme settings (can be overridden per site)
+default_theme:
+  colors:
+    primary: "#008ce6"        # PT Sky
+    secondary: "#7C3AED"      # violet-600
+    background: "#F9FAFB"     # gray-50
+    text: "#000000"
+  fonts:
+    heading: "Inter, system-ui, sans-serif"
+    body: "Inter, system-ui, sans-serif"
+
+# Site definitions
+sites:
+  # Bauturbo Directory
+  - id: bauturbo
+    name: "Bauturbo Directory"
+    domain: "directory.umsetzungslabor-bauturbo.de"
+    
+    # File paths (relative to frontend root)
+    directories_config: "sites/bauturbo/directories.yml"
+    env_file: "sites/bauturbo/.env"
+    output_dir: "_site/bauturbo"
+    
+    # Theme customization
+    theme:
+      colors:
+        primary: "#FF1E55"
+        secondary: "#00115a"
+        background: "#F9FAFB"   # gray-50
+        text: "#000000"         # gray-900
+      fonts:
+        heading: "Inter, system-ui, sans-serif"
+        body: "Inter, system-ui, sans-serif"
+    
+    # Branding
+    branding:
+      logo: "/assets/logos/logo_bauwende.png"  # Optional logo path
+      favicon: "/assets/favicons/logo_bauwende.png"
+    
+    # Header navigation (in addition to directory pages)
+    header_menu:
+      - label: "About"
+        url: "https://umsetzungslabor-bauturbo.de/"
+        external: true
+      # Directory links are automatically added
+    
+    # Footer configuration
+    footer:
+      text: "© 2025 Umsetzungslabor Bauturbo"
+      menu:
+        - label: "Impressum"
+          url: "https://bauwende-allianz.org/impressum"
+        - label: "Datenschutz"
+          url: "https://bauwende-allianz.org/datenschutzerklaerung"
+  
+  # Example second site (template)
+  # - id: example
+  #   name: "Example Directory"
+  #   domain: "directory.example.org"
+  #   directories_config: "sites/example/directories.yml"
+  #   env_file: "sites/example/.env"
+  #   output_dir: "_site/example"
+  #   theme:
+  #     colors:
+  #       primary: "#DC2626"    # red-600
+  #       secondary: "#EA580C"  # orange-600
+  #   branding:
+  #     logo: "/assets/logos/example.svg"
+  #   header_menu: []
+  #   footer:
+  #     text: "© 2025 Example Organization"
+  #     menu:
+  #       - label: "Privacy"
+  #         url: "https://example.org/privacy"

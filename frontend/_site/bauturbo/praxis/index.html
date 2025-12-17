@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bauturbo Directory</title>
+    
+    <link rel="icon" href="/assets/favicons/logo_bauwende.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            /* Theme colors */
+            --color-primary: #FF1E55;
+            --color-secondary: #00115a;
+            --color-background: #F9FAFB;
+            --color-text: #000000;
+            
+            /* Fonts */
+            --font-heading: Inter, system-ui, sans-serif;
+            --font-body: Inter, system-ui, sans-serif;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+        }
+        
+        /* Apply theme colors to various elements */
+        .text-indigo-600, .text-primary {
+            color: var(--color-primary) !important;
+        }
+        
+        .bg-indigo-600, .bg-primary {
+            background-color: var(--color-primary) !important;
+        }
+        
+        .hover\:bg-indigo-700:hover {
+            background-color: var(--color-secondary) !important;
+        }
+        
+        .hover\:text-indigo-600:hover {
+            color: var(--color-primary) !important;
+        }
+        
+        .hover\:text-primary:hover {
+            color: var(--color-primary) !important;
+        }
+        
+        .border-indigo-500:focus {
+            border-color: var(--color-primary) !important;
+        }
+        
+        .ring-indigo-500:focus {
+            --tw-ring-color: var(--color-primary) !important;
+        }
+        
+        /* Custom border styles */
+        .border-text {
+            border-color: var(--color-text);
+        }
+        
+        .border-1-5 {
+            border-width: 1.5px;
+        }
+        
+        html, body {
+            min-height: 100vh;
+            background-color: var(--color-background);
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        main {
+            flex: 1;
+        }
+        
+        /* Line clamp utility */
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* Mobile filter toggle */
+        @media (max-width: 1023px) {
+            .filter-sidebar {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                height: 100vh;
+                width: 80%;
+                max-width: 320px;
+                background-color: var(--color-background);
+                z-index: 50;
+                transition: left 0.3s ease;
+                overflow-y: auto;
+                box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+                padding: 1rem;
+            }
+            
+            .filter-sidebar.open {
+                left: 0;
+            }
+            
+            .filter-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 40;
+                display: none;
+            }
+            
+            .filter-overlay.open {
+                display: block;
+            }
+        }
+        
+        /* Link styling for article content */
+        .prose a {
+            color: var(--color-text);
+            text-decoration: underline;
+            text-decoration-color: var(--color-primary);
+            text-decoration-thickness: 1.5px;
+            text-underline-offset: 2px;
+        }
+        
+        .prose a:hover {
+            color: var(--color-primary);
+        }
+        
+        /* Custom focus styles for form elements */
+        select:focus,
+        input:focus,
+        textarea:focus,
+        button:focus {
+            outline: none;
+            border-color: var(--color-text) !important;
+            box-shadow: 0 0 0 1px var(--color-text) !important;
+        }
+        
+        .filter-select:focus {
+            border-color: var(--color-text) !important;
+            box-shadow: 0 0 0 1px var(--color-text) !important;
+        }
+    </style>
+</head>
+<body class="text-gray-900 font-sans">
+    <header style="background-color: var(--color-background);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-primary">
+                
+                <img src="/assets/logos/logo_bauwende.png" alt="Bauturbo Directory" class="h-8 inline-block">
+                
+            </h1>
+            <nav class="flex gap-6">
+                
+                <a href="/projekte" class="text-gray-600 hover:text-primary transition-colors">
+                    Projekte
+                </a>
+                
+                <a href="/praxis" class="text-gray-600 hover:text-primary transition-colors">
+                    Kommunale Praxis
+                </a>
+                
+                
+                
+                <a href="https://umsetzungslabor-bauturbo.de/" 
+                   target="_blank" rel="noopener noreferrer"
+                   class="text-gray-600 hover:text-primary transition-colors">
+                    About
+                </a>
+                
+                
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-8">
+        
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-8">
+        <h2 class="text-3xl font-bold text-gray-900">Kommunale Praxis</h2>
+        
+        
+        <!-- Mobile Filter Button -->
+        <button id="mobile-filter-btn" class="lg:hidden inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+            </svg>
+            Filter
+        </button>
+        
+    </div>
+    
+    <!-- Title underline aligned with page title and header menu -->
+    <div class="border-b border-1-5 border-text mb-8"></div>
+    
+    <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Filter Overlay for Mobile -->
+        <div id="filter-overlay" class="filter-overlay"></div>
+        
+        <!-- Left Sidebar - Filters -->
+        
+        <aside id="filter-sidebar" class="lg:w-64 flex-shrink-0 filter-sidebar lg:static">
+            <div class="p-4 lg:sticky lg:top-4" style="background-color: var(--color-background);">
+                <!-- Mobile Close Button -->
+                <div class="flex items-center justify-between mb-4 lg:hidden">
+                    <h3 class="text-lg font-semibold text-gray-900">Filter</h3>
+                    <button id="close-filter-btn" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="hidden lg:flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">Filter</h3>
+                    <button id="clear-filters" class="text-xs text-gray-500 hover:text-gray-900 transition-colors">
+                        Alle Filter löschen
+                    </button>
+                </div>
+                
+                <!-- Clear Filters for Mobile -->
+                <button id="clear-filters-mobile" class="lg:hidden w-full mb-4 text-sm text-gray-500 hover:text-gray-900 transition-colors text-center">
+                    Alle Filter löschen
+                </button>
+                
+                <!-- Search Box -->
+                <div class="mb-4 pb-4" style="border-bottom: 1.5px solid var(--color-text);">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Suche</label>
+                    <input type="text" 
+                           id="search-input" 
+                           class="block w-full px-3 py-2 text-sm rounded-md border bg-white"
+                           style="border-color: var(--color-text);"
+                           placeholder="Stichwort eingeben...">
+                </div>
+                
+                <div class="space-y-4" id="filter-container">
+                    
+                    <div class="pb-4 last:pb-0" style="border-bottom: 1.5px solid var(--color-text); border-bottom: none;">
+                        <details class="group" open>
+                            <summary class="cursor-pointer list-none flex items-center justify-between text-sm font-medium text-gray-700 hover:text-gray-900">
+                                <span>Kategorie</span>
+                                <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </summary>
+                            <div class="mt-3">
+                                
+                                    <!-- Dropdown for single select -->
+                                    <select class="filter-select block w-full px-3 py-2 text-sm rounded-md border bg-white" 
+                                            style="border-color: var(--color-text);"
+                                            data-filter-name="Kategorie"
+                                            data-filter-type="single">
+                                        <option value="">Alle</option>
+                                        
+                                        <option value="Bürgerbeteiligung">Bürgerbeteiligung</option>
+                                        
+                                        <option value="Grundsatzentscheidung">Grundsatzentscheidung</option>
+                                        
+                                        <option value="Interne Zusammenarbeit">Interne Zusammenarbeit</option>
+                                        
+                                    </select>
+                                
+                            </div>
+                        </details>
+                    </div>
+                    
+                </div>
+            </div>
+        </aside>
+        
+        
+        <!-- Main Content - Cards Grid -->
+        <div class="flex-1">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="items-grid">
+            
+                <div class="item-card rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden border border-gray-100"
+                     style="background-color: var(--color-background);"
+                     
+                        
+                         data-Id="1"
+                        
+                     
+                        
+                         data-Title="1"
+                        
+                     
+                        
+                         data-Kategorie="Grundsatzentscheidung"
+                        
+                     
+                        
+                         data-Status="Grundsatzentscheidung"
+                        
+                     
+                        
+                         data-Beschreibung="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                        
+                     
+                        
+                     
+                        
+                         data-URL_1=""
+                        
+                     
+                >
+                    <a href="/praxis/items/1/" class="block p-6 hover:bg-gray-50 transition-colors">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                            1
+                        </h3>
+                        
+                        
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                        </p>
+                        
+                    </a>
+                </div>
+            
+                <div class="item-card rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden border border-gray-100"
+                     style="background-color: var(--color-background);"
+                     
+                        
+                         data-Id="2"
+                        
+                     
+                        
+                         data-Title="2"
+                        
+                     
+                        
+                         data-Kategorie="Grundsatzentscheidung"
+                        
+                     
+                        
+                         data-Status="Grundsatzentscheidung"
+                        
+                     
+                        
+                         data-Beschreibung="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                        
+                     
+                        
+                     
+                        
+                         data-URL_1=""
+                        
+                     
+                >
+                    <a href="/praxis/items/2/" class="block p-6 hover:bg-gray-50 transition-colors">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                            2
+                        </h3>
+                        
+                        
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                        </p>
+                        
+                    </a>
+                </div>
+            
+                <div class="item-card rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden border border-gray-100"
+                     style="background-color: var(--color-background);"
+                     
+                        
+                         data-Id="3"
+                        
+                     
+                        
+                         data-Title="3"
+                        
+                     
+                        
+                         data-Kategorie="Bürgerbeteiligung"
+                        
+                     
+                        
+                         data-Status="Bürgerbeteiligung"
+                        
+                     
+                        
+                         data-Beschreibung="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                        
+                     
+                        
+                     
+                        
+                         data-URL_1=""
+                        
+                     
+                >
+                    <a href="/praxis/items/3/" class="block p-6 hover:bg-gray-50 transition-colors">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                            3
+                        </h3>
+                        
+                        
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                        </p>
+                        
+                    </a>
+                </div>
+            
+                <div class="item-card rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden border border-gray-100"
+                     style="background-color: var(--color-background);"
+                     
+                        
+                         data-Id="4"
+                        
+                     
+                        
+                         data-Title="4"
+                        
+                     
+                        
+                         data-Kategorie="Interne Zusammenarbeit"
+                        
+                     
+                        
+                         data-Status="Interne Zusammenarbeit"
+                        
+                     
+                        
+                         data-Beschreibung="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                        
+                     
+                        
+                     
+                        
+                         data-URL_1=""
+                        
+                     
+                >
+                    <a href="/praxis/items/4/" class="block p-6 hover:bg-gray-50 transition-colors">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                            4
+                        </h3>
+                        
+                        
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                        </p>
+                        
+                    </a>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const selectFilters = document.querySelectorAll('.filter-select');
+    const checkboxFilters = document.querySelectorAll('.filter-checkbox');
+    const searchInput = document.getElementById('search-input');
+    const cards = document.querySelectorAll('.item-card');
+    const clearButton = document.getElementById('clear-filters');
+    const clearButtonMobile = document.getElementById('clear-filters-mobile');
+    
+    // Mobile filter toggle
+    const mobileFilterBtn = document.getElementById('mobile-filter-btn');
+    const filterSidebar = document.getElementById('filter-sidebar');
+    const filterOverlay = document.getElementById('filter-overlay');
+    const closeFilterBtn = document.getElementById('close-filter-btn');
+    
+    function openMobileFilter() {
+        if (filterSidebar && filterOverlay) {
+            filterSidebar.classList.add('open');
+            filterOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    function closeMobileFilter() {
+        if (filterSidebar && filterOverlay) {
+            filterSidebar.classList.remove('open');
+            filterOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    if (mobileFilterBtn) {
+        mobileFilterBtn.addEventListener('click', openMobileFilter);
+    }
+    
+    if (closeFilterBtn) {
+        closeFilterBtn.addEventListener('click', closeMobileFilter);
+    }
+    
+    if (filterOverlay) {
+        filterOverlay.addEventListener('click', closeMobileFilter);
+    }
+
+    function filterCards() {
+        const activeFilters = {};
+        const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        
+        // Collect selected dropdowns (single select)
+        selectFilters.forEach(select => {
+            if (select.value) {
+                activeFilters[select.dataset.filterName] = {
+                    value: select.value,
+                    type: select.dataset.filterType
+                };
+            }
+        });
+        
+        // Collect checked checkboxes (multi-select)
+        const checkboxesByFilter = {};
+        checkboxFilters.forEach(checkbox => {
+            const filterName = checkbox.dataset.filterName;
+            if (!checkboxesByFilter[filterName]) {
+                checkboxesByFilter[filterName] = [];
+            }
+            if (checkbox.checked) {
+                checkboxesByFilter[filterName].push(checkbox.value);
+            }
+        });
+        
+        // Add checked checkboxes to activeFilters
+        for (const [filterName, values] of Object.entries(checkboxesByFilter)) {
+            if (values.length > 0) {
+                activeFilters[filterName] = {
+                    values: values,
+                    type: 'multi_select'
+                };
+            }
+        }
+
+        cards.forEach(card => {
+            let isVisible = true;
+            
+            // Apply filter-based filtering
+            for (const [key, filterConfig] of Object.entries(activeFilters)) {
+                const cardValue = card.getAttribute(`data-${key}`);
+                
+                if (!cardValue) {
+                    isVisible = false;
+                    break;
+                }
+                
+                // For multi-select fields, check if ANY selected filter value is in the card's comma-separated list
+                if (filterConfig.type === 'multi_select') {
+                    const cardValues = cardValue.split(',').map(v => v.trim());
+                    const hasMatch = filterConfig.values.some(filterVal => 
+                        cardValues.includes(filterVal)
+                    );
+                    
+                    if (!hasMatch) {
+                        isVisible = false;
+                        break;
+                    }
+                } else {
+                    // For single select, exact match
+                    if (cardValue !== filterConfig.value) {
+                        isVisible = false;
+                        break;
+                    }
+                }
+            }
+            
+            // Apply text search
+            if (isVisible && searchTerm) {
+                const cardText = card.textContent.toLowerCase();
+                if (!cardText.includes(searchTerm)) {
+                    isVisible = false;
+                }
+            }
+            
+            card.style.display = isVisible ? 'block' : 'none';
+        });
+    }
+    
+    function clearAllFilters() {
+        selectFilters.forEach(select => {
+            select.value = '';
+        });
+        checkboxFilters.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        if (searchInput) {
+            searchInput.value = '';
+        }
+        filterCards();
+        closeMobileFilter();
+    }
+
+    selectFilters.forEach(select => {
+        select.addEventListener('change', filterCards);
+    });
+    
+    checkboxFilters.forEach(checkbox => {
+        checkbox.addEventListener('change', filterCards);
+    });
+    
+    // Search with debounce
+    let searchTimeout;
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(filterCards, 300);
+        });
+    }
+
+    if (clearButton) {
+        clearButton.addEventListener('click', clearAllFilters);
+    }
+    
+    if (clearButtonMobile) {
+        clearButtonMobile.addEventListener('click', clearAllFilters);
+    }
+});
+</script>
+
+    </main>
+
+    <footer style="background-color: var(--color-background);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex justify-between items-center">
+                <div class="text-gray-500 text-sm">
+                    © 2025 Umsetzungslabor Bauturbo
+                </div>
+                
+                <nav class="flex gap-6">
+                    
+                    <a href="https://bauwende-allianz.org/impressum" 
+                       class="text-gray-500 hover:text-primary text-sm transition-colors">
+                        Impressum
+                    </a>
+                    
+                    <a href="https://bauwende-allianz.org/datenschutzerklaerung" 
+                       class="text-gray-500 hover:text-primary text-sm transition-colors">
+                        Datenschutz
+                    </a>
+                    
+                </nav>
+                
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
