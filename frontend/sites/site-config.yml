@@ -55,6 +55,7 @@ sites:
           url: "https://bauwende-allianz.org/impressum"
         - label: "Datenschutz"
           url: "https://bauwende-allianz.org/datenschutzerklaerung"
+  
   # Test Directory
   - id: test_directory
     name: "PT Directory"
@@ -96,23 +97,3 @@ sites:
           url: "https://projecttogether.org/impressum"
         - label: "Datenschutz"
           url: "https://projecttogether.org/datenschutz"
-  
-  # Example second site (template)
-  # - id: example
-  #   name: "Example Directory"
-  #   domain: "directory.example.org"
-  #   directories_config: "sites/example/directories.yml"
-  #   env_file: "sites/example/.env"
-  #   output_dir: "_site/example"
-  #   theme:
-  #     colors:
-  #       primary: "#DC2626"    # red-600
-  #       secondary: "#EA580C"  # orange-600
-  #   branding:
-  #     logo: "/assets/logos/example.svg"
-  #   header_menu: []
-  #   footer:
-  #     text: "© 2025 Example Organization"
-  #     menu:
-  #       - label: "Privacy"
-  #         url: "https://example.org/privacy"
