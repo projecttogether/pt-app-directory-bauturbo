@@ -5,9 +5,7 @@ type: app
 owner: IT
 
 app_id: directory_multisites_1
-servers: 
-  - pt-general-1 (bauturbo site)
-  - pt-web-1 (pt_directory site)
+server: pt-web-1
 description: Multi-tenant directory platform with 11ty static site generation and NocoDB CMS 
 ---
 
@@ -18,8 +16,8 @@ description: Multi-tenant directory platform with 11ty static site generation an
 A unified codebase for managing multiple directory websites, each with their own NocoDB data source, domain, and branding. Built with 11ty for static site generation and NocoDB as a headless CMS.
 
 **Live Sites:**
-- Bauturbo: https://directory.umsetzungslabor-bauturbo.de (deployed on pt-general-1)
-- PT Directory: https://directory.projecttogether.net (deployed on pt-web-1) ✨ NEW
+- Bauturbo: https://directory.umsetzungslabor-bauturbo.de (pt-web-1)
+- PT Directory: https://directory.projecttogether.net (pt-web-1)
 
 **NocoDB Admin:** https://nocodb.projecttogether.org
 
@@ -39,7 +37,7 @@ Single Codebase
 ├── Shared Templates & Logic (src/)
 ├── Site-Specific Configurations (sites/)
 └── Separate Build Outputs per Site (_site/)
-    ├── bauturbo/ → directory.umsetzungslabor-bauturbo.de (pt-general-1)
+    ├── bauturbo/ → directory.umsetzungslabor-bauturbo.de (pt-web-1)
     ├── pt_directory/ → directory.projecttogether.net (pt-web-1)
     └── [future sites]
 ```
@@ -360,153 +358,133 @@ NOCODB_PROJECT_ID=px8pby5vdjxwo13
 
 ## Deployment
 
-### Deployment Locations
-
-**pt-general-1 (138.199.175.147):**
-- Bauturbo site: `directory.umsetzungslabor-bauturbo.de`
-- Deployment: `/var/www/directory/`
-- Uses automated rsync deployment script
+### Deployment Location
 
 **pt-web-1 (188.245.90.198):**
-- PT Directory: `directory.projecttogether.net`
-- Location: `/srv/projects/pt-app-directory_multisites_1/frontend/_site/pt_directory/`
-- Nginx serves static files directly from this location
+- Both sites deployed here
+- Location: `/srv/projects/pt-app-directory_multisites_1/frontend/`
+- Built sites in `_site/` subdirectories:
+  - `_site/bauturbo/` → directory.umsetzungslabor-bauturbo.de
+  - `_site/pt_directory/` → directory.projecttogether.net
+- Nginx serves static files directly from these locations
+- Daily automated rebuild via cron at 5 AM
 
 ### Deployment Workflow
 
-**For pt-general-1 (bauturbo):**
-```bash
-cd frontend
-
-# Deploy specific site (recommended)
-./scripts/rebuild-and-deploy.sh bauturbo
-
-# Deploy all sites
-./scripts/rebuild-and-deploy.sh
-```
-
-**What happens:**
-- ✅ Cache cleared - Always fetches fresh data from NocoDB
-- ✅ Site built - Generates latest HTML/CSS/JS
-- ✅ Files deployed - Synced directly to `/var/www/directory/` via rsync
-- ✅ No sudo required - Uses group permissions (www-data)
-
-**For pt-web-1 (pt_directory):**
+**Manual deployment on pt-web-1:**
 ```bash
 # SSH to pt-web-1
 ssh simon@188.245.90.198
 
 # Navigate to project
-cd /srv/projects/pt-app-directory_multisites_1/frontend
+cd /srv/projects/pt-app-directory_multisites_1
 
 # Pull latest code (if changes)
 git pull
 
-# Rebuild site
-npm run build
+# Rebuild all sites
+./frontend/scripts/rebuild-on-server.sh
 
-# Site updates automatically (nginx serves from _site/pt_directory/)
+# Or rebuild specific site
+cd frontend
+npm run build:bauturbo
+# or
+npm run build:test_directory
 ```
+
+**What happens:**
+- ✅ Latest code pulled from GitHub
+- ✅ Cache cleared - Always fetches fresh data from NocoDB
+- ✅ Sites built - Generates latest HTML/CSS/JS in `_site/` directories
+- ✅ Sites update immediately - nginx serves directly from `_site/`
+- ✅ No deployment step needed - files are already in place
 
 ### Prerequisites
 
-**pt-general-1 server setup (one-time):**
-
-```bash
-# Add deployment user to www-data group
-sudo usermod -a -G www-data simon
-
-# Make directory group-writable with setgid
-sudo chmod -R g+w /var/www/directory
-sudo find /var/www/directory -type d -exec chmod g+s {} \;
-
-# Verify permissions
-ls -la /var/www/directory
-# Should show: drwxrwsr-x www-data www-data
-```
-
 **pt-web-1 server setup (complete):**
-- ✅ Node.js and npm installed
+- ✅ Node.js v18.19.1 and npm installed
 - ✅ Project cloned to `/srv/projects/pt-app-directory_multisites_1/`
-- ✅ Nginx configured to serve from `_site/pt_directory/`
-- ✅ SSL certificate configured for `directory.projecttogether.net`
+- ✅ Dependencies installed (`npm install` in frontend/)
+- ✅ Nginx configurations created for both domains
+- ✅ SSL certificates configured via certbot:
+  - `directory.umsetzungslabor-bauturbo.de`
+  - `directory.projecttogether.net`
+- ✅ Cron job set up for daily rebuilds at 5 AM
 - ✅ Simon user has git access and can rebuild sites
-
-**SSH configuration:**
-
-Add to `~/.ssh/config`:
-```
-Host primary
-    HostName 138.199.175.147
-    User simon
-    IdentityFile ~/.ssh/id_rsa
-```
-
-### Manual Deployment (if needed)
-
-```bash
-# Build specific site
-npm run build:bauturbo
-
-# Deploy manually
-rsync -rlpgoDvz --delete --no-perms --no-times -e ssh _site/bauturbo/ primary:/var/www/directory/
-```
 
 ### Automated Rebuilds
 
-**Daily rebuild cron job:**
+**Daily rebuild cron job on pt-web-1:**
 
-```bash
-# SSH into the server and add to crontab
-ssh primary
-crontab -e
+The cron job automatically:
+- Pulls latest code from GitHub
+- Clears cache
+- Rebuilds all sites
+- Sites are immediately live (nginx serves from `_site/`)
 
-# Rebuild and deploy daily at 2 AM (adjust path to your frontend directory)
-0 2 * * * cd /home/simon/pt_open_source/server_pt-primary/apps/directory_multisites/frontend && ./scripts/rebuild-and-deploy.sh bauturbo >> /var/log/directory-deploy.log 2>&1
+**Cron schedule:**
+```cron
+# Runs daily at 5 AM
+0 5 * * * cd /srv/projects/pt-app-directory_multisites_1 && ./frontend/scripts/rebuild-on-server.sh >> /srv/projects/pt-app-directory_multisites_1/rebuild.log 2>&1
 ```
 
-**View deployment logs:**
+**View rebuild logs:**
 ```bash
-tail -f /var/log/directory-deploy.log
+# On pt-web-1
+tail -f /srv/projects/pt-app-directory_multisites_1/rebuild.log
+```
+
+**Manual trigger:**
+```bash
+# SSH to pt-web-1
+ssh simon@188.245.90.198
+
+# Run rebuild script
+cd /srv/projects/pt-app-directory_multisites_1
+./frontend/scripts/rebuild-on-server.sh
 ```
 
 ## Nginx Configuration
 
-### pt-general-1 (Bauturbo)
+All sites are served from pt-web-1 (188.245.90.198).
 
-**Bauturbo Site** (`/etc/nginx/sites-available/directory.umsetzungslabor-bauturbo.de`):
+### Bauturbo Site
+
+**Configuration** (`/etc/nginx/sites-available/directory.umsetzungslabor-bauturbo.de`):
 ```nginx
 server {
     listen 80;
+    listen [::]:80;
     server_name directory.umsetzungslabor-bauturbo.de;
 
-    root /var/www/directory;
+    root /srv/projects/pt-app-directory_multisites_1/frontend/_site/bauturbo;
     index index.html;
 
     location / {
         try_files $uri $uri/ =404;
     }
+}
 
-    add_header X-Content-Type-Options nosniff;
-    add_header X-Frame-Options SAMEORIGIN;
-    add_header X-XSS-Protection "1; mode=block";
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name directory.umsetzungslabor-bauturbo.de;
+
+    root /srv/projects/pt-app-directory_multisites_1/frontend/_site/bauturbo;
+    index index.html;
+
+    ssl_certificate /etc/letsencrypt/live/directory.umsetzungslabor-bauturbo.de/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/directory.umsetzungslabor-bauturbo.de/privkey.pem;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
 }
 ```
 
-**HTTPS:** Managed by Certbot
-```bash
-sudo certbot --nginx -d directory.umsetzungslabor-bauturbo.de
-```
+### PT Directory Site
 
-**File Permissions:**
-- Directory: `/var/www/directory/`
-- Owner: `www-data:www-data`
-- Permissions: `drwxrwsr-x` (group-writable with setgid)
-- Deployment user: Member of `www-data` group
-
-### pt-web-1 (PT Directory)
-
-**PT Directory Site** (`/etc/nginx/sites-available/directory.projecttogether.net`):
+**Configuration** (`/etc/nginx/sites-available/directory.projecttogether.net`):
 ```nginx
 server {
     listen 80;
@@ -538,16 +516,28 @@ server {
 }
 ```
 
-**HTTPS:** Managed by Certbot
+### SSL Certificates
+
+Both domains have SSL certificates managed by Certbot:
+
 ```bash
+# Bauturbo
+sudo certbot --nginx -d directory.umsetzungslabor-bauturbo.de
+
+# PT Directory  
 sudo certbot --nginx -d directory.projecttogether.net
 ```
 
-**File Access:**
-- Location: `/srv/projects/pt-app-directory_multisites_1/frontend/_site/pt_directory/`
-- Owner: `simon:simon`
-- Nginx serves files directly (no rsync needed)
-- Updates apply immediately after rebuild
+Certificates auto-renew via `certbot.timer`.
+
+### File Access
+
+- **Location:** `/srv/projects/pt-app-directory_multisites_1/frontend/_site/`
+- **Owner:** `simon:simon`
+- **Bauturbo:** `_site/bauturbo/`
+- **PT Directory:** `_site/pt_directory/`
+- **Nginx:** Serves files directly from these directories
+- **Updates:** Apply immediately after rebuild (no deployment step needed)
 
 ## NocoDB Setup
 
