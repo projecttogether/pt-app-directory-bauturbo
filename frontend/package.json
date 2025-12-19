@@ -5,8 +5,10 @@
   "scripts": {
     "build": "node scripts/build-all-sites.js",
     "build:bauturbo": "SITE_ID=bauturbo eleventy",
+    "build:test_directory": "SITE_ID=test_directory eleventy",
     "dev": "SITE_ID=bauturbo eleventy --serve",
     "dev:bauturbo": "SITE_ID=bauturbo eleventy --serve",
+    "dev:test_directory": "SITE_ID=test_directory eleventy --serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
