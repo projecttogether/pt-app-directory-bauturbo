@@ -53,7 +53,7 @@ directories:
       view_id: vw0efitq0kedrj5l
     display:
       title_field: Title
-      description_field: Description
+      excerpt_field: Excerpt
       status_field: Status
     filters:
       - field: Status
@@ -73,13 +73,17 @@ directories:
     nocodb:
       table_id: mk0mt3yqjbo3o5h
       view_id: vw64dhfjdahf1c1u
+      status_field: Status
     display:
       title_field: Title
-      description_field: Description
+      excerpt_field: Excerpt
     filters:
+      - field: Status
+        label: Status
+        type: multi_select
       - field: Kategorie
         label: Kategorie
-        type: single
+        type: multi_select
 
   - id: entscheidungshilfen
     name: "Entscheidungshilfen"
@@ -90,11 +94,11 @@ directories:
       view_id: vwgm4aiiu4i7k1xq
     display:
       title_field: Title
-      description_field: Description
+      excerpt_field: Excerpt
     filters:
       - field: Kategorie
         label: Kategorie
-        type: single
+        type: multi_select
 
   - id: veranstaltungen
     name: "Veranstaltungen"
@@ -105,9 +109,9 @@ directories:
       view_id: vwg88z6exd0oialo
     display:
       title_field: Title
-      description_field: Description
-      start_date_field: "Start Date"
+      excerpt_field: Excerpt
+      start_date_field: Datum
     filters:
       - field: Kategorie
         label: Kategorie
-        type: single
+        type: multi_select

@@ -28,7 +28,7 @@ module.exports = async function () {
 
         // Fetch data for each configured directory
         for (const directory of directories) {
-            const { id, name, path, nocodb: dirNocodb, display, filters } = directory;
+            const { id, name, path, description, nocodb: dirNocodb, display, filters } = directory;
 
             if (!dirNocodb.table_id || !dirNocodb.view_id) {
                 console.warn(`Missing table/view config for directory: ${id}`);
@@ -75,6 +75,7 @@ module.exports = async function () {
                     id,
                     name,
                     path,
+                    description,
                     display,
                     items,
                     filters: filterOptions

@@ -127,7 +127,7 @@ SSL: Managed by Certbot
          view_id: your_view_id
        display:
          title_field: Title
-         description_field: Description
+         excerpt_field: Description
        filters:
          - field: Category
            type: single

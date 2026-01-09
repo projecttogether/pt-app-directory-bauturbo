@@ -29,9 +29,9 @@ eleventyComputed:
             {{ item[dir.display.title_field] }}
         </h1>
         
-        {% if item[dir.display.description_field] %}
-        <p class="text-xl text-gray-600 leading-relaxed mb-8">
-            {{ item[dir.display.description_field] }}
+        {% if item[dir.display.excerpt_field] %}
+        <p class="text-lg text-gray-600 leading-relaxed mb-8">
+            {{ item[dir.display.excerpt_field] }}
         </p>
         {% endif %}
     </header>
@@ -52,7 +52,7 @@ eleventyComputed:
         {% for key, value in item %}
             {% if key != 'Id' and 
                   key != dir.display.title_field and 
-                  key != dir.display.description_field and 
+                  key != dir.display.excerpt_field and 
                   key != dir.display.status_field and
                   value and
                   value != '' and
@@ -90,7 +90,7 @@ eleventyComputed:
         {% for key, value in item %}
             {% if key != 'Id' and 
                   key != dir.display.title_field and 
-                  key != dir.display.description_field and 
+                  key != dir.display.excerpt_field and 
                   key != dir.display.status_field and
                   value and
                   value != '' and

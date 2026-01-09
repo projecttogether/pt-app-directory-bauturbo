@@ -22,6 +22,10 @@ layout: layouts/base.njk
         {% endif %}
     </div>
     
+    {% if directory.description %}
+    <p class="text-lg text-gray-600 mb-8">{{ directory.description }}</p>
+    {% endif %}
+    
     <!-- Title underline aligned with page title and header menu -->
     <div class="border-b border-1-5 border-text mb-8"></div>
     
@@ -119,7 +123,7 @@ layout: layouts/base.njk
                 <div class="item-card rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden border border-gray-100"
                      style="background-color: var(--color-background);"
                      {% for key, value in item %}
-                        {% if key != 'long_text' and key != directory.display.description_field %}
+                        {% if key != 'long_text' and key != directory.display.excerpt_field %}
                          data-{{ key }}="{{ value }}"
                         {% endif %}
                      {% endfor %}
@@ -145,9 +149,9 @@ layout: layouts/base.njk
                         </div>
                         {% endif %}
                         
-                        {% if directory.display.description_field and item[directory.display.description_field] %}
+                        {% if directory.display.excerpt_field and item[directory.display.excerpt_field] %}
                         <p class="text-sm text-gray-600 leading-relaxed">
-                            {{ item[directory.display.description_field] }}
+                            {{ item[directory.display.excerpt_field] }}
                         </p>
                         {% endif %}
                     </a>
