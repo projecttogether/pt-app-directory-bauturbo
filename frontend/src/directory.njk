@@ -80,7 +80,61 @@ layout: layouts/base.njk
                                 </svg>
                             </summary>
                             <div class="mt-3">
-                                {% if filter.type == 'multi_select' %}
+                                {% if filter.type == 'date_range' %}
+                                    <!-- Date range filter with period and year -->
+                                    <div data-filter-name="{{ filter.field }}" data-filter-type="{{ filter.type }}">
+                                        <!-- Time period radio buttons -->
+                                        <div class="space-y-2 mb-4">
+                                            <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors">
+                                                <input type="radio" 
+                                                       class="filter-date-period rounded-full text-primary focus:ring-0 focus:ring-offset-0"
+                                                       style="border-color: var(--color-text); accent-color: var(--color-primary);"
+                                                       name="date-period-{{ filter.field }}"
+                                                       data-filter-name="{{ filter.field }}"
+                                                       data-filter-type="{{ filter.type }}"
+                                                       value="all"
+                                                       checked>
+                                                <span class="ml-2 text-sm text-gray-700">Alle Veranstaltungen</span>
+                                            </label>
+                                            <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors">
+                                                <input type="radio" 
+                                                       class="filter-date-period rounded-full text-primary focus:ring-0 focus:ring-offset-0"
+                                                       style="border-color: var(--color-text); accent-color: var(--color-primary);"
+                                                       name="date-period-{{ filter.field }}"
+                                                       data-filter-name="{{ filter.field }}"
+                                                       data-filter-type="{{ filter.type }}"
+                                                       value="upcoming">
+                                                <span class="ml-2 text-sm text-gray-700">Zukünftige Veranstaltungen</span>
+                                            </label>
+                                            <label class="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors">
+                                                <input type="radio" 
+                                                       class="filter-date-period rounded-full text-primary focus:ring-0 focus:ring-offset-0"
+                                                       style="border-color: var(--color-text); accent-color: var(--color-primary);"
+                                                       name="date-period-{{ filter.field }}"
+                                                       data-filter-name="{{ filter.field }}"
+                                                       data-filter-type="{{ filter.type }}"
+                                                       value="past">
+                                                <span class="ml-2 text-sm text-gray-700">Vergangene Veranstaltungen</span>
+                                            </label>
+                                        </div>
+                                        
+                                        <!-- Year dropdown -->
+                                        {% if filter.years.length > 0 %}
+                                        <div>
+                                            <label class="block text-xs font-medium text-gray-700 mb-2">Jahr (optional)</label>
+                                            <select class="filter-date-year block w-full px-3 py-2 text-sm rounded-md border bg-white" 
+                                                    style="border-color: var(--color-text);"
+                                                    data-filter-name="{{ filter.field }}"
+                                                    data-filter-type="{{ filter.type }}">
+                                                <option value="">Alle Jahre</option>
+                                                {% for year in filter.years %}
+                                                <option value="{{ year }}">{{ year }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                {% elif filter.type == 'multi_select' %}
                                     <!-- Checkbox list for multi-select -->
                                     <div class="space-y-2 max-h-60 overflow-y-auto" data-filter-name="{{ filter.field }}" data-filter-type="{{ filter.type }}">
                                         {% for option in filter.options %}
@@ -170,6 +224,8 @@ layout: layouts/base.njk
 document.addEventListener('DOMContentLoaded', function() {
     const selectFilters = document.querySelectorAll('.filter-select');
     const checkboxFilters = document.querySelectorAll('.filter-checkbox');
+    const datePeriodFilters = document.querySelectorAll('.filter-date-period');
+    const dateYearFilters = document.querySelectorAll('.filter-date-year');
     const searchInput = document.getElementById('search-input');
     const cards = document.querySelectorAll('.item-card');
     const clearButton = document.getElementById('clear-filters');
@@ -213,6 +269,27 @@ document.addEventListener('DOMContentLoaded', function() {
         const activeFilters = {};
         const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
         
+        // Collect date range filters
+        datePeriodFilters.forEach(radio => {
+            if (radio.checked) {
+                const filterName = radio.dataset.filterName;
+                if (!activeFilters[filterName]) {
+                    activeFilters[filterName] = { type: 'date_range' };
+                }
+                activeFilters[filterName].period = radio.value;
+            }
+        });
+        
+        dateYearFilters.forEach(select => {
+            if (select.value) {
+                const filterName = select.dataset.filterName;
+                if (!activeFilters[filterName]) {
+                    activeFilters[filterName] = { type: 'date_range' };
+                }
+                activeFilters[filterName].year = parseInt(select.value);
+            }
+        });
+        
         // Collect selected dropdowns (single select)
         selectFilters.forEach(select => {
             if (select.value) {
@@ -245,12 +322,46 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+        const now = new Date();
+        now.setHours(0, 0, 0, 0); // Set to start of today
+
         cards.forEach(card => {
             let isVisible = true;
             
             // Apply filter-based filtering
             for (const [key, filterConfig] of Object.entries(activeFilters)) {
                 const cardValue = card.getAttribute(`data-${key}`);
+                
+                if (filterConfig.type === 'date_range') {
+                    if (!cardValue) {
+                        isVisible = false;
+                        break;
+                    }
+                    
+                    const cardDate = new Date(cardValue);
+                    if (isNaN(cardDate.getTime())) {
+                        isVisible = false;
+                        break;
+                    }
+                    
+                    // Apply period filter
+                    if (filterConfig.period === 'upcoming' && cardDate < now) {
+                        isVisible = false;
+                        break;
+                    }
+                    if (filterConfig.period === 'past' && cardDate >= now) {
+                        isVisible = false;
+                        break;
+                    }
+                    
+                    // Apply year filter
+                    if (filterConfig.year && cardDate.getFullYear() !== filterConfig.year) {
+                        isVisible = false;
+                        break;
+                    }
+                    
+                    continue;
+                }
                 
                 if (!cardValue) {
                     isVisible = false;
@@ -296,6 +407,12 @@ document.addEventListener('DOMContentLoaded', function() {
         checkboxFilters.forEach(checkbox => {
             checkbox.checked = false;
         });
+        datePeriodFilters.forEach(radio => {
+            radio.checked = radio.value === 'all';
+        });
+        dateYearFilters.forEach(select => {
+            select.value = '';
+        });
         if (searchInput) {
             searchInput.value = '';
         }
@@ -309,6 +426,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     checkboxFilters.forEach(checkbox => {
         checkbox.addEventListener('change', filterCards);
+    });
+    
+    datePeriodFilters.forEach(radio => {
+        radio.addEventListener('change', filterCards);
+    });
+    
+    dateYearFilters.forEach(select => {
+        select.addEventListener('change', filterCards);
     });
     
     // Search with debounce

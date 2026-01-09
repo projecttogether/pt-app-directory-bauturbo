@@ -52,6 +52,25 @@ module.exports = async function () {
 
                 // Extract filter options from the actual data
                 const filterOptions = filters.map(filter => {
+                    if (filter.type === "date_range") {
+                        // Extract years from date field
+                        const years = new Set();
+                        items.forEach(item => {
+                            const dateValue = item[filter.field];
+                            if (dateValue) {
+                                const date = new Date(dateValue);
+                                if (!isNaN(date.getTime())) {
+                                    years.add(date.getFullYear());
+                                }
+                            }
+                        });
+                        return {
+                            ...filter,
+                            periods: ["upcoming", "past", "all"],
+                            years: Array.from(years).sort((a, b) => b - a) // Sort descending
+                        };
+                    }
+                    
                     const options = new Set();
                     items.forEach(item => {
                         const value = item[filter.field];

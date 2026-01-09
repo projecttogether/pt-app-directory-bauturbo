@@ -112,6 +112,9 @@ directories:
       excerpt_field: Excerpt
       start_date_field: Datum
     filters:
+      - field: Datum
+        label: Zeitraum
+        type: date_range
       - field: Kategorie
         label: Kategorie
         type: multi_select
