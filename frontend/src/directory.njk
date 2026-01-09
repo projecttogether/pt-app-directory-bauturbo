@@ -132,7 +132,7 @@ layout: layouts/base.njk
                         {% if (directory.display.status_field and item[directory.display.status_field]) or (directory.display.start_date_field and item[directory.display.start_date_field]) %}
                         <div class="flex items-center gap-3 mb-3">
                             {% if directory.display.status_field and item[directory.display.status_field] %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 whitespace-nowrap">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap" style="background-color: var(--color-gray-light); color: var(--color-text);">
                                 {{ item[directory.display.status_field] }}
                             </span>
                             {% endif %}

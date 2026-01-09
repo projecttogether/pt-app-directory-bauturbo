@@ -6,10 +6,12 @@ site:
 # Theme customization
 theme:
   colors:
-    primary: "#FF1E55"
-    secondary: "#00115a"
+    primary_accent: "#FF1E55"
+    secondary_accent: "#00115a"
     background: "#F9FAFB"
     text: "#000000"
+    gray_light: "#e0e0e0"
+    gray_dark: "#ACACAC"
   fonts:
     heading: "Inter, system-ui, sans-serif"
     body: "Inter, system-ui, sans-serif"
