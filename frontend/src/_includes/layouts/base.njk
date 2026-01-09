@@ -168,7 +168,7 @@
                 {% endif %}
             </h1>
             <nav class="flex gap-6">
-                {% for dir in directoryConfig.directories %}
+                {% for dir in directories %}
                 <a href="{{ dir.path }}" class="text-gray-600 hover:text-primary transition-colors">
                     {{ dir.name }}
                 </a>

@@ -240,12 +240,12 @@ Goal:
 Expose NocoDB (admin subdomain) and the frontend over HTTPS using Nginx and Let's Encrypt.
 
 **Completed:**
-- **Frontend domain:** `directory.umsetzungslabor-bauturbo.de`
+- **Frontend domain:** `leitfaden.umsetzungslabor-bauturbo.de`
   - DNS A record configured to server IP `138.199.175.147`
   - Nginx configuration created at `/etc/nginx/sites-available/directory`
   - Document root: `/var/www/directory`
   - HTTPS enabled via Certbot
-  - Site live and accessible at https://directory.umsetzungslabor-bauturbo.de
+  - Site live and accessible at https://leitfaden.umsetzungslabor-bauturbo.de
 - **NocoDB admin:** Already configured at `nocodb.projecttogether.org`
 
 ⸻
@@ -318,11 +318,11 @@ Automatically rebuild and deploy the static site every night at 01:00, with an a
 - ✅ Site successfully deployed and accessible
 
 **Pending:**
-- ⏳ GitHub Actions workflow for automated builds
+- Cron scheduler for automated builds
   - Nightly rebuild at 01:00
   - Manual trigger option (workflow_dispatch)
   - Automated deployment via SSH/rsync
-- ⏳ NocoDB webhook integration to trigger rebuilds on content changes
+- NocoDB webhook integration to trigger rebuilds on content changes
 
 
 ---

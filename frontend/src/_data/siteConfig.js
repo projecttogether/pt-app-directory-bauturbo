@@ -3,48 +3,25 @@ const path = require("path");
 const yaml = require("js-yaml");
 
 module.exports = function () {
-    // Get the target site from environment variable (default to bauturbo)
-    const siteId = process.env.SITE_ID || "bauturbo";
-    
     try {
-        // Load master site config
-        const masterConfigPath = path.join(__dirname, "../../sites/site-config.yml");
-        const masterConfig = yaml.load(fs.readFileSync(masterConfigPath, "utf8"));
+        // Load config from frontend root
+        const configPath = path.join(__dirname, "../../config.yml");
+        const fileContents = fs.readFileSync(configPath, "utf8");
+        const config = yaml.load(fileContents);
         
-        // Find the specific site configuration
-        const siteConfig = masterConfig.sites.find(site => site.id === siteId);
-        
-        if (!siteConfig) {
-            console.error(`Site "${siteId}" not found in site-config.yml`);
-            return {
-                id: siteId,
-                name: "Unknown Site",
-                error: "Site not found"
-            };
-        }
-        
-        // Merge with default theme if site doesn't override everything
-        const defaultTheme = masterConfig.default_theme || {};
-        const siteTheme = siteConfig.theme || {};
-        
+        // Return full config with all properties flattened for easier template access
         return {
-            ...siteConfig,
-            theme: {
-                colors: {
-                    ...(defaultTheme.colors || {}),
-                    ...(siteTheme.colors || {})
-                },
-                fonts: {
-                    ...(defaultTheme.fonts || {}),
-                    ...(siteTheme.fonts || {})
-                }
-            }
+            name: config.site.name,
+            domain: config.site.domain,
+            theme: config.theme,
+            branding: config.branding,
+            header_menu: config.header_menu,
+            footer: config.footer
         };
     } catch (e) {
         console.error("Error loading site config:", e);
         return {
-            id: siteId,
-            name: "Error",
+            name: "Directory",
             error: e.message
         };
     }

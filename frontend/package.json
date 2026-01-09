@@ -1,20 +1,16 @@
 {
-  "name": "frontend",
+  "name": "bauturbo-directory",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "node scripts/build-all-sites.js",
-    "build:bauturbo": "SITE_ID=bauturbo eleventy",
-    "build:test_directory": "SITE_ID=test_directory eleventy",
-    "dev": "SITE_ID=bauturbo eleventy --serve",
-    "dev:bauturbo": "SITE_ID=bauturbo eleventy --serve",
-    "dev:test_directory": "SITE_ID=test_directory eleventy --serve",
+    "build": "eleventy",
+    "dev": "eleventy --serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Bauturbo Directory - Single directory site with 11ty and NocoDB",
   "dependencies": {
     "@11ty/eleventy": "^3.1.2",
     "@11ty/eleventy-fetch": "^5.1.0",

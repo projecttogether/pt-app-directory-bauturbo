@@ -1,0 +1,111 @@
+# Site information
+site:
+  name: "Umsetzungsbabor Leitfaden"
+  domain: "leitfaden.umsetzungslabor-bauturbo.de"
+
+# Theme customization
+theme:
+  colors:
+    primary: "#FF1E55"
+    secondary: "#00115a"
+    background: "#F9FAFB"
+    text: "#000000"
+  fonts:
+    heading: "Inter, system-ui, sans-serif"
+    body: "Inter, system-ui, sans-serif"
+
+# Branding
+branding:
+  logo: "/assets/logos/logo_bauwende.png"
+  favicon: "/assets/favicons/logo_bauwende.png"
+
+# Header navigation
+header_menu:
+  - label: "About"
+    url: "https://umsetzungslabor-bauturbo.de/"
+    external: true
+  - label: "FAQ Bau-Turbo"
+    url: "https://www.bmwsb.bund.de/DE/bauen/baurecht/bau-turbo/bau-turbo.html"
+    external: true
+  - label: "Newsletter"
+    url: "https://news.projecttogether.org/bau-turbo"
+    external: true
+
+# Footer configuration
+footer:
+  text: "© Umsetzungslabor Bauturbo"
+  menu:
+    - label: "Impressum"
+      url: "https://bauwende-allianz.org/impressum"
+    - label: "Datenschutz"
+      url: "https://bauwende-allianz.org/datenschutzerklaerung"
+
+# Directory pages configuration
+directories:
+  - id: umsetzungsprojekte
+    name: "Umsetzungsprojekte"
+    path: /projekte
+    description: "Der Bau-Turbo (§ 246e BauGB) eröffnet Kommunen neue Spielräume, um schneller bezahlbaren Wohnraum zu schaffen. Erste Städte und Gemeinden zeigen bereits, wie der Bau-Turbo vor Ort wirken kann, welche Verfahren sich bewähren und wie praxistaugliche Lösungen für schnelles, ökologisches und sozial ausgewogenes Bauen entstehen."
+    nocodb:
+      table_id: m1upwxd94s5tx1q
+      view_id: vw0efitq0kedrj5l
+    display:
+      title_field: Title
+      description_field: Description
+      status_field: Status
+    filters:
+      - field: Status
+        label: Status
+        type: multi_select
+      - field: Kategorie
+        label: Kategorie
+        type: multi_select
+      - field: Tag
+        label: Tags
+        type: multi_select
+        
+  - id: grundsatzbeschluesse
+    name: "Grundsatzbeschlüsse"
+    path: /beschluesse
+    description: "Wie können Kommunen den Bau-Turbo konkret politisch verankern? In dieser Sammlung finden sich Grundsatzbeschlüsse, die Kommunen bereits entwickelt oder beschlossen haben. Ob Entwurf oder verabschiedeter Beschluss: Die Beispiele geben Einblick in unterschiedliche Herangehensweisen und helfen, eigene Prozesse schneller und fundierter aufzusetzen."
+    nocodb:
+      table_id: mk0mt3yqjbo3o5h
+      view_id: vw64dhfjdahf1c1u
+    display:
+      title_field: Title
+      description_field: Description
+    filters:
+      - field: Kategorie
+        label: Kategorie
+        type: single
+
+  - id: entscheidungshilfen
+    name: "Entscheidungshilfen"
+    path: /entscheidungshilfen
+    description: "Was bedeutet der Bau-Turbo konkret für meine Kommune? Der Bau-Turbo wirft viele rechtliche, politische und organisatorische Fragen auf. Hier finden Sie gebündelte und wachsende Anzahl an Informationen, Einordnungen und praxisnahe Entscheidungshilfen, die Kommunen dabei unterstützen, Chancen, Risiken und Handlungsoptionen fundiert zu bewerten."
+    nocodb:
+      table_id: m7qvtyirlntl70e
+      view_id: vwgm4aiiu4i7k1xq
+    display:
+      title_field: Title
+      description_field: Description
+    filters:
+      - field: Kategorie
+        label: Kategorie
+        type: single
+
+  - id: veranstaltungen
+    name: "Veranstaltungen"
+    path: /veranstaltungen
+    description: "Das Umsetzungslabor verbindet Breite und Tiefe: von bundesweiten Dialogformaten bis zu themenspezifischen Arbeitsgruppen. Kommunen, Fachpraxis und Verwaltung tauschen sich aus, entwickeln gemeinsam Lösungen und bringen den Bau-Turbo Schritt für Schritt in Anwendung. Manche Formate sind öffentlich, auf andere ist eine Bewerbung möglich und manche sind Kommunen vorbehalten."
+    nocodb:
+      table_id: m8jasn9y31wte9c
+      view_id: vwg88z6exd0oialo
+    display:
+      title_field: Title
+      description_field: Description
+      start_date_field: "Start Date"
+    filters:
+      - field: Kategorie
+        label: Kategorie
+        type: single

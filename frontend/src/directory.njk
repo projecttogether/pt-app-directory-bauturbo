@@ -125,11 +125,27 @@ layout: layouts/base.njk
                      {% endfor %}
                 >
                     <a href="{{ directory.path }}/items/{{ item.Id }}/" class="block p-6 hover:bg-gray-50 transition-colors">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">
                             {{ item[directory.display.title_field] }}
                         </h3>
                         
-                        {% if item[directory.display.description_field] %}
+                        {% if (directory.display.status_field and item[directory.display.status_field]) or (directory.display.start_date_field and item[directory.display.start_date_field]) %}
+                        <div class="flex items-center gap-3 mb-3">
+                            {% if directory.display.status_field and item[directory.display.status_field] %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 whitespace-nowrap">
+                                {{ item[directory.display.status_field] }}
+                            </span>
+                            {% endif %}
+                            
+                            {% if directory.display.start_date_field and item[directory.display.start_date_field] %}
+                            <span class="text-xs text-gray-500">
+                                {{ item[directory.display.start_date_field] | formatDate }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        {% if directory.display.description_field and item[directory.display.description_field] %}
                         <p class="text-sm text-gray-600 leading-relaxed">
                             {{ item[directory.display.description_field] }}
                         </p>
