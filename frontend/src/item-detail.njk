@@ -66,7 +66,10 @@ eleventyComputed:
                     <span class="font-medium">{{ key.replace('_', ' ') | title }}:</span>
                     <span class="ml-2">
                         {% set hasComma = valueStr | contains(',') %}
-                        {% if hasComma %}
+                        {% set isDateValue = value | isDate %}
+                        {% if isDateValue %}
+                            {{ value | formatDate(true) }}
+                        {% elif hasComma %}
                             {{ valueStr | cleanCommaList }}
                         {% else %}
                             {{ value }}
