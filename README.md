@@ -1,4 +1,7 @@
 ---
+name: "Umsetzungsbabor Leitfaden"
+description: "directory platform with 11ty static site generation and NocoDB CMS "
+
 status: active
 last_review: 09.01.2026
 type: app
@@ -6,7 +9,8 @@ owner: IT
 
 app_id: directory_bauturbo
 server: pt-web-1
-description: Bauturbo directory platform with 11ty static site generation and NocoDB CMS 
+path: 
+URL: https://leitfaden.umsetzungslabor-bauturbo.de
 ---
 
 # Bauturbo Directory – Directory Platform
@@ -15,12 +19,10 @@ description: Bauturbo directory platform with 11ty static site generation and No
 
 A directory website for Bauturbo initiatives, built with 11ty for static site generation and NocoDB as a headless CMS.
 
-**Live Site:** https://leitfaden.umsetzungslabor-bauturbo.de (pt-web-1)
-
+**Live Site:** https://leitfaden.umsetzungslabor-bauturbo.de
 **NocoDB Admin:** https://nocodb.projecttogether.org
 
 **Key Features:**
-- ✅ **Multiple directory pages** - Multiple directory sections with YAML configuration
 - ✅ **Custom theming** - Colors, fonts, logos configured in YAML
 - ✅ **Dynamic navigation** - Automatic menu generation
 - ✅ **Per-directory filters** - Configurable filter fields
@@ -78,44 +80,8 @@ frontend/
 
 ## Configuration
 
-### Main Configuration (`config.yml`)
-
-```yaml
-# Site information
-site:
-  name: "Bauturbo Directory"
-  domain: "leitfaden.umsetzungslabor-bauturbo.de"
-
-# Theme
-theme:
-  colors:
-    primary: "#FF1E55"
-    secondary: "#00115a"
-
-# Directories
-directories:
-  - id: projects
-    name: Projekte
-    path: /projekte
-    nocodb:
-      table_id: m1upwxd94s5tx1q
-      view_id: vw0efitq0kedrj5l
-    display:
-      title_field: Title
-      description_field: Zusammenfassung
-    filters:
-      - field: Status
-        label: Status
-        type: multi_select
-```
-
-### Environment Variables (`.env`)
-
-```bash
-NOCODB_BASE_URL=https://nocodb.projecttogether.org
-NOCODB_API_TOKEN=your-token-here
-NOCODB_PROJECT_ID=px8pby5vdjxwo13
-```
+- Main Configuration via `config.yml`
+- Environment Variables via `.env`
 
 ## Deployment
 
@@ -136,7 +102,6 @@ cd /srv/projects/pt-app-directory_multisites_1
 
 Site served from: `/srv/projects/pt-app-directory_multisites_1/frontend/_site`
 
-Domain: `leitfaden.umsetzungslabor-bauturbo.de`
 
 SSL: Managed by Certbot
 
