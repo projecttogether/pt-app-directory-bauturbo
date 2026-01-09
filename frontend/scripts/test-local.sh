@@ -3,9 +3,9 @@
 # Bauturbo Directory - Local Test Script
 # This script tests the build locally and verifies everything works correctly
 # Usage (from anywhere):
-# ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Dev/work/projecttogether/pt-apps/directory_multisites_1/frontend/scripts/test-local.sh
+# ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Dev/work/projecttogether/pt-apps/directory_bauturbo/frontend/scripts/test-local.sh
 # Or from project directory:
-# cd frontend && ./scripts/test-local.sh
+# ./frontend/scripts/test-local.sh
 
 set -e  # Exit on error
 

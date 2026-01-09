@@ -1,5 +1,5 @@
 ---
-name: "Umsetzungsbabor Leitfaden"
+name: "directory_bauturbo"
 description: "directory platform with 11ty static site generation and NocoDB CMS "
 
 status: active
@@ -7,9 +7,10 @@ last_review: 09.01.2026
 type: app
 owner: IT
 
-app_id: directory_bauturbo
 server: pt-web-1
 path: 
+
+github_repository: https://github.com/projecttogether/pt-app-directory_bauturbo
 URL: https://leitfaden.umsetzungslabor-bauturbo.de
 ---
 
@@ -85,14 +86,22 @@ frontend/
 
 ## Deployment
 
+### Local Build & Deploy
+
+```bash
+# Build locally and deploy to server
+./frontend/scripts/rebuild-and-deploy.sh
+```
+
 ### Server Setup (pt-web-1)
 
-**Location:** `/srv/projects/pt-app-directory_multisites_1/frontend/`
+**Project location:** `/srv/projects/pt-app-directory_bauturbo/`
+**Site served from:** `/var/www/directory`
 
-**Manual rebuild:**
+**Manual rebuild on server:**
 ```bash
 ssh simon@188.245.90.198
-cd /srv/projects/pt-app-directory_multisites_1
+cd /srv/projects/pt-app-directory_bauturbo
 ./frontend/scripts/rebuild-on-server.sh
 ```
 
@@ -100,8 +109,7 @@ cd /srv/projects/pt-app-directory_multisites_1
 
 ### Nginx Configuration
 
-Site served from: `/srv/projects/pt-app-directory_multisites_1/frontend/_site`
-
+Site served from: `/var/www/directory`
 
 SSL: Managed by Certbot
 
@@ -139,8 +147,9 @@ SSL: Managed by Certbot
 - Clear cache and rebuild
 
 **Deployment issues:**
-- Check file permissions on server
-- View rebuild logs: `tail -f /srv/projects/pt-app-directory_multisites_1/rebuild.log`
+- Check file permissions: `ls -la /var/www/directory`
+- Verify nginx config: `sudo nginx -t`
+- View rebuild logs (server): `tail -f /srv/projects/pt-app-directory_bauturbo/rebuild.log`
 
 ## Documentation
 
