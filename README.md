@@ -11,7 +11,7 @@ server: pt-web-1
 path: 
 
 github_repository: https://github.com/projecttogether/pt-app-directory_bauturbo
-URL: https://leitfaden.umsetzungslabor-bauturbo.de
+URL: https://praxiswissen.umsetzungslabor-bauturbo.de
 ---
 
 # Bauturbo Directory – Directory Platform
@@ -20,7 +20,7 @@ URL: https://leitfaden.umsetzungslabor-bauturbo.de
 
 A directory website for Bauturbo initiatives, built with 11ty for static site generation and NocoDB as a headless CMS.
 
-**Live Site:** https://leitfaden.umsetzungslabor-bauturbo.de
+**Live Site:** https://praxiswissen.umsetzungslabor-bauturbo.de
 **NocoDB Admin:** https://nocodb.projecttogether.org
 
 **Key Features:**

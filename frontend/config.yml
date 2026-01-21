@@ -1,7 +1,7 @@
 # Site information
 site:
-  name: "Umsetzungslabor Leitfaden"
-  domain: "leitfaden.umsetzungslabor-bauturbo.de"
+  name: "Umsetzungslabor Praxiswissen"
+  domain: "praxiswissen.umsetzungslabor-bauturbo.de"
 
 # Theme customization
 theme:
