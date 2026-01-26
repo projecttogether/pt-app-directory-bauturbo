@@ -1,6 +1,6 @@
 ---
-name: "directory_bauturbo"
-description: "directory platform with 11ty static site generation and NocoDB CMS "
+name: "directory-bauturbo"
+description: "directory platform with 11ty static site generation"
 
 status: active
 last_review: 09.01.2026
