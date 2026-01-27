@@ -8,6 +8,9 @@ module.exports = function (eleventyConfig) {
         linkify: true,
         typographer: true
     });
+    // Prevent indented HTML from becoming code blocks in Markdown content.
+    md.disable("code");
+    eleventyConfig.setLibrary("md", md);
     
     eleventyConfig.addFilter("markdown", (content) => {
         return md.render(content);
@@ -23,6 +26,19 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addFilter("cleanCommaList", (str) => {
         if (!str) return '';
         return String(str).split(',').map(v => v.trim()).join(', ');
+    });
+
+    // Limit array length for previews (e.g. homepage cards)
+    eleventyConfig.addFilter("limit", (items, count) => {
+        if (!Array.isArray(items)) return [];
+        return items.slice(0, count);
+    });
+
+    eleventyConfig.addFilter("truncateChars", (value, count) => {
+        if (!value) return "";
+        const text = String(value);
+        if (text.length <= count) return text;
+        return `${text.slice(0, count).trimEnd()}...`;
     });
     
     // Add date formatting filter (DD.MM.YYYY or DD.MM.YYYY HH:mm for detail pages)
@@ -72,5 +88,6 @@ module.exports = function (eleventyConfig) {
             input: "src",
             output: "_site",
         },
+        markdownTemplateEngine: "njk",
     };
 };

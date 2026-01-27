@@ -1,0 +1,16 @@
+{%- set boxes = boxes | default([]) -%}
+<section class="content-container page-section">
+  <div class="grid gap-6 md:grid-cols-2">
+{%- for box in boxes %}
+    <a href="{{ box.url }}" class="four-box-card"{% if box.external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+      <div class="four-box-card__header">
+        <h3 class="four-box-card__title">{{ box.title }}</h3>
+        <span class="four-box-card__icon" aria-hidden="true">+</span>
+      </div>
+{%- if box.description %}
+      <p class="four-box-card__body">{{ box.description }}</p>
+{%- endif %}
+    </a>
+{%- endfor %}
+  </div>
+</section>

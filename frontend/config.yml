@@ -6,10 +6,11 @@ site:
 # Theme customization
 theme:
   colors:
-    primary_accent: "#FF1E55"
-    secondary_accent: "#00115a"
-    background: "#F9FAFB"
-    text: "#000000"
+    primary_accent: "#007194" #blue
+    primary_accent_light: "#87bccd"
+    secondary_accent: "#cd5038" #red
+    background: "#ffffff"
+    text: "#3c3c3c"
     gray_light: "#e0e0e0"
     gray_dark: "#ACACAC"
   fonts:
@@ -53,19 +54,22 @@ directories:
       view_id: vw0efitq0kedrj5l
     display:
       title_field: Title
-      excerpt_field: Excerpt
+      excerpt_field: Kurzbeschreibung
       status_field: Status
     filters:
-      - field: Status
-        label: Status
+      - field: "Formate & Ergebnisse"
+        label: "Formate & Ergebnisse"
         type: multi_select
-      - field: Kategorie
-        label: Kategorie
+      - field: Zielgruppe
+        label: Zielgruppe
         type: multi_select
-      - field: Tag
-        label: Tags
+      - field: Kommunengröße
+        label: Kommunengröße
         type: multi_select
-        
+      - field: Verwaltungsebene
+        label: Verwaltungsebene
+        type: multi_select
+
   - id: grundsatzbeschluesse
     name: "Grundsatzbeschlüsse"
     path: /beschluesse

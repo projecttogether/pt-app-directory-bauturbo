@@ -1,15 +1,12 @@
 ---
-name: "directory_bauturbo"
+name: "directory-bauturbo"
 description: "directory platform with 11ty static site generation and NocoDB CMS "
 
-status: active
-last_review: 09.01.2026
 type: app
 owner: IT
-
 server: pt-web-1
-path: 
-
+frontend_path: /var/www/directory
+project_path: /srv/projects/pt-app-directory_bauturbo/
 github_repository: https://github.com/projecttogether/pt-app-directory_bauturbo
 URL: https://praxiswissen.umsetzungslabor-bauturbo.de
 ---
@@ -25,7 +22,7 @@ A directory website for Bauturbo initiatives, built with 11ty for static site ge
 
 **Key Features:**
 - ✅ **Custom theming** - Colors, fonts, logos configured in YAML
-- ✅ **Dynamic navigation** - Automatic menu generation
+- ✅ **Component-driven pages** - Reusable Nunjucks components included in Markdown
 - ✅ **Per-directory filters** - Configurable filter fields
 - ✅ **Static site generation** - Fast, secure, CDN-ready
 - ✅ **NocoDB CMS** - Content managed via NocoDB interface
@@ -71,13 +68,27 @@ frontend/
 │   ├── _data/
 │   │   ├── siteConfig.js     # Loads site config
 │   │   └── directories.js    # Fetches NocoDB data
-│   ├── _includes/layouts/    # Templates
+│   ├── _includes/
+│   │   ├── components/       # Reusable UI components
+│   │   └── layouts/          # Page layouts
+│   ├── pages/                # Markdown pages (content + Tailwind)
 │   └── assets/               # Static assets
+│       └── content.css/      # Shared CSS
 ├── scripts/
 │   ├── rebuild-and-deploy.sh # Local build & deploy
 │   └── rebuild-on-server.sh  # Server rebuild
 └── _site/                    # Build output (gitignored)
 ```
+
+## Page Authoring (Option A)
+
+- Pages live in `frontend/src/pages/` as Markdown with Tailwind classes.
+- Complex UI sections are included via Nunjucks components:
+  ```md
+  {% include "components/directories-tabs.njk" %}
+  ```
+- Shared content and component styles live in `frontend/src/assets/styles/content.css`.
+- Headings default to the theme primary color in `frontend/src/_includes/layouts/base.njk`.
 
 ## Configuration
 
@@ -93,17 +104,10 @@ frontend/
 ./frontend/scripts/rebuild-and-deploy.sh
 ```
 
-### Server Setup (pt-web-1)
+### Server Setup
 
 **Project location:** `/srv/projects/pt-app-directory_bauturbo/`
 **Site served from:** `/var/www/directory`
-
-**Manual rebuild on server:**
-```bash
-ssh simon@188.245.90.198
-cd /srv/projects/pt-app-directory_bauturbo
-./frontend/scripts/rebuild-on-server.sh
-```
 
 **Automated rebuilds:** Daily at 5 AM via cron
 
@@ -150,7 +154,3 @@ SSL: Managed by Certbot
 - Check file permissions: `ls -la /var/www/directory`
 - Verify nginx config: `sudo nginx -t`
 - View rebuild logs (server): `tail -f /srv/projects/pt-app-directory_bauturbo/rebuild.log`
-
-## Documentation
-
-For detailed information, see `project_plan.md` for the original project plan.
