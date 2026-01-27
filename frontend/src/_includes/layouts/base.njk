@@ -218,6 +218,33 @@
             }
         }
 
+        .site-main {
+            position: relative;
+        }
+
+        .site-frame {
+            position: relative;
+        }
+
+        .site-frame::before,
+        .site-frame::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1.5px;
+            background: var(--color-primary);
+            pointer-events: none;
+        }
+
+        .site-frame::before {
+            left: max(0px, calc((100% - var(--content-max)) / 2));
+        }
+
+        .site-frame::after {
+            left: min(100%, calc((100% + var(--content-max)) / 2));
+        }
+
         .site-footer {
             background-color: var(--color-background);
             border-top: 1.5px solid var(--color-primary);
@@ -265,54 +292,56 @@
     </style>
 </head>
 <body class="text-gray-900 font-sans">
-    <header class="site-header">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="header-grid">
-                <div class="header-nav">
-                    <nav class="header-nav-links">
-                        {% if siteConfig.header_menu %}
-                        {% for item in siteConfig.header_menu %}
-                        <a href="{{ item.url }}"
-                           {% if item.external %}target="_blank" rel="noopener noreferrer"{% endif %}
-                           class="header-link">
+    <div class="site-frame">
+        <header class="site-header">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="header-grid">
+                    <div class="header-nav">
+                        <nav class="header-nav-links">
+                            {% if siteConfig.header_menu %}
+                            {% for item in siteConfig.header_menu %}
+                            <a href="{{ item.url }}"
+                               {% if item.external %}target="_blank" rel="noopener noreferrer"{% endif %}
+                               class="header-link">
+                                {{ item.label }}
+                            </a>
+                            {% endfor %}
+                            {% endif %}
+                        </nav>
+                    </div>
+                    <div class="header-logo">
+                        {% if siteConfig.branding.logo %}
+                        <img src="{{ siteConfig.branding.logo }}" alt="{{ siteConfig.name }}">
+                        {% else %}
+                        <span class="text-xl font-bold text-primary">{{ siteConfig.name }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="site-main py-8">
+            {{ content | safe }}
+        </main>
+
+        <footer class="site-footer">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="footer-grid">
+                    <div class="footer-text">
+                        {{ siteConfig.footer.text }}
+                    </div>
+                    {% if siteConfig.footer.menu %}
+                    <nav class="footer-links">
+                        {% for item in siteConfig.footer.menu %}
+                        <a href="{{ item.url }}" class="footer-link">
                             {{ item.label }}
                         </a>
                         {% endfor %}
-                        {% endif %}
                     </nav>
-                </div>
-                <div class="header-logo">
-                    {% if siteConfig.branding.logo %}
-                    <img src="{{ siteConfig.branding.logo }}" alt="{{ siteConfig.name }}">
-                    {% else %}
-                    <span class="text-xl font-bold text-primary">{{ siteConfig.name }}</span>
                     {% endif %}
                 </div>
             </div>
-        </div>
-    </header>
-
-    <main class="py-8">
-        {{ content | safe }}
-    </main>
-
-    <footer class="site-footer">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="footer-grid">
-                <div class="footer-text">
-                    {{ siteConfig.footer.text }}
-                </div>
-                {% if siteConfig.footer.menu %}
-                <nav class="footer-links">
-                    {% for item in siteConfig.footer.menu %}
-                    <a href="{{ item.url }}" class="footer-link">
-                        {{ item.label }}
-                    </a>
-                    {% endfor %}
-                </nav>
-                {% endif %}
-            </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 </body>
 </html>

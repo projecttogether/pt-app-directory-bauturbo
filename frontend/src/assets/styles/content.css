@@ -55,8 +55,31 @@
   }
 }
 
+:root {
+  --content-max: 80rem;
+  --content-pad: 1rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --content-pad: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --content-pad: 2rem;
+  }
+}
+
 .page-section {
   margin-top: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1.5px solid var(--color-primary);
+}
+
+.page-section:last-of-type {
+  border-bottom: none;
 }
 
 .badge {

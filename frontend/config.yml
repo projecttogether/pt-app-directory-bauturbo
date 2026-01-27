@@ -24,9 +24,9 @@ branding:
 
 # Header navigation
 header_menu:
-  - label: "About"
-    url: "https://umsetzungslabor-bauturbo.de/"
-    external: true
+  - label: "Über das Projekt"
+    url: "/ueber/"
+    external: false
   - label: "FAQ Bau-Turbo"
     url: "https://www.bmwsb.bund.de/DE/bauen/baurecht/bau-turbo/bau-turbo.html"
     external: true
