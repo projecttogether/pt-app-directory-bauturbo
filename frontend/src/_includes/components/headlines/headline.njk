@@ -1,0 +1,24 @@
+{# SETUP #}
+
+{# Level config (default to h2) #}
+{% set headingLevel = lvl or 2 %}
+
+{# Size config./classes #}
+{% if size == 'sm' %}
+    {% set sizeClasses = "text-lg font-medium" %}
+{% elif size == 'md' %}
+    {% set sizeClasses = "text-2xl font-semibold" %}
+{% elif size == 'lg' %}
+    {% set sizeClasses = "text-4xl font-bold" %}
+{% elif size == 'xl' %}
+    {% set sizeClasses = "hdl-xl" %}
+{% else %}
+    {% set sizeClasses = "text-2xl font-semibold" %}
+{% endif %}
+
+{# MARKUP #}
+
+<div class="{{ sizeClasses }} text-bauturbo-blau
+            {% if headingLevel == 1 %} italic{% endif %}">
+    <h{{ headingLevel }}>{{ text_hdl or "Default Headline" }}</h{{ headingLevel }}>
+</div>

@@ -1,0 +1,18 @@
+{# SETUP #}
+
+{# Size config./classes #}
+{% if size == 'sm' %}
+    {% set sizeClasses = "text-sm" %}
+{% elif size == 'md' %}
+    {% set sizeClasses = "text-md" %}
+{% elif size == 'lg' %}
+    {% set sizeClasses = "text-lg" %}
+{% else %}
+    {% set sizeClasses = "text-sm" %}
+{% endif %}
+
+{# MARKUP #}
+
+<div class="{{ sizeClasses }} text-black">
+    <p>{{ text or "Default text" }}</p>
+</div>
