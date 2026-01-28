@@ -1,0 +1,231 @@
+---
+layout: layouts/base.njk
+---
+
+<!-- Section: Hero -->
+<div class="relative w-full pl-40 pr-50 mb-50
+            border-y border-bauturbo-blau">
+
+    <!-- Section tag -->
+    {% set text_tag = "Umsetzungslabor für den Bau-Turbo" %}
+    {% include "components/tags/tag-page-section.njk" %}
+
+    <!-- Inner grid wrpr. -->
+    <div class="pl-10 pt-7 pb-9 grid grid-cols-12 gap-x-10
+                border-x border-bauturbo-blau">
+
+        <div class="col-span-9">
+            <!-- Headline -->
+            {% set size = "xl" %}
+            {% set lvl = 1 %}
+            {% set text_hdl = hdl_hero %}
+            {% include "components/headlines/headline.njk" %}
+
+            <!-- Text -->
+            <div class="mt-10">
+                {% set size = "md" %}
+                {% set text = text_hero %}
+                {% include "components/texts/text.njk" %}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Section: Intro -->
+<section class="relative w-full pl-40 pr-50 mb-50
+                border-y border-bauturbo-blau">
+
+    <!-- Section tag -->
+    {% set text_tag = "Einleitung" %}
+    {% include "components/tags/tag-page-section.njk" %}
+    
+    <!-- Inner grid wrpr. -->
+    <div class="pl-10 pt-7 pb-9 grid grid-cols-12 gap-x-10
+                    border-x border-bauturbo-blau">
+
+        <div class="col-span-9">
+            <!-- Headline -->
+            <div class="mb-10">
+                {% set size = "lg" %}
+                {% set lvl = 2 %}
+                {% set text_hdl = hdl_intro %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+
+            <!-- Subheadline -->
+            <div>
+                {% set size = "md" %}
+                {% set lvl = 3 %}
+                {% set text_hdl = subhdl_intro %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+        
+            <!-- Text -->
+            <div class="mt-10">
+                {% set size = "sm" %}
+                {% set text = text_intro %}
+                {% include "components/texts/text.njk" %}
+            </div>
+        </div>
+        
+    </div>
+
+ </section>
+
+<!-- Section: Arbeitshilfen -->
+<section class="relative w-full pl-40 pr-50 mb-50
+            border-y border-bauturbo-blau">
+
+    <!-- Section tag -->
+    {% set text_tag = "Gemeinsam gelernt und festgehalten." %}
+    {% include "components/tags/tag-page-section.njk" %}
+    
+    <!-- Inner grid wrpr. -->
+    <div class="pl-10 pt-7 pb-9 grid grid-cols-12 gap-x-10
+                    border-x border-bauturbo-blau">
+
+        <div class="col-span-9">
+            <!-- Headline -->
+            <div class="mb-10">
+                {% set size = "lg" %}
+                {% set lvl = 2 %}
+                {% set text_hdl = hdl_arbeitshilfen %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+
+            <!-- Subheadline -->
+            <div>
+                {% set size = "md" %}
+                {% set lvl = 3 %}
+                {% set text_hdl = subhdl_arbeitshilfen %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+        
+            <!-- Text -->
+            <div class="mt-10">
+                {% set size = "sm" %}
+                {% set text = text_arbeitshilfen %}
+                {% include "components/texts/text.njk" %}
+            </div>
+        </div>
+        
+    </div>
+
+ </section>
+
+<!-- Section: Verzeichnis -->
+<section class="relative w-full pl-40 pr-50 mb-50
+            border-y border-bauturbo-blau">
+
+    <!-- Section tag -->
+    {% set text_tag = "Wissen bündeln, Orientierung schaffen." %}
+    {% include "components/tags/tag-page-section.njk" %}
+    
+    <!-- Inner grid wrpr. -->
+    <div class="pl-10 pt-7 pb-9 grid grid-cols-12 gap-x-10
+                    border-x border-bauturbo-blau">
+
+        <div class="col-span-9">
+            <!-- Headline -->
+            <div class="mb-10">
+                {% set size = "lg" %}
+                {% set lvl = 2 %}
+                {% set text_hdl = hdl_verzeichnis %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+
+            <!-- Subheadline -->
+            <div>
+                {% set size = "md" %}
+                {% set lvl = 3 %}
+                {% set text_hdl = subhdl_verzeichnis %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+
+        </div>
+        
+    </div>
+
+    {% include "components/directories-tabs.njk" %}
+
+ </section>
+
+<!-- Section: Mitmachen -->
+<section class="relative w-full pl-40 pr-50 mb-50
+            border-y border-bauturbo-blau">
+
+    <!-- Section tag -->
+    {% set text_tag = "Wissen bündeln, Orientierung schaffen." %}
+    {% include "components/tags/tag-page-section.njk" %}
+    
+    <!-- Inner grid wrpr. -->
+    <div class="pl-10 pt-7 pb-9 grid grid-cols-12 gap-x-10
+                    border-x border-bauturbo-blau">
+
+        <div class="col-span-9">
+            <!-- Headline -->
+            <div class="mb-10">
+                {% set size = "lg" %}
+                {% set lvl = 2 %}
+                {% set text_hdl = hdl_mitmachen %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+
+            <!-- Subheadline -->
+            <div class="mt">
+                {% set size = "md" %}
+                {% set lvl = 3 %}
+                {% set text_hdl = subhdl_mitmachen %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+
+            <!-- Text -->
+            <div class="mt-10">
+                {% set size = "sm" %}
+                {% set text = text_mitmachen %}
+                {% include "components/texts/text.njk" %} 
+            </div>
+
+        </div>
+        
+    </div>
+
+ </section>
+
+<!-- Section: About -->
+<section class="relative w-full pl-40 pr-50 mb-50
+            border-y border-bauturbo-blau">
+
+    <!-- Section tag -->
+    {% set text_tag = "Über das Projekt" %}
+    {% include "components/tags/tag-page-section.njk" %}
+    
+    <!-- Inner grid wrpr. -->
+    <div class="pl-10 pt-7 pb-9 grid grid-cols-12 gap-x-10
+                    border-x border-bauturbo-blau">
+
+        <div class="col-span-9">
+            <!-- Headline -->
+            <div class="mb-10">
+                {% set size = "lg" %}
+                {% set lvl = 2 %}
+                {% set text_hdl = hdl_about %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+
+            <!-- Subheadline -->
+            <div>
+                {% set size = "md" %}
+                {% set lvl = 3 %}
+                {% set class = "font-normal! text-black!" %}
+                {% set text_hdl = subhdl_about %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+    
+        </div>
+        
+    </div>
+
+</section>
