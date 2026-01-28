@@ -5,7 +5,7 @@
 /* ------------------ */
 
 .text-sm {
-    @apply text-[26px] leading-[1.25] tracking-[0em];
+    @apply text-[23px] leading-[1.42] tracking-[0.02em];
 }
 
 /* md */
@@ -18,6 +18,7 @@
 /* Shared styles */
 /* ------------------ */
 
-[class*="text-"] {
+.text-sm,
+.text-md {
     @apply font-[Bundes_Sans_Web] font-[400];
 }

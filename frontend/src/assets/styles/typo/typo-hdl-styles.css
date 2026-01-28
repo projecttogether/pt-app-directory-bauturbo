@@ -5,33 +5,33 @@
 /* ------------------ */
 
 .hdl-sm {
-    @apply text-[26px] leading-[1.25] tracking-[0em];
+    @apply text-[26px] leading-[1.25] tracking-[0em] font-[400];
 }
 
 /* md */
 /* ------------------ */
 
 .hdl-md {
-    @apply text-[32px] leading-[1.25] tracking-[0em];
+    @apply text-[34px] leading-[1.25] tracking-[0.015em] font-[700];
 }
 
 /* lg */
 /* ------------------ */
 
 .hdl-lg {
-    @apply text-[52px] leading-[0.9] tracking-[0em];
+    @apply text-[78px] leading-[0.9] tracking-[0em] font-[700];
 }
 
 /* xl */
 /* ------------------ */
 
 .hdl-xl {
-    @apply text-[107px] leading-[1] tracking-[-0.025em];
+    @apply text-[107px] leading-[1] tracking-[-0.025em] font-[700];
 }
 
 /* Shared styles */
 /* ------------------ */
 
 [class*="hdl-"] {
-    @apply font-[Bundes_Sans_Web] font-[700];
+    @apply font-[Bundes_Sans_Web];
 }
