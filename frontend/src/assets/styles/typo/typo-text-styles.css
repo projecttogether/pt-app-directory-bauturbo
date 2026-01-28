@@ -1,0 +1,23 @@
+/* Text styles */
+/* ------------------------------------------------ */
+
+/* sm */
+/* ------------------ */
+
+.text-sm {
+    @apply text-[26px] leading-[1.25] tracking-[0em];
+}
+
+/* md */
+/* ------------------ */
+
+.text-md {
+    @apply text-[34px] leading-[1.33] tracking-[0.04em];
+}
+
+/* Shared styles */
+/* ------------------ */
+
+[class*="text-"] {
+    @apply font-[Bundes_Sans_Web] font-[400];
+}

@@ -1,0 +1,37 @@
+/* Headline styles */
+/* ------------------------------------------------ */
+
+/* sm */
+/* ------------------ */
+
+.hdl-sm {
+    @apply text-[26px] leading-[1.25] tracking-[0em];
+}
+
+/* md */
+/* ------------------ */
+
+.hdl-md {
+    @apply text-[32px] leading-[1.25] tracking-[0em];
+}
+
+/* lg */
+/* ------------------ */
+
+.hdl-lg {
+    @apply text-[52px] leading-[0.9] tracking-[0em];
+}
+
+/* xl */
+/* ------------------ */
+
+.hdl-xl {
+    @apply text-[107px] leading-[1] tracking-[-0.025em];
+}
+
+/* Shared styles */
+/* ------------------ */
+
+[class*="hdl-"] {
+    @apply font-[Bundes_Sans_Web] font-[700];
+}

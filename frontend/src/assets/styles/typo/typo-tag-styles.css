@@ -1,0 +1,17 @@
+/* Tag text styles */
+/* ------------------------------------------------ */
+
+/* sm */
+/* ------------------ */
+
+.text-tag-sm {
+    @apply text-[20px] leading-[1.03] tracking-[0em];
+}
+
+/* Shared styles */
+/* ------------------ */
+
+/* .text-sm,*/
+/* [class*="text-"] {
+    @apply font-[Gravity_Condensed] font-[400];
+} */

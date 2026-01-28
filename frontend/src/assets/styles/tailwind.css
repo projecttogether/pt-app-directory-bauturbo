@@ -1,11 +1,55 @@
 @import "tailwindcss";
+@import "./typo/typo-hdl-styles.css";
+@import "./typo/typo-text-styles.css";
+@import "./typo/typo-tag-styles.css";
+
+/* Font Face Declarations */
+@font-face {
+    font-family: "Bundes Sans Web";
+    src: url("../fonts/bundes-sans-web-regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Bundes Sans Web";
+    src: url("../fonts/bundes-sans-web-italic.ttf") format("truetype");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Bundes Sans Web";
+    src: url("../fonts/bundes-sans-web-bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Bundes Sans Web";
+    src: url("../fonts/bundes-sans-web-bold-italic.ttf") format("truetype");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
 
 @theme {
     --color-bauturbo-blau: #007194;
+    --color-bauturbo-rot: #cd5038;
     --color-primary: var(--color-primary);
     --color-secondary: var(--color-secondary);
     --color-theme-background: var(--color-background);
     --color-theme-text: var(--color-text);
     --color-theme-gray-light: var(--color-gray-light);
     --color-theme-gray-dark: var(--color-gray-dark);
+
+    /* Font Family Configuration */
+    --font-sans:
+        "Bundes Sans Web", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --font-bundes-sans: "Bundes Sans Web", sans-serif;
 }
