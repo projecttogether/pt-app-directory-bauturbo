@@ -5,20 +5,21 @@
 
 {# Size config./classes #}
 {% if size == 'sm' %}
-    {% set sizeClasses = "text-lg font-medium" %}
+    {% set sizeClasses = "hdl-sm" %}
 {% elif size == 'md' %}
-    {% set sizeClasses = "text-2xl font-semibold" %}
+    {% set sizeClasses = "hdl-md" %}
 {% elif size == 'lg' %}
-    {% set sizeClasses = "text-4xl font-bold" %}
+    {% set sizeClasses = "hdl-lg" %}
 {% elif size == 'xl' %}
     {% set sizeClasses = "hdl-xl" %}
 {% else %}
-    {% set sizeClasses = "text-2xl font-semibold" %}
+    {% set sizeClasses = "hdl-md" %}
 {% endif %}
 
 {# MARKUP #}
 
 <div class="{{ sizeClasses }} text-bauturbo-blau
-            {% if headingLevel == 1 %} italic{% endif %}">
+            {% if headingLevel == 1 %} italic{% endif %}
+            {{ class or "" }}">
     <h{{ headingLevel }}>{{ text_hdl or "Default Headline" }}</h{{ headingLevel }}>
 </div>
