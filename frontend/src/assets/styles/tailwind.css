@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme {
+    --color-bauturbo-blau: #007194;
+    --color-primary: var(--color-primary);
+    --color-secondary: var(--color-secondary);
+    --color-theme-background: var(--color-background);
+    --color-theme-text: var(--color-text);
+    --color-theme-gray-light: var(--color-gray-light);
+    --color-theme-gray-dark: var(--color-gray-dark);
+}
