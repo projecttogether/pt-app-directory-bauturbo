@@ -83,6 +83,10 @@ module.exports = function (eleventyConfig) {
     // Pass through static assets
     eleventyConfig.addPassthroughCopy("src/assets");
 
+    // Watch for changes in Tailwind config and CSS
+    eleventyConfig.addWatchTarget("./tailwind.config.js");
+    eleventyConfig.addWatchTarget("./src/assets/styles/tailwind.css");
+
     return {
         dir: {
             input: "src",
