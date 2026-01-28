@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "eleventy",
+    "build:tailwind": "tailwindcss -i ./src/assets/styles/tailwind.css -o ./_site/assets/styles/styles.css",
+    "watch:tailwind": "tailwindcss -i ./src/assets/styles/tailwind.css -o ./_site/assets/styles/styles.css --watch",
+    "build:eleventy": "eleventy",
+    "build": "npm run build:tailwind && npm run build:eleventy",
     "dev": "eleventy --serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,5 +20,9 @@
     "dotenv": "^17.2.3",
     "js-yaml": "^4.1.0",
     "markdown-it": "^14.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "tailwindcss": "^4.1.18"
   }
 }
