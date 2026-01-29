@@ -71,7 +71,6 @@ async function fetchJson(url, { headers }) {
             await delay(backoff);
         }
     }
-    return null;
 }
 
 async function fetchAllRows(baseUrl, { headers, limit = DEFAULT_LIMIT }) {

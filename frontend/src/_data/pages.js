@@ -1,18 +1,9 @@
 require("dotenv").config();
 const { fetchAllRows } = require("./nocodbFetch");
+const { isPublished } = require("./publish");
 const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
-
-function isPublished(value) {
-    if (value === true) return true;
-    if (value === 1) return true;
-    if (typeof value === "string") {
-        const normalized = value.trim().toLowerCase();
-        return normalized === "true" || normalized === "1" || normalized === "yes";
-    }
-    return false;
-}
 
 function normalizePermalink(value) {
     if (!value) return "";

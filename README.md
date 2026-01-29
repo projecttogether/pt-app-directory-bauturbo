@@ -22,7 +22,7 @@ A directory website for Umsetzungslabor Bau-Turbo, built with 11ty for static si
 
 **Key Features:**
 - ✅ **Custom theming** - Colors, fonts, logos configured in YAML
-- ✅ **Component-driven pages** - Reusable Nunjucks components included in Markdown
+- ✅ **Component-driven pages** - Reusable Nunjucks components fed by NocoDB sections
 - ✅ **Per-directory filters** - Configurable filter fields
 - ✅ **Static site generation** - Fast, secure, CDN-ready
 - ✅ **NocoDB CMS** - Content managed via NocoDB interface
@@ -67,11 +67,13 @@ frontend/
 ├── src/
 │   ├── _data/
 │   │   ├── siteConfig.js     # Loads site config
-│   │   └── directories.js    # Fetches NocoDB data
+│   │   ├── directories.js    # Fetches NocoDB data
+│   │   ├── pages.js          # Fetches NocoDB pages
+│   │   └── pagesList.js      # Pages array for pagination
 │   ├── _includes/
 │   │   ├── components/       # Reusable UI components
 │   │   └── layouts/          # Page layouts
-│   ├── pages/                # Markdown pages (content + Tailwind)
+│   ├── pages.njk             # CMS-driven page rendering (pagination)
 │   └── assets/               # Static assets
 │       └── content.css/      # Shared CSS
 ├── scripts/
@@ -80,15 +82,16 @@ frontend/
 └── _site/                    # Build output (gitignored)
 ```
 
-## Page Authoring (Option A)
+## Page Authoring (NocoDB-driven)
 
-- Pages live in `frontend/src/pages/` as Markdown with Tailwind classes.
-- Complex UI sections are included via Nunjucks components:
-  ```md
-  {% include "components/directories-tabs.njk" %}
-  ```
+- Pages are defined in NocoDB (one row per page) and rendered by `frontend/src/pages.njk`.
+- Sections are described via `section_*` fields and rendered through `frontend/src/_includes/components/sections/page-sections.njk`.
+- Page data is loaded in `frontend/src/_data/pages.js` and exposed as a list in `frontend/src/_data/pagesList.js`.
 - Shared content and component styles live in `frontend/src/assets/styles/content.css`.
-- Headings default to the theme primary color in `frontend/src/_includes/layouts/base.njk`.
+
+### Legacy Markdown Authoring (Deprecated)
+
+Older Markdown-based pages under `frontend/src/pages/` are no longer used in this branch and should be considered deprecated.
 
 ## Configuration
 
