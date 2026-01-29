@@ -1,3 +1,4 @@
+require("dotenv").config();
 const EleventyFetch = require("@11ty/eleventy-fetch");
 const fs = require("fs");
 const path = require("path");
@@ -25,6 +26,17 @@ module.exports = async function () {
         }
 
         const results = [];
+        const publishField = "publish";
+
+        const isPublished = (value) => {
+            if (value === true) return true;
+            if (value === 1) return true;
+            if (typeof value === "string") {
+                const normalized = value.trim().toLowerCase();
+                return normalized === "true" || normalized === "1" || normalized === "yes";
+            }
+            return false;
+        };
 
         // Fetch data for each configured directory
         for (const directory of directories) {
@@ -48,7 +60,13 @@ module.exports = async function () {
                     },
                 });
 
-                const items = json.list || [];
+                const items = (json.list || [])
+                    .filter((item) => isPublished(item[publishField]))
+                    .map((item) => {
+                        const cleaned = { ...item };
+                        delete cleaned[publishField];
+                        return cleaned;
+                    });
 
                 // Extract filter options from the actual data
                 const filterOptions = filters.map(filter => {

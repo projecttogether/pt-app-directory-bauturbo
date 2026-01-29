@@ -1,0 +1,11 @@
+---
+pagination:
+  data: pagesList
+  size: 1
+  alias: page
+permalink: "{{ page.permalink }}"
+layout: layouts/home.njk
+eleventyComputed:
+  page_id: "{{ page.page_id }}"
+  title: "{{ page.title | default(siteConfig.name) }}"
+---

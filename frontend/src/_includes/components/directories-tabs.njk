@@ -171,7 +171,7 @@
             {% for item in directory.items %}
             <article class="item-card group directories-card bg-theme p-6 transition-shadow hover:shadow-md"
                      {% for key, value in item %}
-                       {% if key != 'long_text' and key != directory.display.excerpt_field %}
+                       {% if key != 'long_text' and key != directory.display.excerpt_field and key != 'publish' %}
                        data-{{ key }}="{{ value }}"
                        {% endif %}
                      {% endfor %}

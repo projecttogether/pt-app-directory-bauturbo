@@ -48,11 +48,12 @@ pages:
   nocodb:
       table_id: m0slsgsuwtzmzn9
       view_id: vw8ca2dnu232dqhi
+  max_sections: 8
   nocodb_fields:
     page_id: page_id
     title: title
     permalink: permalink
-    text_hero: text_hero
+    publish: publish
 
 # Directory pages configuration
 directories:
