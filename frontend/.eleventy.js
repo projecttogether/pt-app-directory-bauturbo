@@ -47,10 +47,16 @@ module.exports = function (eleventyConfig) {
     // Add date formatting filter (DD.MM.YYYY or DD.MM.YYYY HH:mm for detail pages)
     eleventyConfig.addFilter("formatDate", (dateString, includeTime = false) => {
         if (!dateString) return "";
-        const date = new Date(dateString);
+        const rawValue = String(dateString).trim();
+        const yearMonthPattern = /^\d{4}-\d{2}$/;
+        if (yearMonthPattern.test(rawValue)) {
+            const [year, month] = rawValue.split("-");
+            return `${month}.${year}`;
+        }
+        const date = new Date(rawValue);
         if (isNaN(date.getTime())) return dateString; // Return original if invalid
 
-        const day = String(date.getDate()).padStart(4, "0");
+        const day = String(date.getDate()).padStart(2, "0");
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const year = date.getFullYear();
 
@@ -77,8 +83,9 @@ module.exports = function (eleventyConfig) {
         // Check if it matches common date formats
         const isoDatePattern = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}(\.\d{3})?Z?)?$/;
         const postgresDatePattern = /^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}([+-]\d{2}:\d{2})?$/;
+        const yearMonthPattern = /^\d{4}-\d{2}$/;
         const trimmedValue = value.trim();
-        return isoDatePattern.test(trimmedValue) || postgresDatePattern.test(trimmedValue);
+        return isoDatePattern.test(trimmedValue) || postgresDatePattern.test(trimmedValue) || yearMonthPattern.test(trimmedValue);
     });
 
     console.log("Building Bauturbo Directory -> _site/");

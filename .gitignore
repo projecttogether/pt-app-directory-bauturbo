@@ -8,6 +8,7 @@
 *.pem
 secrets/
 config/secrets.json
+*.local
 
 # Dependencies
 **/node_modules/

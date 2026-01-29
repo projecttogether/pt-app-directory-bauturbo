@@ -43,82 +43,486 @@ footer:
     - label: "Datenschutz"
       url: "https://bauwende-allianz.org/datenschutzerklaerung"
 
+# Pages configuration
+pages:
+  nocodb:
+      table_id: m0slsgsuwtzmzn9
+      view_id: vw8ca2dnu232dqhi
+  nocodb_fields:
+    page_id: page_id
+    title: title
+    permalink: permalink
+    text_hero: text_hero
+
 # Directory pages configuration
 directories:
-  - id: umsetzungsprojekte
-    name: "Umsetzungsprojekte"
-    path: /projekte
-    description: "Der Bau-Turbo (§ 246e BauGB) eröffnet Kommunen neue Spielräume, um schneller bezahlbaren Wohnraum zu schaffen. Erste Städte und Gemeinden zeigen bereits, wie der Bau-Turbo vor Ort wirken kann, welche Verfahren sich bewähren und wie praxistaugliche Lösungen für schnelles, ökologisches und sozial ausgewogenes Bauen entstehen."
+  - id: umsetzungslabor
+    name: "Umsetzungslabor"
+    path: /umsetzungslabor
+    description: "Welche Erkenntnisse entstehen im Umsetzungslabor Bau-Turbo? Hier werden Ergebnisse, Aufzeichnungen, Präsentationen, Berichte und Videos aus den Formaten des Umsetzungslabors gesammelt und zugänglich gemacht. Der Bereich wächst fortlaufend mit neuen Materialien und dokumentiert den gemeinsamen Lernprozess rund um die Anwendung des Bau-Turbos."
     nocodb:
       table_id: m1upwxd94s5tx1q
       view_id: vw0efitq0kedrj5l
     display:
-      title_field: Title
-      excerpt_field: Kurzbeschreibung
-      status_field: Status
+      title_field: title
+      excerpt_field: excerpt
+      detail_fields:
+        - field: published_date
+          label: "Veröffentlichungsdatum"
+          type: month_year
+          section: meta
+        - field: from
+          label: "Herausgeber"
+          type: text
+          section: meta
+        - field: formate-ergebnisse
+          label: "Formate & Ergebnisse"
+          type: multi_select
+          section: meta
+        - field: zielgruppe
+          label: "Zielgruppe"
+          type: multi_select
+          section: meta
+        - field: kommunengroesse
+          label: "Kommunengröße"
+          type: multi_select
+          section: meta
+        - field: verwaltungsebene
+          label: "Verwaltungsebene"
+          type: multi_select
+          section: meta
+        - field: description
+          label: "Beschreibung"
+          type: markdown
+          section: body
+        - field: file-1
+          label: "Datei"
+          type: file
+          section: files
+        - field: url-1
+          label: "Link"
+          type: url
+          section: links
     filters:
-      - field: "Formate & Ergebnisse"
+      - field: formate-ergebnisse
         label: "Formate & Ergebnisse"
         type: multi_select
-      - field: Zielgruppe
+      - field: zielgruppe
         label: Zielgruppe
         type: multi_select
-      - field: Kommunengröße
+      - field: kommunengroesse
         label: Kommunengröße
         type: multi_select
-      - field: Verwaltungsebene
+      - field: verwaltungsebene
         label: Verwaltungsebene
         type: multi_select
 
   - id: grundsatzbeschluesse
     name: "Grundsatzbeschlüsse"
-    path: /beschluesse
+    path: /grundsatzbeschluesse
     description: "Wie können Kommunen den Bau-Turbo konkret politisch verankern? In dieser Sammlung finden sich Grundsatzbeschlüsse, die Kommunen bereits entwickelt oder beschlossen haben. Ob Entwurf oder verabschiedeter Beschluss: Die Beispiele geben Einblick in unterschiedliche Herangehensweisen und helfen, eigene Prozesse schneller und fundierter aufzusetzen."
     nocodb:
       table_id: mk0mt3yqjbo3o5h
       view_id: vw64dhfjdahf1c1u
-      status_field: Status
     display:
-      title_field: Title
-      excerpt_field: Excerpt
+      title_field: title
+      excerpt_field: excerpt
+      status_field: status
+      detail_fields:
+        - field: published_date
+          label: "Veröffentlichungsdatum"
+          type: month_year
+          section: meta
+        - field: from
+          label: "Herausgeber"
+          type: text
+          section: meta
+        - field: status
+          label: "Status"
+          type: text
+          section: meta
+        - field: zielgruppe
+          label: "Zielgruppe"
+          type: multi_select
+          section: meta
+        - field: kommunengroesse
+          label: "Kommunengröße"
+          type: multi_select
+          section: meta
+        - field: verwaltungsebene
+          label: "Verwaltungsebene"
+          type: multi_select
+          section: meta
+        - field: description
+          label: "Beschreibung"
+          type: markdown
+          section: body
+        - field: file-1
+          label: "Datei"
+          type: file
+          section: files
+        - field: url-1
+          label: "Link"
+          type: url
+          section: links
     filters:
-      - field: Status
+      - field: status
         label: Status
         type: multi_select
-      - field: Kategorie
-        label: Kategorie
+      - field: zielgruppe
+        label: Zielgruppe
+        type: multi_select
+      - field: kommunengroesse
+        label: Kommunengröße
+        type: multi_select
+      - field: verwaltungsebene
+        label: Verwaltungsebene
         type: multi_select
 
-  - id: entscheidungshilfen
-    name: "Entscheidungshilfen"
-    path: /entscheidungshilfen
-    description: "Was bedeutet der Bau-Turbo konkret für meine Kommune? Der Bau-Turbo wirft viele rechtliche, politische und organisatorische Fragen auf. Hier finden Sie gebündelte und wachsende Anzahl an Informationen, Einordnungen und praxisnahe Entscheidungshilfen, die Kommunen dabei unterstützen, Chancen, Risiken und Handlungsoptionen fundiert zu bewerten."
+  - id: kommunale-praxis
+    name: "Kommunale Praxis"
+    path: /kommunale-praxis
+    description: "Wie gehen Kommunen konkret mit dem Bau-Turbo um? In dieser Sammlung finden sich Einordnungen und praxisnahe Orientierung aus Städten und Gemeinden, die zeigen, wie politische Entscheidungen vorbereitet, bewertet und in konkrete Handlungsschritte übersetzt werden."
+    nocodb:
+      table_id: ms90zlzln4yuxpb
+      view_id: vw77iek742yccbyw
+    display:
+      title_field: title
+      excerpt_field: excerpt
+      detail_fields:
+        - field: published_date
+          label: "Veröffentlichungsdatum"
+          type: month_year
+          section: meta
+        - field: from
+          label: "Herausgeber"
+          type: text
+          section: meta
+        - field: themenschwerpunkte
+          label: "Themenschwerpunkte"
+          type: multi_select
+          section: meta
+        - field: dokumentart
+          label: "Dokumentart"
+          type: multi_select
+          section: meta
+        - field: zielgruppe
+          label: "Zielgruppe"
+          type: multi_select
+          section: meta
+        - field: kommunengroesse
+          label: "Kommunengröße"
+          type: multi_select
+          section: meta
+        - field: verwaltungsebene
+          label: "Verwaltungsebene"
+          type: multi_select
+          section: meta
+        - field: description
+          label: "Beschreibung"
+          type: markdown
+          section: body
+        - field: file
+          label: "Datei"
+          type: file
+          section: files
+        - field: url
+          label: "Link"
+          type: url
+          section: links
+    filters:
+      - field: themenschwerpunkte
+        label: Themenschwerpunkte
+        type: multi_select
+      - field: dokumentart
+        label: Dokumentart
+        type: multi_select
+      - field: zielgruppe
+        label: Zielgruppe
+        type: multi_select
+      - field: kommunengroesse
+        label: Kommunengröße
+        type: multi_select
+      - field: verwaltungsebene
+        label: Verwaltungsebene
+        type: multi_select
+
+  - id: umsetzungsprojekte
+    name: "Umsetzungsprojekte"
+    path: /umsetzungsprojekte
+    description: "Wie wirkt der Bau-Turbo konkret vor Ort? Erste Städte und Gemeinden zeigen bereits, welche Verfahren sich in der Praxis bewähren und wie Lösungen für schnelles, ökologisches und sozial ausgewogenes Bauen entstehen. Dieser Bereich wächst mit neuen Beispielen aus der Umsetzung und lädt Kommunen ein, eigene Projekte einzubringen."
     nocodb:
       table_id: m7qvtyirlntl70e
       view_id: vwgm4aiiu4i7k1xq
     display:
-      title_field: Title
-      excerpt_field: Excerpt
+      title_field: title
+      excerpt_field: excerpt
+      status_field: status
+      detail_fields:
+        - field: published_date
+          label: "Veröffentlichungsdatum"
+          type: month_year
+          section: meta
+        - field: from
+          label: "Herausgeber"
+          type: text
+          section: meta
+        - field: status
+          label: "Status"
+          type: text
+          section: meta
+        - field: kommunengroesse
+          label: "Kommunengröße"
+          type: multi_select
+          section: meta
+        - field: description
+          label: "Beschreibung"
+          type: markdown
+          section: body
+        - field: file-1
+          label: "Datei"
+          type: file
+          section: files
+        - field: url-1
+          label: "Link"
+          type: url
+          section: links
     filters:
-      - field: Kategorie
-        label: Kategorie
+      - field: status
+        label: Status
+        type: multi_select
+      - field: kommunengroesse
+        label: Kommunengröße
         type: multi_select
 
   - id: veranstaltungen
     name: "Veranstaltungen"
     path: /veranstaltungen
-    description: "Das Umsetzungslabor verbindet Breite und Tiefe: von bundesweiten Dialogformaten bis zu themenspezifischen Arbeitsgruppen. Kommunen, Fachpraxis und Verwaltung tauschen sich aus, entwickeln gemeinsam Lösungen und bringen den Bau-Turbo Schritt für Schritt in Anwendung. Manche Formate sind öffentlich, auf andere ist eine Bewerbung möglich und manche sind Kommunen vorbehalten."
+    description: "Wo kommen Akteur:innen rund um den Bau-Turbo zusammen? In dieser Sammlung finden sich aktuelle und vergangene Formate aus dem Umsetzungslabor ebenso wie weitere Veranstaltungen, die sich mit der Anwendung des Bau-Turbos befassen. Der Bereich wächst kontinuierlich und ist offen für Hinweise auf eigene Veranstaltungen und relevante Formate."
     nocodb:
       table_id: m8jasn9y31wte9c
       view_id: vwg88z6exd0oialo
     display:
-      title_field: Title
-      excerpt_field: Excerpt
-      start_date_field: Datum
+      title_field: title
+      excerpt_field: excerpt
+      start_date_field: date
+      detail_fields:
+        - field: date
+          label: "Datum"
+          type: date_time
+          section: meta
+        - field: from
+          label: "Herausgeber"
+          type: text
+          section: meta
+        - field: veranstaltungstyp
+          label: "Veranstaltungstyp"
+          type: multi_select
+          section: meta
+        - field: teilnahme
+          label: "Teilnahme"
+          type: multi_select
+          section: meta
+        - field: zielgruppe
+          label: "Zielgruppe"
+          type: multi_select
+          section: meta
+        - field: kommunengroesse
+          label: "Kommunengröße"
+          type: multi_select
+          section: meta
+        - field: description
+          label: "Beschreibung"
+          type: markdown
+          section: body
+        - field: file-1
+          label: "Datei"
+          type: file
+          section: files
+        - field: url-1
+          label: "Link"
+          type: url
+          section: links
+        - field: url-2
+          label: "Weiterer Link"
+          type: url
+          section: links
     filters:
-      - field: Datum
+      - field: date
         label: Zeitraum
         type: date_range
-      - field: Kategorie
-        label: Kategorie
+      - field: veranstaltungstyp
+        label: Veranstaltungstyp
+        type: multi_select
+      - field: teilnahme
+        label: Teilnahme
+        type: multi_select
+      - field: zielgruppe
+        label: Zielgruppe
+        type: multi_select
+      - field: kommunengroesse
+        label: Kommunengröße
+        type: multi_select
+
+  - id: faq
+    name: "FAQ"
+    path: /faq
+    description: "Welche Fragen zum Bau-Turbo werden aktuell gestellt? In dieser Sammlung werden häufige Fragen von Privatpersonen, Kommunen und der Wirtschaft gesammelt – einschließlich Antworten und Einordnungen von Bundesministerien, Ländern und Landkreisen. Der Bereich wird fortlaufend ergänzt und aktualisiert, sobald neue Klarstellungen, Hinweise oder Auslegungen veröffentlicht werden."
+    nocodb:
+      table_id: mw88pkvygadluh5
+      view_id: vwd8pxnkbyatokrb
+    display:
+      title_field: title
+      excerpt_field: excerpt
+      detail_fields:
+        - field: published_date
+          label: "Veröffentlichungsdatum"
+          type: month_year
+          section: meta
+        - field: from
+          label: "Herausgeber"
+          type: text
+          section: meta
+        - field: staatliche-ebene
+          label: "Staatliche Ebene"
+          type: multi_select
+          section: meta
+        - field: zielgruppe
+          label: "Zielgruppe"
+          type: multi_select
+          section: meta
+        - field: kommunengroesse
+          label: "Kommunengröße"
+          type: multi_select
+          section: meta
+        - field: verwaltungsebene
+          label: "Verwaltungsebene"
+          type: multi_select
+          section: meta
+        - field: description
+          label: "Beschreibung"
+          type: markdown
+          section: body
+        - field: file-1
+          label: "Datei"
+          type: file
+          section: files
+        - field: url-1
+          label: "Link"
+          type: url
+          section: links
+        - field: url-2
+          label: "Weiterer Link"
+          type: url
+          section: links
+        - field: url-3
+          label: "Zusätzlicher Link"
+          type: url
+          section: links
+    filters:
+      - field: staatliche-ebene
+        label: Staatliche Ebene
+        type: multi_select
+      - field: zielgruppe
+        label: Zielgruppe
+        type: multi_select
+      - field: kommunengroesse
+        label: Kommunengröße
+        type: multi_select
+      - field: verwaltungsebene
+        label: Verwaltungsebene
+        type: multi_select
+
+  - id: auf-dem-laufenden-bleiben
+    name: "Auf dem Laufenden bleiben"
+    path: /auf-dem-laufenden-bleiben
+    description: "Welche aktuellen Entwicklungen rund um den Bau-Turbo sind relevant? In dieser Sammlung finden sich Newsletter, Pressemitteilungen und aktuelle Hinweise, die Informationen, Einordnungen und Neuigkeiten zur Anwendung des Bau-Turbos bündeln. Der Bereich wird fortlaufend aktualisiert und unterstützt dabei, Entwicklungen, Debatten und neue Inhalte im Blick zu behalten."
+    nocodb:
+      table_id: miby5vur4hjiqkl
+      view_id: vwb4w0jdsg4fhi0j
+    display:
+      title_field: title
+      excerpt_field: excerpt
+      detail_fields:
+        - field: from
+          label: "Herausgeber"
+          type: text
+          section: meta
+        - field: format
+          label: "Format"
+          type: multi_select
+          section: meta
+        - field: zielgruppe
+          label: "Zielgruppe"
+          type: multi_select
+          section: meta
+        - field: description
+          label: "Beschreibung"
+          type: markdown
+          section: body
+        - field: file-1
+          label: "Datei"
+          type: file
+          section: files
+        - field: url-1
+          label: "Link"
+          type: url
+          section: links
+    filters:
+      - field: format
+        label: Format
+        type: multi_select
+      - field: zielgruppe
+        label: Zielgruppe
+        type: multi_select
+
+  - id: ergaenzende-informationen
+    name: "Ergänzende Informationen"
+    path: /ergaenzende-informationen
+    description: "Welche Inhalte helfen, den Bau-Turbo besser einzuordnen und anzuwenden? Hier werden Dokumente, Studien und Fachbeiträge gesammelt, die den Bau-Turbo inhaltlich ergänzen und vertiefen – etwa zu Wohnungsbau und Wohnungsmarkt, Bestand und Innenentwicklung, Planung und Verfahren, Klimawandel, Baukultur sowie rechtlichen Fragestellungen. Die Sammlung wächst kontinuierlich und erweitert den Wissensrahmen für eine schnelle, ökologische und sozial gerechte Umsetzung."
+    nocodb:
+      table_id: mb28l9paom73egz
+      view_id: vwukhgreijdamava
+    display:
+      title_field: title
+      excerpt_field: excerpt
+      detail_fields:
+        - field: published_date
+          label: "Veröffentlichungsdatum"
+          type: month_year
+          section: meta
+        - field: author
+          label: "Autor:in"
+          type: text
+          section: meta
+        - field: thematische-schwerpunkte
+          label: "Thematische Schwerpunkte"
+          type: multi_select
+          section: meta
+        - field: zielgruppe
+          label: "Zielgruppe"
+          type: multi_select
+          section: meta
+        - field: description
+          label: "Beschreibung"
+          type: markdown
+          section: body
+        - field: file-1
+          label: "Datei"
+          type: file
+          section: files
+        - field: url-1
+          label: "Link"
+          type: url
+          section: links
+        - field: url-2
+          label: "Weiterer Link"
+          type: url
+          section: links
+    filters:
+      - field: thematische-schwerpunkte
+        label: Thematische Schwerpunkte
+        type: multi_select
+      - field: zielgruppe
+        label: Zielgruppe
         type: multi_select

@@ -11,6 +11,7 @@ eleventyComputed:
 
 {% set item = itemData.item %}
 {% set dir = itemData.directory %}
+{% set detailFields = dir.display.detail_fields | default([]) %}
 
 <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Back Button -->
@@ -39,38 +40,22 @@ eleventyComputed:
     <!-- Separator Line -->
     <div class="border-b border-1-5 border-text mb-8"></div>
     
-    <!-- Properties Section (Select and Multi-Select) -->
+    <!-- Properties Section (Configured Meta Fields) -->
+    {% if detailFields.length > 0 %}
     <div class="mb-8 space-y-3">
-        {% if dir.display.status_field and item[dir.display.status_field] %}
-        <div class="text-gray-700">
-            <span class="font-medium">{{ dir.display.status_field.replace('_', ' ') | title }}:</span>
-            <span class="ml-2">{{ item[dir.display.status_field] }}</span>
-        </div>
-        {% endif %}
-        
-        {# Display all select and multi-select fields #}
-        {% for key, value in item %}
-            {% if key != 'Id' and 
-                  key != dir.display.title_field and 
-                  key != dir.display.excerpt_field and 
-                  key != dir.display.status_field and
-                  value and
-                  value != '' and
-                  value != 'null' and
-                  value != 'undefined' %}
-                {# Only show short values without line breaks (likely select/multi-select) #}
-                {% set valueStr = value | string %}
-                {% set hasLineBreak = valueStr | contains('\n') %}
-                {% if valueStr.length < 200 and not hasLineBreak %}
+        {% for field in detailFields %}
+            {% if field.section == 'meta' %}
+                {% set value = item[field.field] %}
+                {% if value and value != '' and value != 'null' and value != 'undefined' %}
                 <div class="text-gray-700">
-                    <span class="font-medium">{{ key.replace('_', ' ') | title }}:</span>
+                    <span class="font-medium">{{ field.label }}:</span>
                     <span class="ml-2">
-                        {% set hasComma = valueStr | contains(',') %}
-                        {% set isDateValue = value | isDate %}
-                        {% if isDateValue %}
+                        {% if field.type == 'month_year' %}
+                            {{ value | formatDate }}
+                        {% elif field.type == 'date_time' %}
                             {{ value | formatDate(true) }}
-                        {% elif hasComma %}
-                            {{ valueStr | cleanCommaList }}
+                        {% elif field.type == 'multi_select' %}
+                            {{ value | cleanCommaList }}
                         {% else %}
                             {{ value }}
                         {% endif %}
@@ -80,36 +65,78 @@ eleventyComputed:
             {% endif %}
         {% endfor %}
     </div>
+    {% endif %}
     
     <!-- Separator Line -->
     <div class="border-b border-1-5 border-text mb-12"></div>
 
-    <!-- Article Content (Text Fields with Markdown) -->
+    <!-- Article Content (Configured Body Fields) -->
+    {% if detailFields.length > 0 %}
     <div class="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-strong:text-gray-900">
-        {# Display all text fields as article sections #}
-        {% for key, value in item %}
-            {% if key != 'Id' and 
-                  key != dir.display.title_field and 
-                  key != dir.display.excerpt_field and 
-                  key != dir.display.status_field and
-                  value and
-                  value != '' and
-                  value != 'null' and
-                  value != 'undefined' %}
-                {# Only show long text values or those with line breaks #}
-                {% set valueStr = value | string %}
-                {% set hasLineBreak = valueStr | contains('\n') %}
-                {% if valueStr.length >= 200 or hasLineBreak %}
+        {% for field in detailFields %}
+            {% if field.section == 'body' %}
+                {% set value = item[field.field] %}
+                {% if value and value != '' and value != 'null' and value != 'undefined' %}
                 <section class="mb-12">
                     <h2 class="text-2xl font-bold text-gray-900 mb-4">
-                        {{ key.replace('_', ' ') | title }}
+                        {{ field.label }}
                     </h2>
                     <div class="text-gray-700 leading-relaxed">
-                        {{ valueStr | markdown | safe }}
+                        {% if field.type == 'markdown' %}
+                            {{ value | markdown | safe }}
+                        {% else %}
+                            {{ value }}
+                        {% endif %}
                     </div>
                 </section>
                 {% endif %}
             {% endif %}
         {% endfor %}
     </div>
+    {% endif %}
+
+    <!-- Files & Links -->
+    {% if detailFields.length > 0 %}
+    <div class="mt-12 space-y-8">
+        <div class="space-y-3">
+            {% for field in detailFields %}
+                {% if field.section == 'files' %}
+                    {% set value = item[field.field] %}
+                    {% if value and value != '' and value != 'null' and value != 'undefined' %}
+                    <div class="text-gray-700">
+                        <span class="font-medium">{{ field.label }}:</span>
+                        <span class="ml-2">
+                            {% if field.type == 'file' %}
+                                <a class="text-primary hover:underline" href="{{ value }}" target="_blank" rel="noopener noreferrer">{{ value }}</a>
+                            {% else %}
+                                {{ value }}
+                            {% endif %}
+                        </span>
+                    </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="space-y-3">
+            {% for field in detailFields %}
+                {% if field.section == 'links' %}
+                    {% set value = item[field.field] %}
+                    {% if value and value != '' and value != 'null' and value != 'undefined' %}
+                    <div class="text-gray-700">
+                        <span class="font-medium">{{ field.label }}:</span>
+                        <span class="ml-2">
+                            {% if field.type == 'url' %}
+                                <a class="text-primary hover:underline" href="{{ value }}" target="_blank" rel="noopener noreferrer">{{ value }}</a>
+                            {% else %}
+                                {{ value }}
+                            {% endif %}
+                        </span>
+                    </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 </article>
