@@ -10,7 +10,10 @@ secrets/
 config/secrets.json
 
 # Dependencies
-node_modules/
+**/node_modules/
+**/node_modules/*
+!**/node_modules/
+!**/node_modules/.metadata_never_index
 vendor/
 .pnp
 .pnp.js
@@ -18,8 +21,10 @@ vendor/
 # Build outputs
 dist/
 build/
-_site/
 **/_site/
+**/_site/*
+!**/_site/
+!**/_site/.metadata_never_index
 .next/
 out/
 
@@ -55,8 +60,10 @@ coverage/
 # Temporary files
 *.tmp
 *.temp
-.cache/
 **/.cache/
+**/.cache/*
+!**/.cache/
+!**/.cache/.metadata_never_index
 
 # Docker
 .dockerignore
