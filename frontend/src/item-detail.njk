@@ -106,8 +106,13 @@ eleventyComputed:
                     <div class="text-gray-700">
                         <span class="font-medium">{{ field.label }}:</span>
                         <span class="ml-2">
-                            {% if field.type == 'file' %}
-                                <a class="text-primary hover:underline" href="{{ value }}" target="_blank" rel="noopener noreferrer">{{ value }}</a>
+                        {% if field.type == 'file' %}
+                                {% set fileUrl = value | attachmentUrl %}
+                                {% if fileUrl %}
+                                <a class="text-primary hover:underline" href="{{ fileUrl }}" target="_blank" rel="noopener noreferrer">{{ fileUrl }}</a>
+                                {% else %}
+                                {{ value }}
+                                {% endif %}
                             {% else %}
                                 {{ value }}
                             {% endif %}
@@ -126,8 +131,13 @@ eleventyComputed:
                     <div class="text-gray-700">
                         <span class="font-medium">{{ field.label }}:</span>
                         <span class="ml-2">
-                            {% if field.type == 'url' %}
-                                <a class="text-primary hover:underline" href="{{ value }}" target="_blank" rel="noopener noreferrer">{{ value }}</a>
+                        {% if field.type == 'url' %}
+                                {% set linkUrl = value | attachmentUrl %}
+                                {% if linkUrl %}
+                                <a class="text-primary hover:underline" href="{{ linkUrl }}" target="_blank" rel="noopener noreferrer">{{ linkUrl }}</a>
+                                {% else %}
+                                {{ value }}
+                                {% endif %}
                             {% else %}
                                 {{ value }}
                             {% endif %}

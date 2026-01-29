@@ -179,7 +179,7 @@ layout: layouts/base.njk
                      {% for filter in directory.filters %}
                         {% set value = item[filter.field] %}
                         {% if value %}
-                        data-{{ filter.field }}="{{ value }}"
+                        data-{{ filter.field }}="{{ value | attrSafe }}"
                         {% endif %}
                      {% endfor %}
                 >
@@ -213,7 +213,7 @@ layout: layouts/base.njk
                 </div>
             {% else %}
                 <div class="col-span-full text-center py-12 text-gray-500">
-                    Keine Einträge gefunden.
+                    Keine veroeffentlichten Eintraege gefunden.
                 </div>
             {% endfor %}
             </div>

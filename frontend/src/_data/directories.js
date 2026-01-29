@@ -1,8 +1,15 @@
 require("dotenv").config();
-const EleventyFetch = require("@11ty/eleventy-fetch");
+const { fetchAllRows } = require("./nocodbFetch");
 const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
+
+function warnMissingFields(keys, fields, context) {
+    const missing = fields.filter((field) => field && !keys.has(field));
+    if (missing.length > 0) {
+        console.warn(`[directories] Missing fields in NocoDB view (${context}): ${missing.join(", ")}`);
+    }
+}
 
 module.exports = async function () {
     try {
@@ -38,6 +45,7 @@ module.exports = async function () {
             return false;
         };
 
+        let totalItems = 0;
         // Fetch data for each configured directory
         for (const directory of directories) {
             const { id, name, path, description, nocodb: dirNocodb, display, filters } = directory;
@@ -47,20 +55,14 @@ module.exports = async function () {
                 continue;
             }
 
-            const url = `${nocodb.base_url}/api/v1/db/data/noco/${nocodb.project_id}/${dirNocodb.table_id}/views/${dirNocodb.view_id}?limit=1000`;
+            const baseUrl = `${nocodb.base_url}/api/v1/db/data/noco/${nocodb.project_id}/${dirNocodb.table_id}/views/${dirNocodb.view_id}`;
 
             try {
-                const json = await EleventyFetch(url, {
-                    duration: "1h",
-                    type: "json",
-                    fetchOptions: {
-                        headers: {
-                            "xc-token": nocodb.api_token,
-                        },
-                    },
+                const allItems = await fetchAllRows(baseUrl, {
+                    headers: {
+                        "xc-token": nocodb.api_token,
+                    }
                 });
-
-                const allItems = json.list || [];
                 const publishedItems = allItems.filter((item) => isPublished(item[publishField]));
                 if (allItems.length > 0 && publishedItems.length === 0) {
                     console.warn(`All items were filtered out by publish for directory: ${id}. Ensure the 'publish' field is in the NocoDB view and set to true.`);
@@ -71,6 +73,19 @@ module.exports = async function () {
                     delete cleaned[publishField];
                     return cleaned;
                 });
+
+                if (allItems.length > 0) {
+                    const keys = new Set(Object.keys(allItems[0]));
+                    const displayFields = [
+                        display && display.title_field,
+                        display && display.excerpt_field,
+                        display && display.status_field,
+                        display && display.start_date_field
+                    ];
+                    const detailFields = (display && display.detail_fields ? display.detail_fields.map((field) => field.field) : []);
+                    const filterFields = (filters || []).map((filter) => filter.field);
+                    warnMissingFields(keys, [publishField, ...displayFields, ...detailFields, ...filterFields], `directory:${id}`);
+                }
 
                 // Extract filter options from the actual data
                 const filterOptions = (filters || []).map(filter => {
@@ -121,12 +136,14 @@ module.exports = async function () {
                     items,
                     filters: filterOptions
                 });
+                totalItems += items.length;
 
             } catch (e) {
                 console.error(`Error fetching data for directory ${id}:`, e);
             }
         }
 
+        console.log(`[build] directories: ${results.length}, items: ${totalItems}`);
         return results;
     } catch (e) {
         console.error("Error loading directories:", e);

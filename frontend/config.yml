@@ -32,7 +32,7 @@ header_menu:
     external: true
   - label: "Kontakt"
     url: "/kontakt/"
-    external: true
+    external: false
 
 # Footer configuration
 footer:

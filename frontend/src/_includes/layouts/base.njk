@@ -295,11 +295,13 @@
                         </nav>
                     </div>
                     <div class="header-logo">
-                        {% if siteConfig.branding.logo %}
-                        <img src="{{ siteConfig.branding.logo }}" alt="{{ siteConfig.name }}">
-                        {% else %}
-                        <span class="text-xl font-bold text-primary">{{ siteConfig.name }}</span>
-                        {% endif %}
+                        <a href="/" class="inline-flex items-center">
+                            {% if siteConfig.branding.logo %}
+                            <img src="{{ siteConfig.branding.logo }}" alt="{{ siteConfig.name }}">
+                            {% else %}
+                            <span class="text-xl font-bold text-primary">{{ siteConfig.name }}</span>
+                            {% endif %}
+                        </a>
                     </div>
                 </div>
             </div>

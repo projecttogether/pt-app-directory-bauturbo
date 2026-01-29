@@ -44,6 +44,32 @@ module.exports = function (eleventyConfig) {
         return `${text.slice(0, count).trimEnd()}...`;
     });
 
+    eleventyConfig.addFilter("attrSafe", (value) => {
+        if (value === undefined || value === null) return "";
+        const text = String(value)
+            .replace(/[\r\n\t]+/g, " ")
+            .trim();
+        return text.replace(/"/g, "&quot;");
+    });
+
+    eleventyConfig.addFilter("attachmentUrl", (value) => {
+        if (!value) return "";
+        if (typeof value === "string") return value;
+        if (Array.isArray(value)) {
+            if (value.length === 0) return "";
+            const first = value[0];
+            if (typeof first === "string") return first;
+            if (first && typeof first === "object") {
+                return first.url || first.path || first.publicUrl || "";
+            }
+            return "";
+        }
+        if (typeof value === "object") {
+            return value.url || value.path || value.publicUrl || "";
+        }
+        return String(value);
+    });
+
     // Add date formatting filter (DD.MM.YYYY or DD.MM.YYYY HH:mm for detail pages)
     eleventyConfig.addFilter("formatDate", (dateString, includeTime = false) => {
         if (!dateString) return "";

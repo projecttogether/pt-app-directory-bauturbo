@@ -7,6 +7,11 @@
 
 set -e  # Exit on error
 
+KEEP_CACHE=false
+if [ "$1" = "--keep-cache" ]; then
+    KEEP_CACHE=true
+fi
+
 # Colors for output
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -112,8 +117,12 @@ echo ""
 
 # Step 6: Clear cache and build
 echo -e "${YELLOW}[6/7] Building site (clean build)...${NC}"
-echo -e "${BLUE}Clearing cache...${NC}"
-rm -rf .cache _site
+if [ "$KEEP_CACHE" = true ]; then
+    echo -e "${YELLOW}Skipping cache clear (--keep-cache)${NC}"
+else
+    echo -e "${BLUE}Clearing cache...${NC}"
+    rm -rf .cache _site
+fi
 
 echo -e "${BLUE}Running build...${NC}"
 if npm run build; then
