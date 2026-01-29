@@ -176,9 +176,10 @@ layout: layouts/base.njk
             {% for item in directory.items %}
                 <div class="item-card rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden border border-gray-100"
                      style="background-color: var(--color-background);"
-                     {% for key, value in item %}
-                        {% if key != 'long_text' and key != directory.display.excerpt_field and key != 'publish' %}
-                         data-{{ key }}="{{ value }}"
+                     {% for filter in directory.filters %}
+                        {% set value = item[filter.field] %}
+                        {% if value %}
+                        data-{{ filter.field }}="{{ value }}"
                         {% endif %}
                      {% endfor %}
                 >

@@ -1,6 +1,6 @@
 ---
 name: "directory-bauturbo"
-description: "directory platform with 11ty static site generation and NocoDB CMS "
+description: "directory platform with 11ty static site generation and NocoDB CMS"
 
 type: app
 owner: IT
@@ -15,7 +15,7 @@ URL: https://praxiswissen.umsetzungslabor-bauturbo.de
 
 ## Overview
 
-A directory website for Bauturbo initiatives, built with 11ty for static site generation and NocoDB as a headless CMS.
+A directory website for Umsetzungslabor Bau-Turbo, built with 11ty for static site generation and NocoDB as a headless CMS.
 
 **Live Site:** https://praxiswissen.umsetzungslabor-bauturbo.de
 **NocoDB Admin:** https://nocodb.projecttogether.org

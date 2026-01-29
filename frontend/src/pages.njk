@@ -4,8 +4,8 @@ pagination:
   size: 1
   alias: page
 permalink: "{{ page.permalink }}"
-layout: layouts/home.njk
 eleventyComputed:
+  layout: "{% if page.page_id == 'home' %}layouts/home.njk{% else %}layouts/about.njk{% endif %}"
   page_id: "{{ page.page_id }}"
   title: "{{ page.title | default(siteConfig.name) }}"
 ---

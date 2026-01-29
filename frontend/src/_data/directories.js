@@ -60,16 +60,20 @@ module.exports = async function () {
                     },
                 });
 
-                const items = (json.list || [])
-                    .filter((item) => isPublished(item[publishField]))
-                    .map((item) => {
-                        const cleaned = { ...item };
-                        delete cleaned[publishField];
-                        return cleaned;
-                    });
+                const allItems = json.list || [];
+                const publishedItems = allItems.filter((item) => isPublished(item[publishField]));
+                if (allItems.length > 0 && publishedItems.length === 0) {
+                    console.warn(`All items were filtered out by publish for directory: ${id}. Ensure the 'publish' field is in the NocoDB view and set to true.`);
+                }
+
+                const items = publishedItems.map((item) => {
+                    const cleaned = { ...item };
+                    delete cleaned[publishField];
+                    return cleaned;
+                });
 
                 // Extract filter options from the actual data
-                const filterOptions = filters.map(filter => {
+                const filterOptions = (filters || []).map(filter => {
                     if (filter.type === "date_range") {
                         // Extract years from date field
                         const years = new Set();

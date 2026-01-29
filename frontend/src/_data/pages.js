@@ -4,8 +4,6 @@ const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
 
-let cachedPages = null;
-
 function isPublished(value) {
     if (value === true) return true;
     if (value === 1) return true;
@@ -32,10 +30,6 @@ function normalizePermalink(value) {
 }
 
 module.exports = async function () {
-    if (cachedPages) {
-        return cachedPages;
-    }
-
     try {
         const configPath = path.join(__dirname, "../../config.yml");
         const fileContents = fs.readFileSync(configPath, "utf8");
@@ -52,14 +46,12 @@ module.exports = async function () {
 
         if (!nocodb.base_url || !nocodb.project_id || !nocodb.api_token) {
             console.warn("Missing NocoDB configuration, returning empty pages.");
-            cachedPages = {};
-            return cachedPages;
+            return {};
         }
 
         if (!pagesNocodb.table_id || !pagesNocodb.view_id) {
             console.warn("Missing NocoDB pages table/view configuration.");
-            cachedPages = {};
-            return cachedPages;
+            return {};
         }
 
         const url = `${nocodb.base_url}/api/v1/db/data/noco/${nocodb.project_id}/${pagesNocodb.table_id}/views/${pagesNocodb.view_id}?limit=1000`;
@@ -81,14 +73,14 @@ module.exports = async function () {
         const publishField = fieldMap.publish || "publish";
         const maxSections = pagesConfig.max_sections || 8;
 
+        const publishedItems = items.filter((item) => isPublished(item[publishField]));
+        if (items.length > 0 && publishedItems.length === 0) {
+            console.warn("All pages were filtered out by publish. Ensure the 'publish' field is in the NocoDB view and set to true.");
+        }
+
         const pagesById = {};
 
-        items.forEach(item => {
-            const publishValue = item[publishField];
-            if (!isPublished(publishValue)) {
-                return;
-            }
-
+        publishedItems.forEach(item => {
             const pageId = item[pageIdField];
             const title = item[titleField];
             const permalink = normalizePermalink(item[permalinkField]);
@@ -123,11 +115,9 @@ module.exports = async function () {
             };
         });
 
-        cachedPages = pagesById;
-        return cachedPages;
+        return pagesById;
     } catch (e) {
         console.error("Error loading pages:", e);
-        cachedPages = {};
-        return cachedPages;
+        return {};
     }
 };

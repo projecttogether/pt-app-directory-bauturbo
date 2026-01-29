@@ -131,20 +131,6 @@ if [ ! -d "_site" ]; then
     exit 1
 fi
 
-# Check for expected files
-EXPECTED_FILES=(
-    "_site/index.html"
-    "_site/projekte/index.html"
-)
-
-for file in "${EXPECTED_FILES[@]}"; do
-    if [ -f "$file" ]; then
-        echo -e "${GREEN}✓ $file${NC}"
-    else
-        echo -e "${YELLOW}⚠ Missing: $file (may be expected if directory config changed)${NC}"
-    fi
-done
-
 # Count generated files
 HTML_COUNT=$(find _site -name "*.html" | wc -l | tr -d ' ')
 echo -e "\n${GREEN}✓ Generated $HTML_COUNT HTML files${NC}"
