@@ -177,7 +177,7 @@
                        {% endif %}
                      {% endfor %}
             >
-              <a href="{{ directory.path }}/items/{{ item.Id }}/" class="block">
+              <a href="{{ directory.path }}/items/{{ item.Id }}/?from={{ page.url | default('/') }}" class="block">
                 <h4 class="text-lg font-semibold directories-title group-hover:text-primary transition-colors">
                   {{ item[directory.display.title_field] }}
                 </h4>
@@ -255,6 +255,8 @@
       const clearButton = panel.querySelector('[data-clear-filters]');
       const resultsCount = panel.querySelector('[data-results-count]');
       const pagination = panel.querySelector('[data-pagination]');
+      const panelId = panel.dataset.tabPanel;
+      const storageKey = `directoryFilters:${panelId}`;
       const pageSize = 9;
       let currentPage = 1;
 
@@ -449,6 +451,120 @@
         filterCards();
       }
 
+      function saveState() {
+        const state = {
+          search: searchInput ? searchInput.value : '',
+          page: currentPage,
+          selects: Array.from(selectFilters).map(select => ({
+            name: select.dataset.filterName,
+            value: select.value
+          })),
+          checkboxes: Array.from(checkboxFilters)
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => ({
+              name: checkbox.dataset.filterName,
+              value: checkbox.value
+            })),
+          datePeriods: Array.from(datePeriodFilters)
+            .filter(radio => radio.checked)
+            .map(radio => ({
+              name: radio.dataset.filterName,
+              value: radio.value
+            })),
+          dateYears: Array.from(dateYearFilters).map(select => ({
+            name: select.dataset.filterName,
+            value: select.value
+          }))
+        };
+        try {
+          sessionStorage.setItem(storageKey, JSON.stringify(state));
+        } catch (e) {
+          // Ignore storage errors (private mode, etc.)
+        }
+      }
+
+      function restoreState() {
+        let raw = null;
+        try {
+          raw = sessionStorage.getItem(storageKey);
+        } catch (e) {
+          raw = null;
+        }
+        if (!raw) return;
+        let state = null;
+        try {
+          state = JSON.parse(raw);
+        } catch (e) {
+          state = null;
+        }
+        if (!state) return;
+
+        if (searchInput && typeof state.search === 'string') {
+          searchInput.value = state.search;
+        }
+
+        if (Array.isArray(state.selects)) {
+          state.selects.forEach(saved => {
+            const match = Array.from(selectFilters).find(select => select.dataset.filterName === saved.name);
+            if (match) {
+              match.value = saved.value || '';
+            }
+          });
+        }
+
+        if (Array.isArray(state.checkboxes)) {
+          state.checkboxes.forEach(saved => {
+            const match = Array.from(checkboxFilters).find(checkbox => checkbox.dataset.filterName === saved.name && checkbox.value === saved.value);
+            if (match) {
+              match.checked = true;
+            }
+          });
+        }
+
+        if (Array.isArray(state.datePeriods)) {
+          state.datePeriods.forEach(saved => {
+            const match = Array.from(datePeriodFilters).find(radio => radio.dataset.filterName === saved.name && radio.value === saved.value);
+            if (match) {
+              match.checked = true;
+            }
+          });
+        }
+
+        if (Array.isArray(state.dateYears)) {
+          state.dateYears.forEach(saved => {
+            const match = Array.from(dateYearFilters).find(select => select.dataset.filterName === saved.name);
+            if (match) {
+              match.value = saved.value || '';
+            }
+          });
+        }
+
+        if (typeof state.page === 'number' && state.page > 0) {
+          currentPage = state.page;
+        }
+
+        try {
+          sessionStorage.removeItem(storageKey);
+        } catch (e) {
+          // Ignore storage errors
+        }
+      }
+
+      const cardLinks = panel.querySelectorAll('.item-card a');
+      cardLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          saveState();
+          const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+          try {
+            const url = new URL(link.href, window.location.origin);
+            url.searchParams.set('from', current);
+            link.href = `${url.pathname}${url.search}${url.hash}`;
+          } catch (e) {
+            // Ignore URL parsing errors
+          }
+        });
+      });
+
       selectFilters.forEach(select => {
         select.addEventListener('change', () => {
           currentPage = 1;
@@ -492,16 +608,33 @@
         clearButton.addEventListener('click', clearAllFilters);
       }
 
+      restoreState();
       filterCards();
     }
 
     tabPanels.forEach(panel => setupFilters(panel));
 
-    activateTab(tabButtons[0].dataset.tabButton);
+    const storedTab = (() => {
+      try {
+        return sessionStorage.getItem('homeActiveTab');
+      } catch (e) {
+        return null;
+      }
+    })();
+    const defaultTab = storedTab && tabButtons.find(button => button.dataset.tabButton === storedTab)
+      ? storedTab
+      : tabButtons[0].dataset.tabButton;
+
+    activateTab(defaultTab);
 
     tabButtons.forEach(button => {
       button.addEventListener('click', function() {
         activateTab(button.dataset.tabButton);
+        try {
+          sessionStorage.setItem('homeActiveTab', button.dataset.tabButton);
+        } catch (e) {
+          // Ignore storage errors
+        }
       });
     });
   });

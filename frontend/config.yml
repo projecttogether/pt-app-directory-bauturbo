@@ -30,8 +30,8 @@ header_menu:
   - label: "FAQ Bau-Turbo"
     url: "https://www.bmwsb.bund.de/DE/bauen/baurecht/bau-turbo/bau-turbo.html"
     external: true
-  - label: "Newsletter"
-    url: "https://news.projecttogether.org/bau-turbo"
+  - label: "Kontakt"
+    url: "/kontakt/"
     external: true
 
 # Footer configuration

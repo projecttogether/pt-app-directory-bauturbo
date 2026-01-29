@@ -16,7 +16,7 @@ eleventyComputed:
 <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Back Button -->
     <div class="mb-8">
-        <a href="{{ dir.path }}" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors text-sm">
+        <a href="{{ dir.path }}" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors text-sm" data-back-link>
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
@@ -140,3 +140,15 @@ eleventyComputed:
     </div>
     {% endif %}
 </article>
+
+<script>
+  (function() {
+    const link = document.querySelector('[data-back-link]');
+    if (!link) return;
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get('from');
+    if (from && from.startsWith('/')) {
+      link.href = from;
+    }
+  })();
+</script>

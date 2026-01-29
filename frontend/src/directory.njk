@@ -183,7 +183,7 @@ layout: layouts/base.njk
                         {% endif %}
                      {% endfor %}
                 >
-                    <a href="{{ directory.path }}/items/{{ item.Id }}/" class="block p-6 hover:bg-gray-50 transition-colors">
+                    <a href="{{ directory.path }}/items/{{ item.Id }}/?from={{ directory.path }}" class="block p-6 hover:bg-gray-50 transition-colors">
                         <h3 class="text-lg font-semibold text-gray-900 mb-2">
                             {{ item[directory.display.title_field] }}
                         </h3>
@@ -231,6 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('.item-card');
     const clearButton = document.getElementById('clear-filters');
     const clearButtonMobile = document.getElementById('clear-filters-mobile');
+    const storageKey = "directoryFilters:{{ directory.id }}";
     
     // Mobile filter toggle
     const mobileFilterBtn = document.getElementById('mobile-filter-btn');
@@ -421,6 +422,116 @@ document.addEventListener('DOMContentLoaded', function() {
         closeMobileFilter();
     }
 
+    function saveState() {
+        const state = {
+            search: searchInput ? searchInput.value : '',
+            selects: Array.from(selectFilters).map(select => ({
+                name: select.dataset.filterName,
+                value: select.value
+            })),
+            checkboxes: Array.from(checkboxFilters)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => ({
+                    name: checkbox.dataset.filterName,
+                    value: checkbox.value
+                })),
+            datePeriods: Array.from(datePeriodFilters)
+                .filter(radio => radio.checked)
+                .map(radio => ({
+                    name: radio.dataset.filterName,
+                    value: radio.value
+                })),
+            dateYears: Array.from(dateYearFilters).map(select => ({
+                name: select.dataset.filterName,
+                value: select.value
+            }))
+        };
+        try {
+            sessionStorage.setItem(storageKey, JSON.stringify(state));
+        } catch (e) {
+            // Ignore storage errors
+        }
+    }
+
+    function restoreState() {
+        let raw = null;
+        try {
+            raw = sessionStorage.getItem(storageKey);
+        } catch (e) {
+            raw = null;
+        }
+        if (!raw) return;
+        let state = null;
+        try {
+            state = JSON.parse(raw);
+        } catch (e) {
+            state = null;
+        }
+        if (!state) return;
+
+        if (searchInput && typeof state.search === 'string') {
+            searchInput.value = state.search;
+        }
+
+        if (Array.isArray(state.selects)) {
+            state.selects.forEach(saved => {
+                const match = Array.from(selectFilters).find(select => select.dataset.filterName === saved.name);
+                if (match) {
+                    match.value = saved.value || '';
+                }
+            });
+        }
+
+        if (Array.isArray(state.checkboxes)) {
+            state.checkboxes.forEach(saved => {
+                const match = Array.from(checkboxFilters).find(checkbox => checkbox.dataset.filterName === saved.name && checkbox.value === saved.value);
+                if (match) {
+                    match.checked = true;
+                }
+            });
+        }
+
+        if (Array.isArray(state.datePeriods)) {
+            state.datePeriods.forEach(saved => {
+                const match = Array.from(datePeriodFilters).find(radio => radio.dataset.filterName === saved.name && radio.value === saved.value);
+                if (match) {
+                    match.checked = true;
+                }
+            });
+        }
+
+        if (Array.isArray(state.dateYears)) {
+            state.dateYears.forEach(saved => {
+                const match = Array.from(dateYearFilters).find(select => select.dataset.filterName === saved.name);
+                if (match) {
+                    match.value = saved.value || '';
+                }
+            });
+        }
+
+        try {
+            sessionStorage.removeItem(storageKey);
+        } catch (e) {
+            // Ignore storage errors
+        }
+    }
+
+    cards.forEach(card => {
+        const link = card.querySelector('a');
+        if (!link) return;
+        link.addEventListener('click', () => {
+            saveState();
+            const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+            try {
+                const url = new URL(link.href, window.location.origin);
+                url.searchParams.set('from', current);
+                link.href = `${url.pathname}${url.search}${url.hash}`;
+            } catch (e) {
+                // Ignore URL parsing errors
+            }
+        });
+    });
+
     selectFilters.forEach(select => {
         select.addEventListener('change', filterCards);
     });
@@ -453,5 +564,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (clearButtonMobile) {
         clearButtonMobile.addEventListener('click', clearAllFilters);
     }
+
+    restoreState();
+    filterCards();
 });
 </script>
