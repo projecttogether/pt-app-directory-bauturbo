@@ -1,0 +1,48 @@
+{# SETUP #}
+
+{# Intro section component - receives section data from parent #}
+
+{# MARKUP #}
+
+<section class="relative w-full pl-40 pr-50 mb-50
+                border-y border-bauturbo-blau">
+
+    {% if section.tag %}
+    {% set text_tag = section.tag %}
+    {% include "components/tags/tag-page-section.njk" %}
+    {% endif %}
+    
+    <div class="pl-10 pt-7 pb-9 grid grid-cols-12 gap-x-10
+                border-x border-bauturbo-blau">
+
+        <div class="col-span-9">
+            {% if section.headline %}
+            <div class="mb-10">
+                {% set size = "lg" %}
+                {% set lvl = 2 %}
+                {% set text_hdl = section.headline %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+            {% endif %}
+
+            {% if section.subheadline %}
+            <div>
+                {% set size = "md" %}
+                {% set lvl = 3 %}
+                {% set text_hdl = section.subheadline %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+            {% endif %}
+        
+            {% if section.text %}
+            <div class="mt-10">
+                {% set size = "sm" %}
+                {% set text = section.text %}
+                {% include "components/texts/text.njk" %}
+            </div>
+            {% endif %}
+        </div>
+        
+    </div>
+
+</section>
