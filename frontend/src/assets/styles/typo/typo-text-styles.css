@@ -8,6 +8,10 @@
     @apply text-[23px] leading-[1.42] tracking-[0.02em];
 }
 
+.text-sm-plus {
+    @apply text-[26px] leading-[1.33] tracking-[0.03em];
+}
+
 /* md */
 /* ------------------ */
 

@@ -2,6 +2,7 @@
 @import "./typo/typo-hdl-styles.css";
 @import "./typo/typo-text-styles.css";
 @import "./typo/typo-tag-styles.css";
+@import "./typo/typo-link-styles.css";
 
 /* Font Face Declarations */
 @font-face {

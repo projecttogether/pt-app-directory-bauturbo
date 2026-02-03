@@ -1,0 +1,17 @@
+/* Tag text styles */
+/* ------------------------------------------------ */
+
+/* sm */
+/* ------------------ */
+
+.text-link-sm {
+    @apply text-[20px] leading-[1.03] tracking-[0.0075em];
+}
+
+/* Shared styles */
+/* ------------------ */
+
+[class*="text-link-"] {
+    @apply font-[Bundes_Sans_Web] font-[700];
+    @apply whitespace-nowrap;
+}
