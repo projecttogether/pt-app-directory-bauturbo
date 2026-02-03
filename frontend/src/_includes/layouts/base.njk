@@ -145,72 +145,6 @@
             box-shadow: 0 0 0 1px var(--color-text) !important;
         }
 
-        .site-header {
-            background-color: var(--color-background);
-            /* border-bottom: 1.5px solid var(--color-primary); */
-        }
-
-        .header-grid {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: end;
-            gap: 2rem;
-            padding: 1.5rem 0 1rem;
-        }
-
-        .header-nav {
-            border-bottom: 1.5px solid var(--color-primary);
-            padding-bottom: 0.75rem;
-        }
-
-        .header-nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .header-link {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--color-primary);
-            text-decoration: none;
-        }
-
-        .header-link:hover {
-            color: var(--color-secondary);
-        }
-
-        .header-logo img {
-            height: 5rem;
-            width: auto;
-            display: block;
-        }
-
-        @media (min-width: 1024px) {
-            .header-logo img {
-                height: 7.5rem;
-            }
-        }
-
-        @media (max-width: 1023px) {
-            .header-grid {
-                grid-template-columns: 1fr;
-                align-items: start;
-            }
-
-            .header-logo {
-                margin-top: 1rem;
-            }
-        }
-
-        .site-main {
-            position: relative;
-        }
-
-        .site-frame {
-            position: relative;
-        }
-
         .site-frame::before,
         .site-frame::after {
             content: "";
@@ -278,39 +212,17 @@
 </head>
 <body class="text-gray-900 font-bundes-sans">
     <div class="site-frame">
-        <header class="site-header">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="header-grid">
-                    <div class="header-nav">
-                        <nav class="header-nav-links">
-                            {% if siteConfig.header_menu %}
-                            {% for item in siteConfig.header_menu %}
-                            <a href="{{ item.url }}"
-                               {% if item.external %}target="_blank" rel="noopener noreferrer"{% endif %}
-                               class="header-link">
-                                {{ item.label }}
-                            </a>
-                            {% endfor %}
-                            {% endif %}
-                        </nav>
-                    </div>
-                    <div class="header-logo">
-                        <a href="/" class="inline-flex items-center">
-                            {% if siteConfig.branding.logo %}
-                            <img src="{{ siteConfig.branding.logo }}" alt="{{ siteConfig.name }}">
-                            {% else %}
-                            <span class="text-xl font-bold text-primary">{{ siteConfig.name }}</span>
-                            {% endif %}
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
 
-        <main class="site-main py-8">
+        {# Site header #}
+        {% include "components/site-header/site-header.njk" %}
+
+
+        {# Main page content #}
+        <main class="site-main">
             {{ content | safe }}
         </main>
 
+        {# Site footer #}
         <footer class="site-footer">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 <div class="footer-grid">
