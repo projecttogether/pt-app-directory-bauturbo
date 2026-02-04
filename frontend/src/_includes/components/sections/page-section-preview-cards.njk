@@ -1,5 +1,68 @@
 {# SETUP #}
+{# Preview cards section component #}
 
-{# ... #}
+{% set mb = mb or "mb-50" %}
+{% if with_border_t is not defined %}{% set with_border_t = true %}{% endif %}
+{% if with_border_b is not defined %}{% set with_border_b = true %}{% endif %}
+{% set with_border = with_border_t or with_border_b %}
 
 {# MARKUP #}
+<section class="relative w-full px-pad-page-x {{ mb }}
+                {% if with_border %}                         border-bauturbo-blau {% endif %}
+                {% if with_border_t and with_border_b %}     border-y {% endif %}
+                {% if with_border_t and not with_border_b %} border-t {% endif %}
+                {% if with_border_b and not with_border_t %} border-b {% endif %}">
+    
+    <div class="px-pad-content-section-x py-pad-content-section-y
+                grid grid-cols-12 gap-x-10 
+                border-x border-bauturbo-blau">
+        
+        <div class="col-span-12">
+            
+            {# Rendering 4 empty cards #}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                {% for i in range(4) %}
+                    <div class="group/card
+                                relative px-7.5 pt-6 pb-8 aspect-[5/2.75]
+                                flex flex-col justify-between items-start gap-y-28
+                                bg-white select-none">
+                        {# Card text content #}
+                        <div class="text-sm-plus leading-[1.17]! italic text-bauturbo-blau">
+                            <span>Demnächst <br> verfügbar…</span>
+                        </div>
+
+                        {# Bottom-right info icon #}
+                        <div class="absolute bottom-6 right-6
+                                    size-7 flex-center
+                                    text-xs text-bauturbo-blau
+                                    border border-bauturbo-blau rounded-full">
+                            <span class="translate-x-[0.5px] -translate-y-[1.5px]">?</span>
+                        </div>
+
+                        {# SVG w/ dashed border #}
+                        <svg xmlns              ="http://www.w3.org/2000/svg"
+                             preserveAspectRatio="none"
+                             class              ="absolute top-0 left-0 z-10 size-full overflow-visible pointer-events-none
+                                                  fill-none stroke-bauturbo-blau">
+                            <rect x="1" y="1" width="100%" height="100%" stroke-width="1" stroke-dasharray="10,10" stroke-dashoffset="6" vector-effect="non-scaling-stroke" />
+                        </svg>
+
+                        {# Hover overlay #}
+                        <div class="absolute top-0 left-0 pointer-events-none
+                                    size-full px-7.5 pt-6 pb-8
+                                    bg-white 
+                                    opacity-0 transition-opacity duration-300
+                                    group-hover/card:opacity-100">
+                            {% set size = "sm" %}
+                            {% set color = "var(--color-bauturbo-blau)" %}
+                            {% set text = "Wir erarbeiten derzeit kuratierte Sammlung von Arbeitshilfen für verschiedene Themenschwerpunkte. Diese werden demnächst hier zur Verfügung gestellt." %}
+                            {% include "components/texts/text.njk" %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+    </div>
+    
+</section>
