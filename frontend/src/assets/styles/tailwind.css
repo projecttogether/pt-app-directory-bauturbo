@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./custom-utils.css";
 @import "./typo/typo-hdl-styles.css";
 @import "./typo/typo-text-styles.css";
 @import "./typo/typo-tag-styles.css";
@@ -37,6 +38,11 @@
     font-display: swap;
 }
 
+:root {
+    /* Color vars. */
+    --color-bauturbo-blau: #007194;
+}
+
 @theme {
     --color-bauturbo-blau: #007194;
     --color-bauturbo-rot: #cd5038;
@@ -53,4 +59,9 @@
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
     --font-bundes-sans: "Bundes Sans Web", sans-serif;
+
+    /* Spacing/Sizing */
+    --spacing-pad-page-x: 11.875rem;
+    --spacing-pad-content-section-x: 3.75rem;
+    --spacing-pad-content-section-y: 3.75rem;
 }
