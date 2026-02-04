@@ -1,7 +1,9 @@
 {# SETUP #}
 
 {# Size config./classes #}
-{% if size == 'sm' %}
+{% if size == 'xs' %}
+    {% set sizeClasses = "text-xs" %}
+{% elif size == 'sm' %}
     {% set sizeClasses = "text-sm" %}
 {% elif size == 'sm-plus' %}
     {% set sizeClasses = "text-sm-plus" %}

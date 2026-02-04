@@ -4,6 +4,14 @@
 /* sm */
 /* ------------------ */
 
+.text-btn-xs {
+    @apply text-[15px] leading-[1] tracking-[0.015em] font-[700];
+    @apply normal-case;
+}
+
+/* sm */
+/* ------------------ */
+
 .text-btn-sm {
     @apply text-[18px] leading-[1] tracking-[0.015em] font-[700];
     @apply normal-case;

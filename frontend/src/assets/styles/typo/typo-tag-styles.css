@@ -1,6 +1,15 @@
 /* Tag text styles */
 /* ------------------------------------------------ */
 
+/* xs */
+/* ------------------ */
+
+.text-tag-xs {
+    @apply text-[14px] leading-[1] tracking-[0em];
+    @apply font-bold;
+    @apply uppercase;
+}
+
 /* sm */
 /* ------------------ */
 

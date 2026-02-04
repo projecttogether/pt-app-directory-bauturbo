@@ -44,7 +44,7 @@
         </button> #}
     
         {# Filter groups #}
-        <div class="space-y-4" data-filter-container>
+        <div data-filter-container>
             {% for filter in dir.filters %}
                 {% if filter.options and filter.options.length > 0 %}
                     {% include "components/directories-tabs/directory-filter-group.njk" %}
