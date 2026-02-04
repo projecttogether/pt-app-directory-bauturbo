@@ -1,0 +1,56 @@
+{# SETUP #}
+{#########}
+
+{# ... #}
+
+{# DEBUG: Raw dir.filters data dump #}
+{####################################}
+{# <div class="debug-filters" style="position: fixed; top: 1rem; right: 1rem; background: #f0f0f0; padding: 1rem; margin: 1rem; border: 1px solid #ccc; font-family: monospace; white-space: pre-wrap; max-height: 300px; overflow-y: auto;">
+<strong>DEBUG: dir.filters structure:</strong>
+{{ dir.filters | dump }}
+</div> #}
+
+{# MARKUP #}
+{##########}
+
+<aside class="col-span-3
+              border-r border-bauturbo-blau">
+
+    {# Search section #}
+    <div class="flex flex-col">
+        <div class="pt-2.75 pb-3.5 pl-pad-directory-section-x
+                    border-b border-bauturbo-blau">
+            <span class="text-label-xs">Suche</span>
+        </div>
+
+        <div class="px-pad-directory-section-x py-pad-directory-section-x">
+            <input
+                type="text"
+                placeholder="Stichwort eingeben..."
+                data-search-input
+                class="px-3 py-2 w-full block border border-bauturbo-blau">
+        </div>
+    </div>
+
+    {# Filter section #}
+    <div class="flex flex-col">
+        <div class="pt-2.75 pb-3.5 pl-pad-directory-section-x
+                    border-y border-bauturbo-blau">
+            <span class="text-label-xs">Filter</span>
+        </div>
+
+        {# <button type="button" class="text-xs directories-filter-text transition-colors" data-clear-filters>
+            Alle Filter loeschen
+        </button> #}
+    
+        {# Filter groups #}
+        <div class="space-y-4" data-filter-container>
+            {% for filter in dir.filters %}
+                {% if filter.options and filter.options.length > 0 %}
+                    {% include "components/directories-tabs/directory-filter-group.njk" %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+</aside>

@@ -1,0 +1,36 @@
+{# SETUP #}
+{#########}
+
+{% set id = dirData.id %}
+{% set text = dirData.name %}
+{% set is_first = loop.first %}
+
+{# Color config. #}
+{% set color_text = color_text or "#fff" %}
+{% set color_bg = color_bg or "var(--color-bauturbo-blau)" %}
+{% set color_bg_active = color_bg_active or "var(--color-bauturbo-rot)" %}
+
+{# MARKUP #}
+{##########}
+
+<button 
+    id="tab-{{ id }}"
+    type="button"
+    role="tab"
+    data-tab-button="{{ id }}"
+    aria-controls="panel-{{ id }}"
+    aria-selected="{% if is_first %} true {% else %} false {% endif %}"
+    tabindex="{% if is_first %} 0 {% else %} -1 {% endif %}"
+
+    class="px-2.75 pt-1 pb-2.5
+            text-btn-sm 
+            text-(--color-text) bg-(--color-bg)
+            hover:bg-(--color-bg-active) aria-selected:bg-(--color-bg-active)"
+
+    style="--color-text: {{ color_text }};
+            --color-bg: {{ color_bg }};
+            --color-bg-active: {{ color_bg_active }};">
+
+    {{ text }}
+
+</button>

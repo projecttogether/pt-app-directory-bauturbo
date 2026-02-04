@@ -1,0 +1,459 @@
+{# SETUP #}
+{#########}
+
+{% set directoryList = directories | default([]) %}
+
+{# MARKUP #}
+{##########}
+
+<section class="
+                border-t border-bauturbo-blau _border _border-red-500">
+    
+    {% if directoryList.length > 0 %}
+
+        {# Tab buttons #}
+        <div class="px-pad-directory-section-x py-pad-directory-section-x
+                    border-b border-bauturbo-blau">
+            <div class="flex flex-col gap-y-2.5">
+                <div class="text-label-xs">Kategorien</div>
+                <div class="flex flex-wrap gap-1.75" role="tablist" aria-label="Verzeichnisse">
+                    {% for dir in directoryList %}
+                        {% set dirData = dir %}
+                        {% include "components/btns/btn-directory-tab.njk" %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {# Tab panels (content of selected dir.) #}
+        {% for dir in directoryList %}
+            {% include "components/directories-tabs/directory-content.njk" %}
+        {% endfor %}
+
+    {% else %}
+
+        <div class="mt-8 border-1-5 directories-border bg-theme p-8 text-center text-theme-muted">
+            Derzeit sind keine Verzeichnisse verfuegbar. Bitte pruefen Sie die NocoDB-Konfiguration.
+        </div>
+
+    {% endif %}
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = Array.from(document.querySelectorAll('[data-tab-button]'));
+    const tabPanels = Array.from(document.querySelectorAll('[data-tab-panel]'));
+
+    if (!tabButtons.length || !tabPanels.length) {
+      return;
+    }
+
+    function activateTab(tabId) {
+      tabButtons.forEach(button => {
+        const isActive = button.dataset.tabButton === tabId;
+        button.classList.toggle('directories-tab-active', isActive);
+        button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        button.setAttribute('tabindex', isActive ? '0' : '-1');
+      });
+
+      tabPanels.forEach(panel => {
+        const isActive = panel.dataset.tabPanel === tabId;
+        panel.classList.toggle('hidden', !isActive);
+        panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+    }
+
+    function setupFilters(panel) {
+      const selectFilters = panel.querySelectorAll('.filter-select');
+      const checkboxFilters = panel.querySelectorAll('.filter-checkbox');
+      const datePeriodFilters = panel.querySelectorAll('.filter-date-period');
+      const dateYearFilters = panel.querySelectorAll('.filter-date-year');
+      const searchInput = panel.querySelector('[data-search-input]');
+      const cards = panel.querySelectorAll('.item-card');
+      const clearButton = panel.querySelector('[data-clear-filters]');
+      const resultsCount = panel.querySelector('[data-results-count]');
+      const pagination = panel.querySelector('[data-pagination]');
+      const panelId = panel.dataset.tabPanel;
+      const storageKey = `directoryFilters:${panelId}`;
+      const pageSize = 9;
+      let currentPage = 1;
+
+      function updateResultsCount(totalCount) {
+        if (!resultsCount) return;
+        resultsCount.textContent = `${totalCount} ${totalCount === 1 ? 'ERGEBNIS' : 'ERGEBNISSE'}`;
+      }
+
+      function renderPagination(totalItems) {
+        if (!pagination) return;
+        pagination.innerHTML = '';
+        const totalPages = Math.ceil(totalItems / pageSize);
+        if (totalPages <= 1) {
+          return;
+        }
+
+        for (let page = 1; page <= totalPages; page += 1) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.textContent = String(page);
+          button.className = `directories-pagination-button${page === currentPage ? ' active' : ''}`;
+          button.addEventListener('click', () => {
+            currentPage = page;
+            filterCards();
+          });
+          pagination.appendChild(button);
+        }
+      }
+
+      function applyPagination(matchingCards) {
+        cards.forEach(card => {
+          card.style.display = 'none';
+        });
+
+        const startIndex = (currentPage - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        matchingCards.slice(startIndex, endIndex).forEach(card => {
+          card.style.display = 'block';
+        });
+      }
+
+      function filterCards() {
+        const activeFilters = {};
+        const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+        datePeriodFilters.forEach(radio => {
+          if (radio.checked) {
+            const filterName = radio.dataset.filterName;
+            if (!activeFilters[filterName]) {
+              activeFilters[filterName] = { type: 'date_range' };
+            }
+            activeFilters[filterName].period = radio.value;
+          }
+        });
+
+        dateYearFilters.forEach(select => {
+          if (select.value) {
+            const filterName = select.dataset.filterName;
+            if (!activeFilters[filterName]) {
+              activeFilters[filterName] = { type: 'date_range' };
+            }
+            activeFilters[filterName].year = parseInt(select.value, 10);
+          }
+        });
+
+        selectFilters.forEach(select => {
+          if (select.value) {
+            activeFilters[select.dataset.filterName] = {
+              value: select.value,
+              type: select.dataset.filterType
+            };
+          }
+        });
+
+        const checkboxesByFilter = {};
+        checkboxFilters.forEach(checkbox => {
+          const filterName = checkbox.dataset.filterName;
+          if (!checkboxesByFilter[filterName]) {
+            checkboxesByFilter[filterName] = [];
+          }
+          if (checkbox.checked) {
+            checkboxesByFilter[filterName].push(checkbox.value);
+          }
+        });
+
+        for (const [filterName, values] of Object.entries(checkboxesByFilter)) {
+          if (values.length > 0) {
+            activeFilters[filterName] = {
+              values: values,
+              type: 'multi_select'
+            };
+          }
+        }
+
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+
+        const matchingCards = [];
+
+        cards.forEach(card => {
+          let isVisible = true;
+
+          for (const [key, filterConfig] of Object.entries(activeFilters)) {
+            const cardValue = card.getAttribute(`data-${key}`);
+
+            if (filterConfig.type === 'date_range') {
+              if (!cardValue) {
+                isVisible = false;
+                break;
+              }
+
+              const cardDate = new Date(cardValue);
+              if (isNaN(cardDate.getTime())) {
+                isVisible = false;
+                break;
+              }
+
+              if (filterConfig.period === 'upcoming' && cardDate < now) {
+                isVisible = false;
+                break;
+              }
+              if (filterConfig.period === 'past' && cardDate >= now) {
+                isVisible = false;
+                break;
+              }
+
+              if (filterConfig.year && cardDate.getFullYear() !== filterConfig.year) {
+                isVisible = false;
+                break;
+              }
+
+              continue;
+            }
+
+            if (!cardValue) {
+              isVisible = false;
+              break;
+            }
+
+            if (filterConfig.type === 'multi_select') {
+              const cardValues = cardValue.split(',').map(v => v.trim());
+              const hasMatch = filterConfig.values.some(filterVal => cardValues.includes(filterVal));
+              if (!hasMatch) {
+                isVisible = false;
+                break;
+              }
+            } else if (cardValue !== filterConfig.value) {
+              isVisible = false;
+              break;
+            }
+          }
+
+          if (isVisible && searchTerm) {
+            const cardText = card.textContent.toLowerCase();
+            if (!cardText.includes(searchTerm)) {
+              isVisible = false;
+            }
+          }
+
+          if (isVisible) {
+            matchingCards.push(card);
+          }
+        });
+
+        const totalMatches = matchingCards.length;
+        const totalPages = Math.max(1, Math.ceil(totalMatches / pageSize));
+        if (currentPage > totalPages) {
+          currentPage = 1;
+        }
+        updateResultsCount(totalMatches);
+        renderPagination(totalMatches);
+        applyPagination(matchingCards);
+      }
+
+      function clearAllFilters() {
+        selectFilters.forEach(select => {
+          select.value = '';
+        });
+        checkboxFilters.forEach(checkbox => {
+          checkbox.checked = false;
+        });
+        datePeriodFilters.forEach(radio => {
+          radio.checked = radio.value === 'all';
+        });
+        dateYearFilters.forEach(select => {
+          select.value = '';
+        });
+        if (searchInput) {
+          searchInput.value = '';
+        }
+        currentPage = 1;
+        filterCards();
+      }
+
+      function saveState() {
+        const state = {
+          search: searchInput ? searchInput.value : '',
+          page: currentPage,
+          selects: Array.from(selectFilters).map(select => ({
+            name: select.dataset.filterName,
+            value: select.value
+          })),
+          checkboxes: Array.from(checkboxFilters)
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => ({
+              name: checkbox.dataset.filterName,
+              value: checkbox.value
+            })),
+          datePeriods: Array.from(datePeriodFilters)
+            .filter(radio => radio.checked)
+            .map(radio => ({
+              name: radio.dataset.filterName,
+              value: radio.value
+            })),
+          dateYears: Array.from(dateYearFilters).map(select => ({
+            name: select.dataset.filterName,
+            value: select.value
+          }))
+        };
+        try {
+          sessionStorage.setItem(storageKey, JSON.stringify(state));
+        } catch (e) {
+          // Ignore storage errors (private mode, etc.)
+        }
+      }
+
+      function restoreState() {
+        let raw = null;
+        try {
+          raw = sessionStorage.getItem(storageKey);
+        } catch (e) {
+          raw = null;
+        }
+        if (!raw) return;
+        let state = null;
+        try {
+          state = JSON.parse(raw);
+        } catch (e) {
+          state = null;
+        }
+        if (!state) return;
+
+        if (searchInput && typeof state.search === 'string') {
+          searchInput.value = state.search;
+        }
+
+        if (Array.isArray(state.selects)) {
+          state.selects.forEach(saved => {
+            const match = Array.from(selectFilters).find(select => select.dataset.filterName === saved.name);
+            if (match) {
+              match.value = saved.value || '';
+            }
+          });
+        }
+
+        if (Array.isArray(state.checkboxes)) {
+          state.checkboxes.forEach(saved => {
+            const match = Array.from(checkboxFilters).find(checkbox => checkbox.dataset.filterName === saved.name && checkbox.value === saved.value);
+            if (match) {
+              match.checked = true;
+            }
+          });
+        }
+
+        if (Array.isArray(state.datePeriods)) {
+          state.datePeriods.forEach(saved => {
+            const match = Array.from(datePeriodFilters).find(radio => radio.dataset.filterName === saved.name && radio.value === saved.value);
+            if (match) {
+              match.checked = true;
+            }
+          });
+        }
+
+        if (Array.isArray(state.dateYears)) {
+          state.dateYears.forEach(saved => {
+            const match = Array.from(dateYearFilters).find(select => select.dataset.filterName === saved.name);
+            if (match) {
+              match.value = saved.value || '';
+            }
+          });
+        }
+
+        if (typeof state.page === 'number' && state.page > 0) {
+          currentPage = state.page;
+        }
+
+        try {
+          sessionStorage.removeItem(storageKey);
+        } catch (e) {
+          // Ignore storage errors
+        }
+      }
+
+      const cardLinks = panel.querySelectorAll('.item-card a');
+      cardLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          saveState();
+          const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+          try {
+            const url = new URL(link.href, window.location.origin);
+            url.searchParams.set('from', current);
+            link.href = `${url.pathname}${url.search}${url.hash}`;
+          } catch (e) {
+            // Ignore URL parsing errors
+          }
+        });
+      });
+
+      selectFilters.forEach(select => {
+        select.addEventListener('change', () => {
+          currentPage = 1;
+          filterCards();
+        });
+      });
+
+      checkboxFilters.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+          currentPage = 1;
+          filterCards();
+        });
+      });
+
+      datePeriodFilters.forEach(radio => {
+        radio.addEventListener('change', () => {
+          currentPage = 1;
+          filterCards();
+        });
+      });
+
+      dateYearFilters.forEach(select => {
+        select.addEventListener('change', () => {
+          currentPage = 1;
+          filterCards();
+        });
+      });
+
+      let searchTimeout;
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          clearTimeout(searchTimeout);
+          searchTimeout = setTimeout(() => {
+            currentPage = 1;
+            filterCards();
+          }, 300);
+        });
+      }
+
+      if (clearButton) {
+        clearButton.addEventListener('click', clearAllFilters);
+      }
+
+      restoreState();
+      filterCards();
+    }
+
+    tabPanels.forEach(panel => setupFilters(panel));
+
+    const storedTab = (() => {
+      try {
+        return sessionStorage.getItem('homeActiveTab');
+      } catch (e) {
+        return null;
+      }
+    })();
+    const defaultTab = storedTab && tabButtons.find(button => button.dataset.tabButton === storedTab)
+      ? storedTab
+      : tabButtons[0].dataset.tabButton;
+
+    activateTab(defaultTab);
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        activateTab(button.dataset.tabButton);
+        try {
+          sessionStorage.setItem('homeActiveTab', button.dataset.tabButton);
+        } catch (e) {
+          // Ignore storage errors
+        }
+      });
+    });
+  });
+</script>
