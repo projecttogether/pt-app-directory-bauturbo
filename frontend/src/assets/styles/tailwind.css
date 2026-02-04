@@ -3,6 +3,8 @@
 @import "./typo/typo-hdl-styles.css";
 @import "./typo/typo-text-styles.css";
 @import "./typo/typo-tag-styles.css";
+@import "./typo/typo-label-styles.css";
+@import "./typo/typo-btn-styles.css";
 @import "./typo/typo-link-styles.css";
 
 /* Font Face Declarations */
@@ -64,4 +66,6 @@
     --spacing-pad-page-x: 11.875rem;
     --spacing-pad-content-section-x: 3.75rem;
     --spacing-pad-content-section-y: 3.75rem;
+    --spacing-pad-directory-section-x: 1.875rem;
+    --spacing-section-tag-left: calc(11.875rem + 3.75rem);
 }

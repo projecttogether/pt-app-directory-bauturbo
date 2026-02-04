@@ -1,0 +1,27 @@
+/* Tag text styles */
+/* ------------------------------------------------ */
+
+/* xxs */
+/* ------------------ */
+
+.text-label-xxs {
+    @apply text-[14px] leading-[1] tracking-[0.025em];
+    @apply text-bauturbo-blau;
+    @apply uppercase;
+}
+
+/* xs */
+/* ------------------ */
+
+.text-label-xs {
+    @apply text-[18px] leading-[1] tracking-[0.01em];
+}
+
+/* Shared styles */
+/* ------------------ */
+
+[class*="text-label-"] {
+    @apply font-bold;
+    @apply text-bauturbo-blau;
+    @apply uppercase;
+}
