@@ -15,10 +15,10 @@
            {% if not is_first %} hidden {% endif %}">
     
     {# Inner grid wrapper #}
-    <div class="w-full grid grid-cols-12 gap-x-7.5">
+    <div class="w-full grid grid-cols-12 gap-x-pad-directory-section-x">
 
         {# Directory description + show-all link #}
-        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 hidden">
+        <div class="flex_ flex-col lg:flex-row lg:items-start lg:justify-between gap-4 hidden">
             <div class="max-w-3xl">
                 <h3 class="text-2xl font-bold text-primary">{{ dir.name }}</h3>
                 {% if dir.description %}
@@ -33,58 +33,32 @@
         {# Filter sidebar #}
         {% include "components/directories-tabs/directory-filter-sidebar.njk" %}
 
-        <div class="flex flex-col lg:flex-row gap-8">
+        {# Items grid #}
+        <div class="col-span-9 py-pad-directory-section-x pr-pad-directory-section-x
+                    flex flex-col lg:flex-row gap-pad-content-section-x">
 
-            <div class="flex-1">
-            <div class="flex items-center justify-between text-sm font-semibold text-theme mb-4">
-                {% set itemCount = dir.items | length %}
-                <span class="directories-label" data-results-count>
-                {{ itemCount }} {% if itemCount == 1 %}ERGEBNIS{% else %}ERGEBNISSE{% endif %}
-                </span>
-                <div class="directories-pagination" data-pagination></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" data-items-grid>
-                {% for item in dir.items %}
-                <article class="item-card group directories-card bg-theme p-6 transition-shadow hover:shadow-md"
-                        {% for filter in dir.filters %}
-                        {% set value = item[filter.field] %}
-                        {% if value %}
-                        data-{{ filter.field }}="{{ value | attrSafe }}"
-                        {% endif %}
-                        {% endfor %}
-                >
-                <a href="{{ dir.path }}/items/{{ item.Id }}/?from={{ page.url | default('/') }}" class="block">
-                    <h4 class="text-lg font-semibold directories-title group-hover:text-primary transition-colors">
-                    {{ item[dir.display.title_field] }}
-                    </h4>
-                    <div class="flex items-center gap-2 text-xs text-theme-soft mt-2">
-                    {% if dir.display.status_field and item[dir.display.status_field] %}
-                    <span class="inline-flex items-center px-2 py-0.5 directories-pill">
-                        {{ item[dir.display.status_field] }}
+            <div class="w-full">
+                <div class="flex items-center justify-between text-sm font-semibold text-theme mb-4">
+                    {% set itemCount = dir.items | length %}
+                    <span class="text-label-xs" data-results-count>
+                        {{ itemCount }} {% if itemCount == 1 %}ERGEBNIS{% else %}ERGEBNISSE{% endif %}
                     </span>
-                    {% endif %}
-                    {% if dir.display.start_date_field and item[dir.display.start_date_field] %}
-                    <span>
-                        {{ item[dir.display.start_date_field] | formatDate }}
-                    </span>
-                    {% endif %}
-                    </div>
-                    {% if dir.display.excerpt_field and item[dir.display.excerpt_field] %}
-                    <p class="mt-3 text-sm text-theme-muted leading-relaxed">
-                    {{ item[dir.display.excerpt_field] | truncateChars(200) }}
-                    </p>
-                    {% endif %}
-                    <span class="inline-flex items-center px-3 py-1.5 mt-4 text-sm font-semibold border directories-button">
-                    Mehr erfahren
-                    </span>
-                </a>
-                </article>
-                {% else %}
-                <div class="col-span-full text-center py-12 text-theme-muted">
-                Keine veroeffentlichten Eintraege gefunden.
+                    <div class="directories-pagination" data-pagination></div>
                 </div>
-                {% endfor %}
-            </div>
+
+                {# Grid wrapper #}
+                <div data-items-grid
+                     class="grid grid-cols-1_ md:grid-cols-2 xl: grid-cols-3 gap-6">
+
+                    {# Grid items #}
+                    {% for item in dir.items %}
+                            {% include "components/directories-tabs/directory-grid-item.njk" %}
+                        {% else %}
+                            <div class="col-span-full text-center py-12">
+                                Keine veroeffentlichten Eintraege gefunden.
+                            </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
 

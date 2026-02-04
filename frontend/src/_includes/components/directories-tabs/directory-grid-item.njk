@@ -1,0 +1,66 @@
+{# SETUP #}
+{#########}
+
+{% set url_entryPage = dir.path ~ "/items/{{ item.Id }}/?from={{ page.url | default('/') }}" %}
+{% set zielgruppe = item.zielgruppe.split(',')[0].trim() if item.zielgruppe else null %}
+
+{# DEBUG: Raw item data dump #}
+{#############################}
+
+{# <div class="debug-filters" style="position: fixed; top: 1rem; right: 1rem; background: #f0f0f0; padding: 1rem; margin: 1rem; border: 1px solid #ccc; font-family: monospace; white-space: pre-wrap; max-height: 300px; overflow-y: auto;">
+<strong>DEBUG: dir.filters structure:</strong>
+{{ item | dump }}
+</div> #}
+
+{# MARKUP #}
+{##########}
+<article class="group col-span-1 px-6 py-5.25 
+                border border-bauturbo-blau
+                transition-shadow hover:shadow-md"
+
+        {% for filter in dir.filters %}
+        {% set value = item[filter.field] %}
+        {% if value %}
+        data-{{ filter.field }}="{{ value | attrSafe }}"
+        {% endif %}
+        {% endfor %}>
+
+    <a href="{{ url_entryPage }}"
+       class="block">
+
+        {# Header #}
+        <header class="mb-5">
+            {% set size = "sm" %}
+            {% set lvl = 2 %}
+            {% set text_hdl = item[dir.display.title_field] %}
+            {% set class = "font-bold!" %}
+            {% include "components/headlines/headline.njk" %}
+
+            {# Tags #}
+            {% if zielgruppe %}
+                <div class="mt-5 flex items-center gap-2">
+                        {% set text_tag = zielgruppe %}
+                        {% include "components/tags/tag.njk" %}
+                </div>
+            {% endif %}
+        </header>
+
+        {# Body #}
+        <div class="mb-5">
+            {# Excerpt #}
+            {% if dir.display.excerpt_field and item[dir.display.excerpt_field] %}
+                {% set size = "xs" %}
+                {% set text = item[dir.display.excerpt_field] | truncateChars(200) %}
+                {% include "components/texts/text.njk" %}
+            {% endif %}
+        </div>
+
+        {# Footer #}
+        <footer class="flex justify-start gap-x-5">
+            {% set text = "Mehr erfahren" %}
+            {% include "components/btns/btn-cta.njk" %}
+        </footer>
+
+    </a>
+
+</article>
