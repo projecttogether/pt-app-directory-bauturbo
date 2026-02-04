@@ -13,8 +13,11 @@
     {% set sizeClasses = "text-sm" %}
 {% endif %}
 
-{# MARKUP #}
+{# Color config. #}
+{% set color = color or '#000'  %}
 
-<div class="{{ sizeClasses }} text-black">
+{# MARKUP #}
+<div class="{{ sizeClasses }} text-(--color)"
+     style="--color: {{ color }};">
     <p>{{ text or "Default text" }}</p>
 </div>
