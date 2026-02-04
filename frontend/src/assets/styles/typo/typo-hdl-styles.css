@@ -12,14 +12,14 @@
 /* ------------------ */
 
 .hdl-md {
-    @apply text-[34px] leading-[1.25] tracking-[0.015em] font-[700];
+    @apply text-[31px] leading-[1.25] tracking-[0.01em] font-[700];
 }
 
 /* lg */
 /* ------------------ */
 
 .hdl-lg {
-    @apply text-[78px] leading-[0.9] tracking-[0em] font-[700];
+    @apply text-[74px] leading-[0.9] tracking-[0em] font-[700];
 }
 
 /* xl */
