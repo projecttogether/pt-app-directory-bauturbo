@@ -3,11 +3,17 @@ layout: layouts/base.njk
 ---
 
 {# SETUP #}
+{#########}
 
+{# Data #}
 {% set pageData = pages[page_id] | default({}) %}
 {% set sections = pageData.sections | default([]) %}
 
+{# Directory paths #}
+{% set path_sectionComps = "components/sections/" %}
+
 {# MARKUP #}
+{##########}
 
 {% if not pageData or sections.length == 0 %}
 
@@ -19,28 +25,49 @@ layout: layouts/base.njk
 
     {% for section in sections %}
 
-        {% if section.type == "hero" %}        
-            {% include "components/sections/page-section-hero.njk" %}
+        {# DEBUG: Visible debug panel (remove in production) #}
+        {# <div style="background: #ffeb3b; border: 2px solid #ff9800; padding: 15px; margin: 10px 0; font-family: monospace; font-size: 12px;">
+            <strong>🐛 DEBUG Section {{ loop.index }}:</strong><br>
+            <strong>Type:</strong> {{ section.type }}<br>
+            <strong>All Properties:</strong><br>
+            <pre style="background: white; padding: 10px; margin: 5px 0; overflow-x: auto;">{{ section | dump | safe }}</pre>
+        </div> #}
+
+        {# Hero section #}
+        {% if section.type == "hero" %}
+            {% include path_sectionComps + "page-section-hero.njk" %}
             
+        {# Intro section #}
         {% elseif section.type == "intro" %}
+            {% include path_sectionComps + "page-section-intro.njk" %}
 
-            {% include "components/sections/page-section-intro.njk" %}
-
+        {# Text block section #}
         {% elseif section.type == "text_block" %}
+            {% set mb = "mb-0" %}
+            {% set without_innerBottomPadd = true %}
+            {% set with_border_b = false %}
+            {% include path_sectionComps + "page-section-text-block.njk" %}
 
-            {% include "components/sections/page-section-text-block.njk" %}
+            {# temporary work-around to render preview cards section in 3rd section #}
+            {% if loop.index === 3 %}
+                {% set mb = "mb-50" %}
+                {% set with_border_t = false %}
+                {% set with_border_b = true %}
+                {% set cards = previewCardsItems %}
+                {% include path_sectionComps + "page-section-preview-cards.njk" %}
+            {% endif %}
 
+        {# Directory tabs section #}
         {% elseif section.type == "directory_tabs" %}
+            {% include path_sectionComps + "page-section-directory-tabs.njk" %}
 
-            {% include "components/sections/page-section-directory-tabs.njk" %}
-
+        {# Call to action section #}
         {% elseif section.type == "call_to_action" %}
+            {% include path_sectionComps + "page-section-call-to-action.njk" %}
 
-            {% include "components/sections/page-section-call-to-action.njk" %}
-
+        {# About section #}
         {% elseif section.type == "about" %}
-
-            {% include "components/sections/page-section-about.njk" %}
+            {% include path_sectionComps + "page-section-about.njk" %}
 
         {% endif %}
 
