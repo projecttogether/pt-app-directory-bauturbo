@@ -21,6 +21,7 @@ A directory website for Umsetzungslabor Bau-Turbo, built with 11ty for static si
 **NocoDB Admin:** https://nocodb.projecttogether.org
 
 **Key Features:**
+
 - ✅ **Custom theming** - Colors, fonts, logos configured in YAML
 - ✅ **Component-driven pages** - Reusable Nunjucks components fed by NocoDB sections
 - ✅ **Per-directory filters** - Configurable filter fields
@@ -28,6 +29,9 @@ A directory website for Umsetzungslabor Bau-Turbo, built with 11ty for static si
 - ✅ **NocoDB CMS** - Content managed via NocoDB interface
 
 ## Architecture
+
+<details>
+<summary>View system architecture</summary>
 
 ```
 NocoDB (CMS)
@@ -41,7 +45,12 @@ Nginx (pt-web-1)
 Public Website
 ```
 
+</details>
+
 ## Quick Start
+
+<details>
+<summary>Development setup and commands</summary>
 
 ### Development
 
@@ -58,7 +67,12 @@ npm run dev      # http://localhost:8080/
 npm run build
 ```
 
+</details>
+
 ## Project Structure
+
+<details>
+<summary>Explore project file organization</summary>
 
 ```
 frontend/
@@ -82,7 +96,12 @@ frontend/
 └── _site/                    # Build output (gitignored)
 ```
 
+</details>
+
 ## Page Authoring (NocoDB-driven)
+
+<details>
+<summary>How to create and manage content</summary>
 
 - Pages are defined in NocoDB (one row per page) and rendered by `frontend/src/pages.njk`.
 - Sections are described via `section_*` fields and rendered through `frontend/src/_includes/components/sections/page-sections.njk`.
@@ -93,12 +112,22 @@ frontend/
 
 Older Markdown-based pages under `frontend/src/pages/` are no longer used in this branch and should be considered deprecated.
 
+</details>
+
 ## Configuration
+
+<details>
+<summary>Configuration options and settings</summary>
 
 - Main Configuration via `config.yml`
 - Environment Variables via `.env`
 
+</details>
+
 ## Deployment
+
+<details>
+<summary>Deployment procedures and server setup</summary>
 
 ### Local Build & Deploy
 
@@ -120,40 +149,100 @@ Site served from: `/var/www/directory`
 
 SSL: Managed by Certbot
 
+</details>
+
 ## Adding a New Directory
+
+<details>
+<summary>Steps to create a new directory section</summary>
 
 1. **Create table/view in NocoDB**
 2. **Edit `config.yml`:**
-   ```yaml
-   directories:
-     - id: new-directory
-       name: New Directory
-       path: /new
-       nocodb:
-         table_id: your_table_id
-         view_id: your_view_id
-       display:
-         title_field: Title
-         excerpt_field: Description
-       filters:
-         - field: Category
-           type: single
-   ```
+    ```yaml
+    directories:
+        - id: new-directory
+          name: New Directory
+          path: /new
+          nocodb:
+              table_id: your_table_id
+              view_id: your_view_id
+          display:
+              title_field: Title
+              excerpt_field: Description
+          filters:
+              - field: Category
+                type: single
+    ```
 3. **Rebuild:** `npm run build`
+
+</details>
 
 ## Troubleshooting
 
+<details>
+<summary>Common issues and solutions</summary>
+
 **Build failures:**
+
 - Check YAML syntax: `npx js-yaml config.yml`
 - Verify `.env` credentials
 - Clear cache: `rm -rf .cache _site`
 
 **Data not showing:**
+
 - Verify NocoDB token in `.env`
 - Check table/view IDs in `config.yml`
 - Clear cache and rebuild
 
 **Deployment issues:**
+
 - Check file permissions: `ls -la /var/www/directory`
 - Verify nginx config: `sudo nginx -t`
 - View rebuild logs (server): `tail -f /srv/projects/pt-app-directory_bauturbo/rebuild.log`
+
+</details>
+
+## Branch Naming Conventions
+
+<details>
+<summary>Git branch naming guidelines</summary>
+
+To maintain consistency and clarity in the development workflow, please follow these branch naming patterns:
+
+### New Features
+
+```bash
+feature/name-of-new-feature
+```
+
+Use this pattern when implementing a completely new feature or functionality.
+
+**Example:** `feature/search-functionality`
+
+### Feature Revisions
+
+```bash
+revision/name-of-existing-feature
+```
+
+Use this pattern when making significant changes or improvements to an existing feature.
+
+**Example:** `revision/directory-tabs`
+
+### Bug Fixes
+
+```bash
+fix/name-of-existing-feature
+```
+
+Use this pattern when fixing bugs or issues in existing functionality.
+
+**Example:** `fix/pagination-navigation`
+
+### Guidelines
+
+- Use lowercase letters with hyphens to separate words
+- Keep branch names descriptive but concise
+- Reference the feature/component being worked on, not the specific technical implementation
+
+</details>
