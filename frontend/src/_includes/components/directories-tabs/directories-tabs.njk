@@ -6,8 +6,7 @@
 {# MARKUP #}
 {##########}
 
-<section class="
-                border-t border-bauturbo-blau _border _border-red-500">
+<section class="border-t border-bauturbo-blau">
     
     {% if directoryList.length > 0 %}
 
@@ -31,12 +30,11 @@
         {% endfor %}
 
     {% else %}
-
         <div class="mt-8 border-1-5 directories-border bg-theme p-8 text-center text-theme-muted">
             Derzeit sind keine Verzeichnisse verfuegbar. Bitte pruefen Sie die NocoDB-Konfiguration.
         </div>
-
     {% endif %}
+
 </section>
 
 <script>
