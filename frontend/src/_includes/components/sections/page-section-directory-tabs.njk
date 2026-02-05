@@ -10,46 +10,50 @@
 {##########}
 
 <section id="{{ section_id }}" data-directory-tabs-root
-         class="relative w-full max-w-[1200px] mx-auto _px-pad-page-x {{ mb }}
+         class="relative w-full max-w-page-content mx-auto {{ mb }}
                 border-y border-bauturbo-blau">
 
+    {# Section tag #}
     {% if section.tag %}
         {% set text_tag = section.tag %}
         {% include "components/tags/tag-page-section.njk" %}
     {% endif %}
     
-    <div class="px-pad-content-section-x pt-pad-content-section-y
+    {# Section content #}
+    <div class="px-pad-content-section-x py-pad-content-section-y
                 grid grid-cols-12 gap-x-10
                 border-x border-bauturbo-blau">
 
-        <div class="col-span-9">
-            {% if section.headline %}
-                <div class="mb-10">
-                    {% set size = "lg" %}
-                    {% set lvl = 2 %}
-                    {% set text_hdl = section.headline %}
-                    {% include "components/headlines/headline.njk" %}
-                </div>
-            {% endif %}
+        {# Headline #}
+        {% if section.headline %}
+            {% set has_mb = section.subheadline or section.text %}
+            <div class="col-span-12 {% if has_mb %} mb-10 {% endif %}">
+                {% set size = "lg" %}
+                {% set lvl = 2 %}
+                {% set text_hdl = section.headline %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+        {% endif %}
 
-            {% if section.subheadline %}
-                <div>
-                    {% set size = "md" %}
-                    {% set lvl = 3 %}
-                    {% set text_hdl = section.subheadline %}
-                    {% include "components/headlines/headline.njk" %}
-                </div>
-            {% endif %}
+        {# Subheadline #}
+        {% if section.subheadline %}
+            {% set has_mb = section.text %}
+            <div class="col-span-8 {% if has_mb %} mb-10 {% endif %}">
+                {% set size = "md" %}
+                {% set lvl = 3 %}
+                {% set text_hdl = section.subheadline %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+        {% endif %}
 
-            {% if section.text %}
-                <div class="mt-10">
-                    {% set size = "sm" %}
-                    {% set text = section.text %}
-                    {% include "components/texts/text.njk" %}
-                </div>
-            {% endif %}
-
-        </div>
+        {# Text #}
+        {% if section.text %}
+            <div class="col-span-8">
+                {% set size = "sm" %}
+                {% set text = section.text %}
+                {% include "components/texts/text.njk" %}
+            </div>
+        {% endif %}
         
     </div>
 

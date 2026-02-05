@@ -1,10 +1,14 @@
-{# SETUP #}
-
 {# Hero section component - receives section data from parent #}
 
-{# MARKUP #}
+{# SETUP #}
+{#########}
 
-<div class="relative w-full pl-40 pr-50 mb-50
+{% set mb = mb or "mb-50" %}
+
+{# MARKUP #}
+{##########}
+
+<div class="relative w-full max-w-page-content mx-auto {{ mb }}
             border-y border-bauturbo-blau">
 
     {# Section tag #}
@@ -13,21 +17,27 @@
         {% include "components/tags/tag-page-section.njk" %}
     {% endif %}
 
-    <div class="pl-10 pt-7 pb-9 grid grid-cols-12 gap-x-10
+    {# Section content #}
+    <div class="px-pad-content-section-x py-pad-content-section-y 
+                grid grid-cols-12 gap-x-10
                 border-x border-bauturbo-blau">
 
         <div class="col-span-9">
             {# Headline #}
-            {% if section.headline %}
-                {% set size = "xl" %}
-                {% set lvl = 1 %}
-                {% set text_hdl = section.headline %}
-                {% include "components/headlines/headline.njk" %}
-            {% endif %}
+            {% set has_mb = section.text %}
+            <div class="{% if has_mb %} mb-10 {% endif %}">
+                {% if section.headline %}
+                    {% set size = "xl" %}
+                    {% set lvl = 1 %}
+                    {% set text_hdl = section.headline %}
+                    {% include "components/headlines/headline.njk" %}
+                {% endif %}
+            </div>
 
             {# Text #}
             {% if section.text %}
-                <div class="mt-10">
+                {% set has_mb = section.cta_label %}
+                <div class="{% if has_mb %} mb-10 {% endif %}">
                     {% set size = "sm-plus" %}
                     {% set text = section.text %}
                     {% include "components/texts/text.njk" %}
@@ -36,14 +46,14 @@
 
             {# Call-to-action #}
             {% if section.cta_label and section.cta_url %}
-                <div class="mt-10">
+                <footer>
                     <a  class="inline-flex items-center px-4 py-2 text-sm font-semibold border directories-button"
                         href="{{ section.cta_url }}"
                         target="_blank"
                         rel="noopener noreferrer">
                         {{ section.cta_label }}
                     </a>
-                </div>
+                </footer>
             {% endif %}
         </div>
 

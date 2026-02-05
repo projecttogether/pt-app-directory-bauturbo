@@ -12,25 +12,29 @@
 {# MARKUP #}
 {##########}
 
-<section class="relative w-full px-pad-page-x {{ mb }}
+<section class="relative w-full max-w-page-content mx-auto {{ mb }}
                 {% if with_border %}                         border-bauturbo-blau {% endif %}
                 {% if with_border_t and with_border_b %}     border-y {% endif %}
                 {% if with_border_t and not with_border_b %} border-t {% endif %}
                 {% if with_border_b and not with_border_t %} border-b {% endif %}">
 
+    {# Section tag #}
     {% if section.tag %}
         {% set text_tag = section.tag %}
         {% include "components/tags/tag-page-section.njk" %}
     {% endif %}
     
+    {# Section content #}
     <div class="px-pad-content-section-x py-pad-content-section-y
                 {% if without_innerBottomPadd %} pb-0! {% endif %}
                 grid grid-cols-12 gap-x-10
                 border-x border-bauturbo-blau">
 
-        <div class="col-span-9">
+        <div class="col-span-12">
+            {# Headline #}
             {% if section.headline %}
-                <div class="mb-6.75">
+                {% set has_mb = section.subheadline or section.text %}
+                <div class="{% if has_mb %} mb-6.75 {% endif %}">
                     {% set size = "lg" %}
                     {% set lvl = 2 %}
                     {% set text_hdl = section.headline %}
@@ -38,8 +42,10 @@
                 </div>
             {% endif %}
 
+            {# Subheadline #}    
             {% if section.subheadline %}
-                <div class="{% if section.text %} mb-6.75 {% endif %}">
+                {% set has_mb = section.text %}
+                <div class="{% if has_mb %} mb-6.75 {% endif %}">
                     {% set size = "md" %}
                     {% set lvl = 3 %}
                     {% set text_hdl = section.subheadline %}
@@ -47,6 +53,7 @@
                 </div>
             {% endif %}
         
+            {# Text #}
             {% if section.text %}
                 <div>
                     {% set size = "sm" %}

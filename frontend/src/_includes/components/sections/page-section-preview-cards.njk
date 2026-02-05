@@ -7,7 +7,7 @@
 {% set with_border = with_border_t or with_border_b %}
 
 {# MARKUP #}
-<section class="relative w-full px-pad-page-x {{ mb }}
+<section class="relative w-full max-w-page-content mx-auto {{ mb }}
                 {% if with_border %}                         border-bauturbo-blau {% endif %}
                 {% if with_border_t and with_border_b %}     border-y {% endif %}
                 {% if with_border_t and not with_border_b %} border-t {% endif %}

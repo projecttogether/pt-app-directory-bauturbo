@@ -1,49 +1,58 @@
-{# SETUP #}
-
 {# About section component - receives section data from parent #}
 
-{# MARKUP #}
+{# SETUP #}
+{#########}
 
-<section class="relative w-full pl-40 pr-50 mb-50
+{% set mb = mb or "mb-50" %}
+
+{# MARKUP #}
+{##########}
+
+<section class="relative w-full max-w-page-content mx-auto {{ mb }}
                 border-y border-bauturbo-blau">
 
+    {# Section tag #}
     {% if section.tag %}
-    {% set text_tag = section.tag %}
-    {% include "components/tags/tag-page-section.njk" %}
+        {% set text_tag = section.tag %}
+        {% include "components/tags/tag-page-section.njk" %}
     {% endif %}
-    
-    <div class="pl-10 pt-7 pb-9 grid grid-cols-12 gap-x-10
+
+    {# Section content #}
+    <div class="px-pad-content-section-x py-pad-content-section-y
+                grid grid-cols-12 gap-x-10
                 border-x border-bauturbo-blau">
 
-        <div class="col-span-9">
-            {% if section.headline %}
-            <div class="mb-10">
+        {# Headline #}
+        {% if section.headline %}
+            {% set has_mb = section.subheadline or section.text %}
+            <div class="col-span-12 {% if has_mb %} mb-10 {% endif %}">
                 {% set size = "lg" %}
                 {% set lvl = 2 %}
                 {% set text_hdl = section.headline %}
                 {% include "components/headlines/headline.njk" %}
             </div>
-            {% endif %}
+        {% endif %}
 
-            {% if section.subheadline %}
-            <div>
+        {# Subheadline #}
+        {% if section.subheadline %}
+            {% set has_mb = section.text %}
+            <div class="col-span-8 {% if has_mb %} mb-10 {% endif %}">
                 {% set size = "md" %}
                 {% set lvl = 3 %}
                 {% set class = "font-normal! text-black!" %}
                 {% set text_hdl = section.subheadline %}
                 {% include "components/headlines/headline.njk" %}
             </div>
-            {% endif %}
+        {% endif %}
 
-            {% if section.text %}
-            <div class="mt-10">
+        {# Text #}
+        {% if section.text %}
+            <div class="col-span-8">
                 {% set size = "sm" %}
                 {% set text = section.text %}
                 {% include "components/texts/text.njk" %} 
             </div>
-            {% endif %}
-
-        </div>
+        {% endif %}
         
     </div>
 
