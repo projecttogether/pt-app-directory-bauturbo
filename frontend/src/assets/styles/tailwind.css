@@ -67,7 +67,7 @@
     --spacing-pad-content-section-x: 3.75rem;
     --spacing-pad-content-section-y: 3.75rem;
     --spacing-pad-directory-section-x: 1.875rem;
-    --spacing-section-tag-left: calc(11.875rem + 3.75rem);
+    --spacing-section-tag-left: 3.75rem;
 
     /* Max. widths */
     --max-width-page-content: 1200px;
