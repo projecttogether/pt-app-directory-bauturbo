@@ -46,7 +46,7 @@
         {# Filter groups #}
         <div data-filter-container>
             {% for filter in dir.filters %}
-                {% if filter.options and filter.options.length > 0 %}
+                {% if filter.type == 'date_range' or (filter.options and filter.options.length > 0) %}
                     {% include "components/directories-tabs/directory-filter-group.njk" %}
                 {% endif %}
             {% endfor %}

@@ -80,13 +80,13 @@ directories:
           title_field: title
           excerpt_field: excerpt
           detail_fields:
-              - field: published_date
-                label: "Veröffentlichungsdatum"
-                type: month_year
-                section: meta
               - field: from
                 label: "Herausgeber"
                 type: text
+                section: meta
+              - field: published_date
+                label: "Veröffentlichungsdatum"
+                type: month_year
                 section: meta
               - field: formate-ergebnisse
                 label: "Formate & Ergebnisse"
@@ -112,8 +112,16 @@ directories:
                 label: "Datei"
                 type: file
                 section: files
+              - field: file-url
+                label: "Datei"
+                type: url
+                section: files
               - field: url-1
                 label: "Link"
+                type: url
+                section: links
+              - field: url-2
+                label: "Weiterer Link"
                 type: url
                 section: links
       filters:
@@ -142,17 +150,13 @@ directories:
           excerpt_field: excerpt
           status_field: status
           detail_fields:
-              - field: published_date
-                label: "Veröffentlichungsdatum"
-                type: month_year
-                section: meta
               - field: from
                 label: "Herausgeber"
                 type: text
                 section: meta
-              - field: status
-                label: "Status"
-                type: text
+              - field: published_date
+                label: "Veröffentlichungsdatum"
+                type: month_year
                 section: meta
               - field: zielgruppe
                 label: "Zielgruppe"
@@ -174,14 +178,19 @@ directories:
                 label: "Datei"
                 type: file
                 section: files
+              - field: file-url
+                label: "Datei"
+                type: url
+                section: files
               - field: url-1
                 label: "Link"
                 type: url
                 section: links
+              - field: url-2
+                label: "Weiterer Link"
+                type: url
+                section: links
       filters:
-          - field: status
-            label: Status
-            type: multi_select
           - field: zielgruppe
             label: Zielgruppe
             type: multi_select
@@ -203,13 +212,13 @@ directories:
           title_field: title
           excerpt_field: excerpt
           detail_fields:
-              - field: published_date
-                label: "Veröffentlichungsdatum"
-                type: month_year
-                section: meta
               - field: from
                 label: "Herausgeber"
                 type: text
+                section: meta
+              - field: published_date
+                label: "Veröffentlichungsdatum"
+                type: month_year
                 section: meta
               - field: themenschwerpunkte
                 label: "Themenschwerpunkte"
@@ -235,12 +244,20 @@ directories:
                 label: "Beschreibung"
                 type: markdown
                 section: body
-              - field: file
+              - field: file-1
                 label: "Datei"
                 type: file
                 section: files
-              - field: url
+              - field: file-url
+                label: "Datei"
+                type: url
+                section: files
+              - field: url-1
                 label: "Link"
+                type: url
+                section: links
+              - field: url-2
+                label: "Weiterer Link"
                 type: url
                 section: links
       filters:
@@ -260,9 +277,9 @@ directories:
             label: Verwaltungsebene
             type: multi_select
 
-    - id: umsetzungsprojekte
-      name: "Umsetzungsprojekte"
-      path: /umsetzungsprojekte
+    - id: anwendungsbeispiele
+      name: "Anwendungsbeispiele"
+      path: /anwendungsbeispiele
       description: "Wie wirkt der Bau-Turbo konkret vor Ort? Erste Städte und Gemeinden zeigen bereits, welche Verfahren sich in der Praxis bewähren und wie Lösungen für schnelles, ökologisches und sozial ausgewogenes Bauen entstehen. Dieser Bereich wächst mit neuen Beispielen aus der Umsetzung und lädt Kommunen ein, eigene Projekte einzubringen."
       nocodb:
           table_id: m7qvtyirlntl70e
@@ -272,17 +289,21 @@ directories:
           excerpt_field: excerpt
           status_field: status
           detail_fields:
-              - field: published_date
-                label: "Veröffentlichungsdatum"
-                type: month_year
+              - field: status
+                label: "Status"
+                type: text
                 section: meta
               - field: from
                 label: "Herausgeber"
                 type: text
                 section: meta
-              - field: status
-                label: "Status"
-                type: text
+              - field: published_date
+                label: "Veröffentlichungsdatum"
+                type: month_year
+                section: meta
+              - field: paragraf
+                label: "Paragraf"
+                type: multi_select
                 section: meta
               - field: kommunengroesse
                 label: "Kommunengröße"
@@ -296,16 +317,83 @@ directories:
                 label: "Datei"
                 type: file
                 section: files
+              - field: file-url
+                label: "Datei"
+                type: url
+                section: files
               - field: url-1
                 label: "Link"
+                type: url
+                section: links
+              - field: url-2
+                label: "Weiterer Link"
                 type: url
                 section: links
       filters:
           - field: status
             label: Status
             type: multi_select
+          - field: paragraf
+            label: "Paragraf"
+            type: multi_select
+            section: meta
           - field: kommunengroesse
             label: Kommunengröße
+            type: multi_select
+
+    - id: publikationen
+      name: "Publikationen"
+      path: /publikationen
+      description: "Welche Inhalte helfen, den Bau-Turbo besser einzuordnen und anzuwenden? Hier werden Dokumente, Studien und Fachbeiträge gesammelt, die den Bau-Turbo inhaltlich ergänzen und vertiefen – etwa zu Wohnungsbau und Wohnungsmarkt, Bestand und Innenentwicklung, Planung und Verfahren, Klimawandel, Baukultur sowie rechtlichen Fragestellungen. Die Sammlung wächst kontinuierlich und erweitert den Wissensrahmen für eine schnelle, ökologische und sozial gerechte Umsetzung."
+      nocodb:
+          table_id: mb28l9paom73egz
+          view_id: vwukhgreijdamava
+      display:
+          title_field: title
+          excerpt_field: excerpt
+          detail_fields:
+              - field: author
+                label: "Autor:in"
+                type: text
+                section: meta
+              - field: published_date
+                label: "Veröffentlichungsdatum"
+                type: month_year
+                section: meta
+              - field: thematische-schwerpunkte
+                label: "Thematische Schwerpunkte"
+                type: multi_select
+                section: meta
+              - field: zielgruppe
+                label: "Zielgruppe"
+                type: multi_select
+                section: meta
+              - field: description
+                label: "Beschreibung"
+                type: markdown
+                section: body
+              - field: file-1
+                label: "Datei"
+                type: file
+                section: files
+              - field: file-url
+                label: "Datei"
+                type: url
+                section: files
+              - field: url-1
+                label: "Link"
+                type: url
+                section: links
+              - field: url-2
+                label: "Weiterer Link"
+                type: url
+                section: links
+      filters:
+          - field: thematische-schwerpunkte
+            label: Thematische Schwerpunkte
+            type: multi_select
+          - field: zielgruppe
+            label: Zielgruppe
             type: multi_select
 
     - id: veranstaltungen
@@ -320,13 +408,21 @@ directories:
           excerpt_field: excerpt
           start_date_field: date
           detail_fields:
-              - field: date
-                label: "Datum"
-                type: date_time
-                section: meta
               - field: from
                 label: "Herausgeber"
                 type: text
+                section: meta
+              - field: start_date
+                label: "Startdatum"
+                type: date
+                section: meta
+              - field: start_time
+                label: "Start"
+                type: time
+                section: meta
+              - field: end_time
+                label: "Ende"
+                type: time
                 section: meta
               - field: veranstaltungstyp
                 label: "Veranstaltungstyp"
@@ -340,10 +436,6 @@ directories:
                 label: "Zielgruppe"
                 type: multi_select
                 section: meta
-              - field: kommunengroesse
-                label: "Kommunengröße"
-                type: multi_select
-                section: meta
               - field: description
                 label: "Beschreibung"
                 type: markdown
@@ -352,6 +444,10 @@ directories:
                 label: "Datei"
                 type: file
                 section: files
+              - field: file-url
+                label: "Weiterer Link"
+                type: url
+                section: links
               - field: url-1
                 label: "Link"
                 type: url
@@ -361,7 +457,7 @@ directories:
                 type: url
                 section: links
       filters:
-          - field: date
+          - field: start_date
             label: Zeitraum
             type: date_range
           - field: veranstaltungstyp
@@ -372,9 +468,6 @@ directories:
             type: multi_select
           - field: zielgruppe
             label: Zielgruppe
-            type: multi_select
-          - field: kommunengroesse
-            label: Kommunengröße
             type: multi_select
 
     - id: faq
@@ -388,13 +481,13 @@ directories:
           title_field: title
           excerpt_field: excerpt
           detail_fields:
-              - field: published_date
-                label: "Veröffentlichungsdatum"
-                type: month_year
-                section: meta
               - field: from
                 label: "Herausgeber"
                 type: text
+                section: meta
+              - field: published_date
+                label: "Veröffentlichungsdatum"
+                type: month_year
                 section: meta
               - field: staatliche-ebene
                 label: "Staatliche Ebene"
@@ -420,6 +513,10 @@ directories:
                 label: "Datei"
                 type: file
                 section: files
+              - field: file-url
+                label: "Datei"
+                type: url
+                section: files
               - field: url-1
                 label: "Link"
                 type: url
@@ -429,7 +526,7 @@ directories:
                 type: url
                 section: links
               - field: url-3
-                label: "Zusätzlicher Link"
+                label: "Weiterer Link"
                 type: url
                 section: links
       filters:
@@ -477,64 +574,21 @@ directories:
                 label: "Datei"
                 type: file
                 section: files
-              - field: url-1
-                label: "Link"
-                type: url
-                section: links
-      filters:
-          - field: format
-            label: Format
-            type: multi_select
-          - field: zielgruppe
-            label: Zielgruppe
-            type: multi_select
-
-    - id: ergaenzende-informationen
-      name: "Ergänzende Informationen"
-      path: /ergaenzende-informationen
-      description: "Welche Inhalte helfen, den Bau-Turbo besser einzuordnen und anzuwenden? Hier werden Dokumente, Studien und Fachbeiträge gesammelt, die den Bau-Turbo inhaltlich ergänzen und vertiefen – etwa zu Wohnungsbau und Wohnungsmarkt, Bestand und Innenentwicklung, Planung und Verfahren, Klimawandel, Baukultur sowie rechtlichen Fragestellungen. Die Sammlung wächst kontinuierlich und erweitert den Wissensrahmen für eine schnelle, ökologische und sozial gerechte Umsetzung."
-      nocodb:
-          table_id: mb28l9paom73egz
-          view_id: vwukhgreijdamava
-      display:
-          title_field: title
-          excerpt_field: excerpt
-          detail_fields:
-              - field: published_date
-                label: "Veröffentlichungsdatum"
-                type: month_year
-                section: meta
-              - field: author
-                label: "Autor:in"
-                type: text
-                section: meta
-              - field: thematische-schwerpunkte
-                label: "Thematische Schwerpunkte"
-                type: multi_select
-                section: meta
-              - field: zielgruppe
-                label: "Zielgruppe"
-                type: multi_select
-                section: meta
-              - field: description
-                label: "Beschreibung"
-                type: markdown
-                section: body
-              - field: file-1
+              - field: file-url
                 label: "Datei"
-                type: file
+                type: url
                 section: files
               - field: url-1
                 label: "Link"
                 type: url
                 section: links
               - field: url-2
-                label: "Weiterer Link"
+                label: "Link"
                 type: url
                 section: links
       filters:
-          - field: thematische-schwerpunkte
-            label: Thematische Schwerpunkte
+          - field: format
+            label: Format
             type: multi_select
           - field: zielgruppe
             label: Zielgruppe
