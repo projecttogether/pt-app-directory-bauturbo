@@ -12,7 +12,7 @@
 /* ------------------ */
 
 .hdl-md {
-    @apply text-[31px] leading-[1.25] tracking-[0.01em] font-[700];
+    @apply text-[31px] leading-[1.25] tracking-[0.01em] font-[400];
 }
 
 /* lg */
