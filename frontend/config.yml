@@ -137,6 +137,9 @@ directories:
           - field: verwaltungsebene
             label: Verwaltungsebene
             type: multi_select
+          - field: published_date
+            label: Veröffentlichungsdatum
+            type: date_range
 
     - id: grundsatzbeschluesse
       name: "Grundsatzbeschlüsse"
@@ -200,6 +203,9 @@ directories:
           - field: verwaltungsebene
             label: Verwaltungsebene
             type: multi_select
+          - field: published_date
+            label: Veröffentlichungsdatum
+            type: date_range
 
     - id: kommunale-praxis
       name: "Kommunale Praxis"
@@ -276,6 +282,9 @@ directories:
           - field: verwaltungsebene
             label: Verwaltungsebene
             type: multi_select
+          - field: published_date
+            label: Veröffentlichungsdatum
+            type: date_range
 
     - id: anwendungsbeispiele
       name: "Anwendungsbeispiele"
@@ -340,6 +349,9 @@ directories:
           - field: kommunengroesse
             label: Kommunengröße
             type: multi_select
+          - field: published_date
+            label: Veröffentlichungsdatum
+            type: date_range
 
     - id: publikationen
       name: "Publikationen"
@@ -395,6 +407,9 @@ directories:
           - field: zielgruppe
             label: Zielgruppe
             type: multi_select
+          - field: published_date
+            label: Veröffentlichungsdatum
+            type: date_range
 
     - id: veranstaltungen
       name: "Veranstaltungen"
@@ -542,6 +557,9 @@ directories:
           - field: verwaltungsebene
             label: Verwaltungsebene
             type: multi_select
+          - field: published_date
+            label: Veröffentlichungsdatum
+            type: date_range
 
     - id: auf-dem-laufenden-bleiben
       name: "Auf dem Laufenden bleiben"
