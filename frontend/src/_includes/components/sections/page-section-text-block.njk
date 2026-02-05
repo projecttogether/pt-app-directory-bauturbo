@@ -7,62 +7,73 @@
 {% if without_innerBottomPadd is not defined %}{% set without_innerBottomPadd = true %}{% endif %}
 {% if with_border_t is not defined %}{% set with_border_t = true %}{% endif %}
 {% if with_border_b is not defined %}{% set with_border_b = true %}{% endif %}
-{% set with_border = with_border_t or with_border_b %}
 
 {# MARKUP #}
 {##########}
 
-<section class="relative w-full max-w-page-content mx-auto {{ mb }}
-                {% if with_border %}                         border-bauturbo-blau {% endif %}
-                {% if with_border_t and with_border_b %}     border-y {% endif %}
-                {% if with_border_t and not with_border_b %} border-t {% endif %}
-                {% if with_border_b and not with_border_t %} border-b {% endif %}">
+<section class="relative {{ mb }}">
 
-    {# Section tag #}
-    {% if section.tag %}
-        {% set text_tag = section.tag %}
-        {% include "components/tags/tag-page-section.njk" %}
-    {% endif %}
-    
-    {# Section content #}
-    <div class="px-pad-content-section-x py-pad-content-section-y
-                {% if without_innerBottomPadd %} pb-0! {% endif %}
-                grid grid-cols-12 gap-x-10
-                border-x border-bauturbo-blau">
+    {# Inner wrapper for placement of top/bottom horizontal border #}
+    <div class="{% if with_border_t %}
+                    before:content-['_'] before:absolute before:top-0 before:w-full before:h-px before:bg-bauturbo-blau
+                {% endif %}
+                
+                {% if with_border_b %}
+                    after:content-['_'] after:absolute after:bottom-0 after:w-full after:h-px after:bg-bauturbo-blau
+                {% endif %}">
 
-        <div class="col-span-12">
-            {# Headline #}
-            {% if section.headline %}
-                {% set has_mb = section.subheadline or section.text %}
-                <div class="{% if has_mb %} mb-6.75 {% endif %}">
-                    {% set size = "lg" %}
-                    {% set lvl = 2 %}
-                    {% set text_hdl = section.headline %}
-                    {% include "components/headlines/headline.njk" %}
-                </div>
-            {% endif %}
+        {# Inner layout wrapper #}
+        <div class="relative max-w-page-content mx-auto">
 
-            {# Subheadline #}    
-            {% if section.subheadline %}
-                {% set has_mb = section.text %}
-                <div class="{% if has_mb %} mb-6.75 {% endif %}">
-                    {% set size = "md" %}
-                    {% set lvl = 3 %}
-                    {% set text_hdl = section.subheadline %}
-                    {% include "components/headlines/headline.njk" %}
-                </div>
+            {# Section tag #}
+            {% if section.tag %}
+                {% set text_tag = section.tag %}
+                {% include "components/tags/tag-page-section.njk" %}
             {% endif %}
-        
-            {# Text #}
-            {% if section.text %}
-                <div>
-                    {% set size = "sm" %}
-                    {% set text = section.text %}
-                    {% include "components/texts/text.njk" %}
+            
+            {# Section content #}
+            <div class="px-pad-content-section-x py-pad-content-section-y
+                        {% if without_innerBottomPadd %} pb-0! {% endif %}
+                        grid grid-cols-12 gap-x-10
+                        border-x border-bauturbo-blau">
+
+                <div class="col-span-12">
+                    {# Headline #}
+                    {% if section.headline %}
+                        {% set has_mb = section.subheadline or section.text %}
+                        <div class="{% if has_mb %} mb-6.75 {% endif %}">
+                            {% set size = "lg" %}
+                            {% set lvl = 2 %}
+                            {% set text_hdl = section.headline %}
+                            {% include "components/headlines/headline.njk" %}
+                        </div>
+                    {% endif %}
+
+                    {# Subheadline #}    
+                    {% if section.subheadline %}
+                        {% set has_mb = section.text %}
+                        <div class="{% if has_mb %} mb-6.75 {% endif %}">
+                            {% set size = "md" %}
+                            {% set lvl = 3 %}
+                            {% set text_hdl = section.subheadline %}
+                            {% include "components/headlines/headline.njk" %}
+                        </div>
+                    {% endif %}
+                
+                    {# Text #}
+                    {% if section.text %}
+                        <div>
+                            {% set size = "sm" %}
+                            {% set text = section.text %}
+                            {% include "components/texts/text.njk" %}
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
+                
+            </div>
+
         </div>
-        
+
     </div>
 
 </section>
