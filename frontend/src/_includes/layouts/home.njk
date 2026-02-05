@@ -25,14 +25,6 @@ layout: layouts/base.njk
 
     {% for section in sections %}
 
-        {# DEBUG: Visible debug panel (remove in production) #}
-        {# <div style="background: #ffeb3b; border: 2px solid #ff9800; padding: 15px; margin: 10px 0; font-family: monospace; font-size: 12px;">
-            <strong>🐛 DEBUG Section {{ loop.index }}:</strong><br>
-            <strong>Type:</strong> {{ section.type }}<br>
-            <strong>All Properties:</strong><br>
-            <pre style="background: white; padding: 10px; margin: 5px 0; overflow-x: auto;">{{ section | dump | safe }}</pre>
-        </div> #}
-
         {# Hero section #}
         {% if section.type == "hero" %}
             {% include path_sectionComps + "page-section-hero.njk" %}
