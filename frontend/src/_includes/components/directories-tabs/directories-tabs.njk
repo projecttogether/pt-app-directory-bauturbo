@@ -368,11 +368,20 @@
         }
       }
 
+      const panelAnchor = (() => {
+        const root = panel.closest('[data-directory-tabs-root]');
+        if (root && root.id) {
+          return `#${root.id}`;
+        }
+        return '';
+      })();
+
       const cardLinks = panel.querySelectorAll('.item-card a');
       cardLinks.forEach(link => {
         link.addEventListener('click', () => {
           saveState();
-          const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+          const hash = window.location.hash || panelAnchor;
+          const current = `${window.location.pathname}${window.location.search}${hash}`;
           try {
             const url = new URL(link.href, window.location.origin);
             url.searchParams.set('from', current);

@@ -4,11 +4,13 @@
 {#########}
 
 {% set mb = mb or "mb-50" %}
+{% set section_id = section.anchor | default("verzeichnisse") %}
 
 {# MARKUP #}
 {##########}
 
-<section class="relative w-full max-w-[1200px] mx-auto _px-pad-page-x {{ mb }}
+<section id="{{ section_id }}" data-directory-tabs-root
+         class="relative w-full max-w-[1200px] mx-auto _px-pad-page-x {{ mb }}
                 border-y border-bauturbo-blau">
 
     {% if section.tag %}
