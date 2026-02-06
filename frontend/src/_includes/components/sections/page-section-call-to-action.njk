@@ -50,8 +50,9 @@
 
                 {# Text #}
                 {% if section.text %}
-                    <div class="col-span-8">
+                    <div class="col-span-12">
                         {% set size = "sm" %}
+                        {% set colCount = 2 %}
                         {% set text = section.text %}
                         {% include "components/texts/text.njk" %} 
                     </div>

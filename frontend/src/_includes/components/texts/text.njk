@@ -15,11 +15,15 @@
     {% set sizeClasses = "text-sm" %}
 {% endif %}
 
+{# Columns config. #}
+{% set colCount = colCount or 1  %}
+
 {# Color config. #}
 {% set color = color or '#000'  %}
 
 {# MARKUP #}
-<div class="{{ sizeClasses }} text-(--color)"
-     style="--color: {{ color }};">
+<div class="{{ sizeClasses }} text-(--color) columns-(--col-count) gap-10"
+     style="--color: {{ color }};
+            --col-count: {{ colCount }};">
     <p>{{ text or "Default text" }}</p>
 </div>
