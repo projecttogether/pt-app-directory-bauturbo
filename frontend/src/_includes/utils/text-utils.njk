@@ -1,0 +1,16 @@
+{# Text utility macros #}
+
+{# Check if text exists and is not empty #}
+{% macro hasContent(text) %}
+{{- text and text | trim | length > 0 -}}
+{% endmacro %}
+
+{# Check if text exists and is not empty (alternative version) #}
+{% macro isNotEmpty(text) %}
+{{- text and text | trim != '' -}}
+{% endmacro %}
+
+{# Get text content or return default #}
+{% macro getContentOr(text, defaultText = '') %}
+{{- text | trim if (text and text | trim | length > 0) else defaultText -}}
+{% endmacro %}
