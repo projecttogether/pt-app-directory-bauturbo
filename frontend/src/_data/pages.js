@@ -39,7 +39,7 @@ module.exports = async function () {
         const nocodb = {
             base_url: process.env.NOCODB_BASE_URL,
             project_id: process.env.NOCODB_PROJECT_ID,
-            api_token: process.env.NOCODB_API_TOKEN
+            api_token: process.env.NOCODB_API_TOKEN,
         };
 
         if (!nocodb.base_url || !nocodb.project_id || !nocodb.api_token) {
@@ -55,8 +55,8 @@ module.exports = async function () {
         const baseUrl = `${nocodb.base_url}/api/v1/db/data/noco/${nocodb.project_id}/${pagesNocodb.table_id}/views/${pagesNocodb.view_id}`;
         const items = await fetchAllRows(baseUrl, {
             headers: {
-                "xc-token": nocodb.api_token
-            }
+                "xc-token": nocodb.api_token,
+            },
         });
         const fieldMap = pagesConfig.nocodb_fields || {};
         const pageIdField = fieldMap.page_id || "page_id";
@@ -75,22 +75,29 @@ module.exports = async function () {
                     `section_${i}_headline`,
                     `section_${i}_subheadline`,
                     `section_${i}_text`,
+                    `section_${i}_text_extended`,
                     `section_${i}_cta_label`,
                     `section_${i}_cta_url`,
-                    `section_${i}_image`
+                    `section_${i}_image`,
                 );
             }
-            warnMissingFields(keys, [pageIdField, titleField, permalinkField, publishField, ...sectionFields], "pages");
+            warnMissingFields(
+                keys,
+                [pageIdField, titleField, permalinkField, publishField, ...sectionFields],
+                "pages",
+            );
         }
 
         const publishedItems = items.filter((item) => isPublished(item[publishField]));
         if (items.length > 0 && publishedItems.length === 0) {
-            console.warn("All pages were filtered out by publish. Ensure the 'publish' field is in the NocoDB view and set to true.");
+            console.warn(
+                "All pages were filtered out by publish. Ensure the 'publish' field is in the NocoDB view and set to true.",
+            );
         }
 
         const pagesById = {};
 
-        publishedItems.forEach(item => {
+        publishedItems.forEach((item) => {
             const pageId = item[pageIdField];
             const title = item[titleField];
             const permalink = normalizePermalink(item[permalinkField]);
@@ -111,9 +118,10 @@ module.exports = async function () {
                     headline: item[`section_${i}_headline`],
                     subheadline: item[`section_${i}_subheadline`],
                     text: item[`section_${i}_text`],
+                    text_extended: item[`section_${i}_text_extended`],
                     cta_label: item[`section_${i}_cta_label`],
                     cta_url: item[`section_${i}_cta_url`],
-                    image: item[`section_${i}_image`]
+                    image: item[`section_${i}_image`],
                 });
             }
 
@@ -121,7 +129,7 @@ module.exports = async function () {
                 page_id: pageId,
                 title,
                 permalink,
-                sections
+                sections,
             };
         });
 
