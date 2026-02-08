@@ -216,31 +216,14 @@
         {# Site header #}
         {% include "components/site-header/site-header.njk" %}
 
-
         {# Main page content #}
         <main class="site-main">
             {{ content | safe }}
         </main>
 
         {# Site footer #}
-        <footer class="site-footer">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <div class="footer-grid">
-                    <div class="footer-text">
-                        {{ siteConfig.footer.text }}
-                    </div>
-                    {% if siteConfig.footer.menu %}
-                    <nav class="footer-links">
-                        {% for item in siteConfig.footer.menu %}
-                        <a href="{{ item.url }}" class="footer-link">
-                            {{ item.label }}
-                        </a>
-                        {% endfor %}
-                    </nav>
-                    {% endif %}
-                </div>
-            </div>
-        </footer>
+        {% include "components/site-footer/site-footer.njk" %}
+
     </div>
     
     <script src="/assets/scripts/toggle-extended-content.js"></script>
