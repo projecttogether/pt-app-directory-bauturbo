@@ -8,6 +8,7 @@ layout: layouts/base.njk
 {# Data #}
 {% set pageData = pages[page_id] | default({}) %}
 {% set sections = pageData.sections | default([]) %}
+{% set sectionsIds = siteConfig.section_ids_home | default([]) %}
 
 {# Directory paths #}
 {% set path_sectionComps = "components/sections/" %}
@@ -24,6 +25,8 @@ layout: layouts/base.njk
 {% else %}
 
     {% for section in sections %}
+        {# Set section id from config list based on loop index (if exists) #}
+        {% set section_id = sectionsIds[loop.index0] if sectionsIds[loop.index0] else "" %}
 
         {# Hero section #}
         {% if section.type == "hero" %}

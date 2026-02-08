@@ -16,7 +16,10 @@ module.exports = function () {
             theme: config.theme,
             branding: config.branding,
             header_menu: config.header_menu,
-            footer: config.footer
+            footer: config.footer,
+
+            // Temp. workaround to include hardcoded section IDs for home page
+            section_ids_home: config.section_ids_home,
         };
     } catch (e) {
         console.error("Error loading site config:", e);

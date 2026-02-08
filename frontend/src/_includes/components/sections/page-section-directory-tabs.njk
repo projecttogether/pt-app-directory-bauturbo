@@ -4,12 +4,13 @@
 {#########}
 
 {% set mb = mb or "mb-50" %}
-{% set section_id = section.anchor | default("verzeichnisse") %}
+{% set section_id = section.anchor or section_id or "praxiswissen" %}
 
 {# MARKUP #}
 {##########}
 
-<section id="{{ section_id }}" data-directory-tabs-root
+<section id="{{ section_id }}"
+         data-directory-tabs-root
          class="relative w-full">
 
     {# Inner wrapper for placement of top/bottom horizontal border #}

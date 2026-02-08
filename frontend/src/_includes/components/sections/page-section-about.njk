@@ -4,11 +4,13 @@
 {#########}
 
 {% set mb = mb or "mb-50" %}
+{% set section_id = section.anchor or section_id or "about" %}
 
 {# MARKUP #}
 {##########}
 
-<section class="relative w-full">
+<section id="{{ section_id }}"
+         class="relative w-full">
 
     {# Inner wrapper for placement of top/bottom horizontal border #}
     <div class="before:content-['_'] before:absolute before:top-0 before:w-full before:h-px before:bg-bauturbo-blau
