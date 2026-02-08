@@ -4,6 +4,8 @@
 {#########}
 
 {% set mb = mb or "mb-50" %}
+{% set section_id = section.anchor or section_id or "text-block" %}
+
 {% if without_innerBottomPadd is not defined %}{% set without_innerBottomPadd = true %}{% endif %}
 {% if with_border_t is not defined %}{% set with_border_t = true %}{% endif %}
 {% if with_border_b is not defined %}{% set with_border_b = true %}{% endif %}
@@ -11,7 +13,8 @@
 {# MARKUP #}
 {##########}
 
-<section class="relative {{ mb }}">
+<section id="{{ section_id }}"
+         class="relative {{ mb }}">
 
     {# Inner wrapper for placement of top/bottom horizontal border #}
     <div class="{% if with_border_t %}

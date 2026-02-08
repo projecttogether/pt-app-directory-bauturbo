@@ -67,6 +67,15 @@ pages:
         permalink: permalink
         publish: publish
 
+# Temp. workaround to include hardcoded section IDs for home page
+section_ids_home:
+    - "hero"
+    - "einstieg"
+    - "arbeitshilfen"
+    - "praxiswissen"
+    - "mitgestalten"
+    - "about"
+
 # Directory pages configuration
 directories:
     - id: umsetzungslabor

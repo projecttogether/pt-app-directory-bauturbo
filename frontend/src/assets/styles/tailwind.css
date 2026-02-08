@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./custom-sizes.css";
 @import "./custom-utils.css";
 @import "./typo/typo-hdl-styles.css";
 @import "./typo/typo-text-styles.css";
@@ -61,14 +62,4 @@
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
     --font-bundes-sans: "Bundes Sans Web", sans-serif;
-
-    /* Spacing/Sizing */
-    --spacing-pad-page-x: 11.875rem;
-    --spacing-pad-content-section-x: 3.75rem;
-    --spacing-pad-content-section-y: 3.75rem;
-    --spacing-pad-directory-section-x: 1.875rem;
-    --spacing-section-tag-left: 3.75rem;
-
-    /* Max. widths */
-    --max-width-page-content: 1200px;
 }

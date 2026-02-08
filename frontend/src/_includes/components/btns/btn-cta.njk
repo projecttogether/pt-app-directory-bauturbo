@@ -1,9 +1,10 @@
 {# SETUP #}
 {#########}
 
-{% set id = dirData.id %}
-{% set text = dirData.name %}
-{% set is_first = loop.first %}
+{% set tagName = "a" if url else "button" %}
+
+{# Size config. #}
+{% set size = size or "sm" %}
 
 {# Color config. #}
 {% set color_text = color_text or "var(--color-bauturbo-blau)" %}
@@ -15,26 +16,33 @@
 {# MARKUP #}
 {##########}
 
-<button 
-    id="tab-{{ id }}"
-    type="button"
-    role="tab"
-    data-tab-button="{{ id }}"
-    aria-controls="panel-{{ id }}"
-    aria-selected="{% if is_first %} true {% else %} false {% endif %}"
-    tabindex="{% if is_first %} 0 {% else %} -1 {% endif %}"
+<{{ tagName }}
+    {% if url %}href="{{ url }}"{% else %}type="button"{% endif %}
 
-    class="px-1.75 pt-px pb-1.75
+    class="{% if    size == 'sm' %} p-btn-cta-sm 
+           {% elif  size == 'md' %} p-btn-cta-md 
+           {% elif  size == 'lg' %} p-btn-cta-lg {% endif %}
+
+           {% if url %} inline-block {% endif %}
            text-btn-sm border
            text-(--color-text) bg-(--color-bg) border-(--color-border)
-           hover:bg-(--color-bg-active) hover:text-(--color-text-hover)"
+           hover:bg-(--color-bg-active) hover:text-(--color-text-hover)
+           {{ class or "" }}"
 
     style="--color-text: {{ color_text }};
            --color-text-hover: {{ color_text_hover }};
            --color-bg: {{ color_bg }};
            --color-bg-active: {{ color_bg_active }};
-           --color-border: {{ color_border }};">
+           --color-border: {{ color_border }};"
+
+    {% if dataAttrs %}
+        {% for key, value in dataAttrs %}
+            {% if value %}
+                data-{{ key }}="{{ value | attrSafe }}"
+            {% endif %}
+        {% endfor %}
+    {% endif %}>
 
     {{ text }}
 
-</button>
+</{{ tagName }}>

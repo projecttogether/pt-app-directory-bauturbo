@@ -1,14 +1,30 @@
 {# Intro section component - receives section data from parent #}
 
+{# IMPORTS #}
+{###########}
+
+{% from "utils/text-utils.njk" import hasContent %}
+
 {# SETUP #}
 {#########}
 
-{% set mb = mb or "mb-50" %}
+{% set mb = mb or "mb-75" %}
+{% set section_id = section.anchor or section_id or "einstieg" %}
+
+{% set has_text = hasContent(section.text) %}
+{% set length_text = section.text | trim | length if has_text else 0 %}
+
+{% set has_extendedContent = hasContent(section.text_extended) %}
+{% set length_extendedText = section.text_extended | trim | length if has_extendedContent else 0 %}
+
+{# Data for hardcoded content markup #}
+{% set text_extended_praxiswissen %}{% include "content/praxiswissen-intro.md" %}{% endset %}
 
 {# MARKUP #}
 {##########}
 
-<section class="relative w-full">
+<section id="{{ section_id }}"
+         class="relative w-full">
 
     {# Inner wrapper for placement of top/bottom horizontal border #}
     <div class="before:content-['_'] before:absolute before:top-0 before:w-full before:h-px before:bg-bauturbo-blau
@@ -54,9 +70,32 @@
                 {% if section.text %}
                     <div class="col-span-12">
                         {% set size = "sm" %}
-                        {% set colCount = 2 %}
+                        {% set colCount = 2 if length_text > 750 else 1 %}
                         {% set text = section.text %}
                         {% include "components/texts/text.njk" %}
+                    </div>
+                {% endif %}
+
+                {# Extended content #}
+                {% if has_extendedContent %}
+                    <div class="col-span-12 mt-10 grid grid-cols-12 gap-5">
+
+                        {# "Arbeitshilfen" ext. content #}
+                        {% set headline = "Arbeitshilfen für die Umsetzung" %}
+                        {% set content = section.text_extended %}
+                        {% set colCount = 2 if length_extendedText > 750 else 1 %}
+                        {% set ctaText = "Mehr erfahren" %}
+                        {% set ctaUrl = "#arbeitshilfen" %}
+                        {% include "components/extended-content-toggle/extended-content-toggle.njk" %}
+
+                        {# "Praxiswissen" ext. content #}
+                        {% set headline = "Praxiswissen zum Bau-Turbo" %}
+                        {% set content = text_extended_praxiswissen %}
+                        {% set colCount = 1 %}
+                        {% set ctaText = "Mehr erfahren" %}
+                        {% set ctaUrl = "#praxiswissen" %}
+                        {% include "components/extended-content-toggle/extended-content-toggle.njk" %}
+
                     </div>
                 {% endif %}
                 

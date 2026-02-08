@@ -4,11 +4,13 @@
 {#########}
 
 {% set mb = mb or "mb-50" %}
+{% set section_id = section.anchor or section_id or "hero" %}
 
 {# MARKUP #}
 {##########}
 
-<div class="relative w-full max-w-page-content mx-auto {{ mb }}
+<div id="{{ section_id }}"
+     class="relative w-full max-w-page-content mx-auto {{ mb }}
             border-y border-bauturbo-blau">
 
     {# Section tag #}

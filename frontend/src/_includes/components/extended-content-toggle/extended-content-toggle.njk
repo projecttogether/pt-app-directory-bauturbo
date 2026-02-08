@@ -1,0 +1,57 @@
+{# Extended Content Toggle Component #}
+{# Receives: headline, content, colCount (optional) #}
+
+{# SETUP #}
+{#########}
+
+{% set colCount = colCount or 1 %}
+{% set colSpan = 12 if colCount > 1 else 9 %}
+
+{# MARKUP #}
+{##########}
+
+<div data-comp="ExtendedContent"
+     class="col-span-9">
+     
+    {# Extended content toggle btn. #}
+    <div class="col-span-12 flex justify-start">
+        <button data-ref="btn-toggle-extended"
+                data-active="false"
+                class="group/btn flex justify-start items-center gap-x-4 
+                       text-left
+                       cursor-pointer focus:outline-none! focus:ring-0!"> 
+            {% set size = "sm" %}
+            {% set text_hdl = headline %}
+            {% set class = null %}
+            {% include "components/headlines/headline.njk" %}
+
+            <svg class="h-2.25 translate-y-1 overflow-visible fill-white stroke stroke-bauturbo-blau
+                        group-data-[active=true]/btn:rotate-180
+                        group-data-[active=true]/btn:fill-bauturbo-blau
+                        group-hover/btn:fill-bauturbo-blau" 
+                    viewBox="0 0 14 7" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14,0l-7,7L0,0h14Z"/>
+            </svg>
+        </button>
+    </div>
+
+    {# Hidden extended content wrapper #}
+    <div data-ref="extended-content"
+         data-hidden="true"
+         class="mt-5 col-span-(--col-span) flex flex-col items-start data-[hidden=true]:hidden"
+         style="--col-span: {{ colSpan }}">
+
+        {% set size = "sm" %}
+        {% set colCount = colCount %}
+        {% set text = content %}
+        {% include "components/texts/text.njk" %}
+
+        {% if ctaText and ctaUrl %}
+            {% set text = ctaText %}
+            {% set url = ctaUrl %}
+            {% set size = "md" %}
+            {% set class = "mt-7" %}
+            {% include "components/btns/btn-cta.njk" %}
+        {% endif %}
+    </div>
+</div>
