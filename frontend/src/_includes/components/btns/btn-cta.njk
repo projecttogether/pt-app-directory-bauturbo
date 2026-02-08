@@ -4,7 +4,7 @@
 {% set tagName = "a" if url else "button" %}
 
 {# Size config. #}
-{% set size = size or "sm" %}
+{% set size_btn = size_btn or "sm" %}
 
 {# Color config. #}
 {% set color_text = color_text or "var(--color-bauturbo-blau)" %}
@@ -19,9 +19,9 @@
 <{{ tagName }}
     {% if url %}href="{{ url }}"{% else %}type="button"{% endif %}
 
-    class="{% if    size == 'sm' %} p-btn-cta-sm 
-           {% elif  size == 'md' %} p-btn-cta-md 
-           {% elif  size == 'lg' %} p-btn-cta-lg {% endif %}
+    class="{% if    size_btn == 'sm' %} p-btn-cta-sm 
+           {% elif  size_btn == 'md' %} p-btn-cta-md 
+           {% elif  size_btn == 'lg' %} p-btn-cta-lg {% endif %}
 
            {% if url %} inline-block {% endif %}
            text-btn-sm border
