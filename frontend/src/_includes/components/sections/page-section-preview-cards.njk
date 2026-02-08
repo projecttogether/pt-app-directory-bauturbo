@@ -20,16 +20,21 @@
         {# Inner layout wrapper #}
         <div class="relative max-w-page-content mx-auto">
     
-            <div class="px-pad-content-section-x py-pad-content-section-y pb-[260px]
-                        grid grid-cols-12 gap-x-10 
+            <div class="px-5 sm:px-pad-content-section-x-tblt md:px-pad-content-section-x
+                        py-5 sm:py-pad-content-section-y-tblt md:py-pad-content-section-y
+                        pb-[260px]
+                        grid grid-cols-12 md:gap-x-10 
                         border-x border-bauturbo-blau">
                 
                 <div class="col-span-12">
                     {# Rendering 4 preview cards #}
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-10">
                         {% for i in range(4) %}
                             <div class="group/card
-                                        relative px-7.5 pt-6 pb-8 aspect-[5/2.25]
+                                        relative 
+                                        px-4 pt-2 pb-4
+                                        sm:px-7.5 sm:pt-6 sm:pb-8
+                                        lg:aspect-[5/2.25]
                                         flex flex-col justify-between items-start gap-y-28
                                         bg-white select-none">
                                 {# Card text content #}
@@ -38,7 +43,7 @@
                                 </div>
 
                                 {# Bottom-right info icon #}
-                                <div class="absolute bottom-6.75 right-6.75
+                                <div class="max-sm:hidden! absolute bottom-6.75 right-6.75
                                             size-7 flex-center
                                             text-xs text-bauturbo-blau
                                             border border-bauturbo-blau rounded-full">
@@ -55,7 +60,9 @@
 
                                 {# Hover overlay #}
                                 <div class="absolute top-0 left-0 pointer-events-none
-                                            size-full px-7.5 pt-6 pb-8
+                                            size-full
+                                            px-4 pt-2 pb-4
+                                            sm:px-7.5 sm:pt-6 sm:pb-8
                                             bg-white 
                                             opacity-0 transition-opacity duration-300
                                             group-hover/card:opacity-100">

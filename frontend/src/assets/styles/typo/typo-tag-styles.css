@@ -14,7 +14,10 @@
 /* ------------------ */
 
 .text-tag-sm {
-    @apply text-[20px] leading-[1.03] tracking-[0em];
+    @apply text-[19.35px] leading-[1.03] tracking-[0em];
+
+    /* Resp. sizes */
+    @apply max-sm:text-[calc(19.35px*0.85)] tracking-[0.01em];
 }
 
 /* Shared styles */

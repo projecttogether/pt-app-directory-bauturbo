@@ -13,6 +13,10 @@
 
 .hdl-md {
     @apply text-[31px] leading-[1.25] tracking-[0.005em] font-[400];
+
+    /* Resp. sizes */
+    @apply max-md:text-[calc(31px*0.95)];
+    @apply max-sm:text-[calc(31px*0.75)];
 }
 
 /* lg */
@@ -20,6 +24,10 @@
 
 .hdl-lg {
     @apply text-[74px] leading-[0.9] tracking-[-0.015em] font-[700];
+
+    /* Resp. sizes */
+    @apply max-md:text-[calc(74px*0.85)];
+    @apply max-sm:text-[calc(74px*0.6)];
 }
 
 /* xl */

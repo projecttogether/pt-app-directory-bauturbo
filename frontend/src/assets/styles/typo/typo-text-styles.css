@@ -13,10 +13,16 @@
 
 .text-sm {
     @apply text-[19.35px] leading-[1.42] tracking-[0.0225em];
+
+    /* Resp. sizes */
+    @apply max-sm:text-[calc(19.35px*0.85)];
 }
 
 .text-sm-plus {
     @apply text-[26px] leading-[1.33] tracking-[0.015em];
+
+    /* Resp. sizes */
+    @apply max-sm:text-[calc(26px*0.85)];
 }
 
 /* md */

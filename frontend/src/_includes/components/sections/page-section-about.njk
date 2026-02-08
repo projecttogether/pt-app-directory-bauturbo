@@ -30,8 +30,10 @@
             {% endif %}
 
             {# Section content #}
-            <div class="px-pad-content-section-x pt-pad-content-section-y pb-[calc(var(--pb-inner)+var(--mb))]
-                        grid grid-cols-12 gap-x-10
+            <div class="px-5 sm:px-pad-content-section-x-tblt md:px-pad-content-section-x
+                        pt-5 sm:pt-pad-content-section-y-tblt md:pt-pad-content-section-y
+                        pb-[calc(var(--pb-inner)+var(--mb))]
+                        grid grid-cols-12 md:gap-x-10
                         border-x border-bauturbo-blau">
 
                 {# Headline #}
@@ -48,7 +50,7 @@
                 {# Subheadline #}
                 {% if section.subheadline %}
                     {% set has_mb = section.text %}
-                    <div class="col-span-8 {% if has_mb %} mb-10 {% endif %}">
+                    <div class="col-span-12 lg:col-span-8 {% if has_mb %} mb-10 {% endif %}">
                         {% set size = "md" %}
                         {% set lvl = 3 %}
                         {% set class = "font-normal! text-black!" %}
@@ -59,7 +61,7 @@
 
                 {# Text #}
                 {% if section.text %}
-                    <div class="col-span-8">
+                    <div class="col-span-12 lg:col-span-8">
                         {% set size = "sm" %}
                         {% set text = section.text %}
                         {% include "components/texts/text.njk" %} 

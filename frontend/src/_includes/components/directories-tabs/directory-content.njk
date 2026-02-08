@@ -35,7 +35,11 @@
         {% include "components/directories-tabs/directory-filter-sidebar.njk" %}
 
         {# Items grid #}
-        <div class="col-span-9 py-pad-directory-section-x pr-pad-directory-section-x
+        <div class="col-span-12 md:col-span-9 
+                    px-5 sm:pr-pad-directory-section-x
+                    py-5 sm:py-pad-directory-section-x 
+                    max-sm:pl-5
+                    max-md:pl-pad-directory-section-x
                     flex flex-col lg:flex-row gap-pad-content-section-x">
 
             <div class="w-full">
@@ -49,7 +53,7 @@
 
                 {# Grid wrapper #}
                 <div data-items-grid
-                     class="grid grid-cols-1_ md:grid-cols-2 xl: grid-cols-3 gap-6">
+                     class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
                     {# Grid items #}
                     {% for item in dir.items %}

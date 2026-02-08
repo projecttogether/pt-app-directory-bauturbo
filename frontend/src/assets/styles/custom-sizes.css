@@ -1,15 +1,29 @@
 @theme {
     /* Spacing/Sizing */
+    /* ------------------ */
+
     --spacing-pad-page-x: 11.875rem;
+
+    /* Page content section spacing */
     --spacing-pad-content-section-x: 6.75rem;
+    --spacing-pad-content-section-x-tblt: calc(6.75rem * 0.666);
     --spacing-pad-content-section-y: 4.5rem;
-    --spacing-pad-directory-section-x: 1.875rem;
+    --spacing-pad-content-section-y-tblt: calc(4.5rem * 0.9);
+
     --spacing-section-tag-left: 6.75rem;
+    --spacing-section-tag-left-tblt: calc(6.75rem * 0.666);
+    --spacing-section-tag-left-mob: 1.5rem;
+
+    --spacing-pad-directory-section-x: 1.875rem;
 
     /* Max. widths */
+    /* ------------------ */
+
     --max-width-page-content: 1200px;
 
     /* Btn. sizes */
+    /* ------------------ */
+
     --spacing-btn-cta-sm: 1px 0.4375rem 0.4375rem 0.4375rem;
     --spacing-btn-cta-md: 0.4rem 1rem 0.8rem 1rem;
 }

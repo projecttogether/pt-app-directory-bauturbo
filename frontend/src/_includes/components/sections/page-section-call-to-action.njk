@@ -28,14 +28,16 @@
             {% endif %}
             
             {# Section content #}
-            <div class="px-pad-content-section-x pt-pad-content-section-y pb-[calc(var(--pb-inner)+var(--mb))]
-                        grid grid-cols-12 gap-x-10
+            <div class="px-5 sm:px-pad-content-section-x-tblt md:px-pad-content-section-x
+                        pt-5 sm:pt-pad-content-section-y-tblt md:pt-pad-content-section-y
+                        pb-[calc(var(--pb-inner)+var(--mb))]
+                        grid grid-cols-12 sm:gap-x-10
                         border-x border-bauturbo-blau">
 
                 {# Headline #}
                 {% if section.headline %}
                     {% set has_mb = section.subheadline or section.text %}
-                    <div class="col-span-12 {% if has_mb %} mb-10 {% endif %}">
+                    <div class="col-span-12 {% if has_mb %} mb-6 sm:mb-10 {% endif %}">
                         {% set size = "lg" %}
                         {% set lvl = 2 %}
                         {% set text_hdl = section.headline %}
@@ -46,7 +48,7 @@
                 {# Subheadline #}
                 {% if section.subheadline %}
                     {% set has_mb = section.text %}
-                    <div class="col-span-8 {% if has_mb %} mb-10 {% endif %}">
+                    <div class="col-span-12 lg:col-span-8 {% if has_mb %} mb-6 sm:mb-10 {% endif %}">
                         {% set size = "md" %}
                         {% set lvl = 3 %}
                         {% set text_hdl = section.subheadline %}
@@ -66,7 +68,7 @@
 
                 {# CTA btn. #}
                 {% if section.cta_label and section.cta_url %}
-                    <footer class="col-span-12 mt-10">
+                    <footer class="col-span-12 mt-6 sm:mt-10">
                         <a  class="inline-flex items-center px-4 py-2 text-sm font-semibold border directories-button"
                             href="{{ section.cta_url }}"
                             target="_blank"

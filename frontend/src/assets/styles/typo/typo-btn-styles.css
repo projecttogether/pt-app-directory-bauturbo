@@ -15,6 +15,9 @@
 .text-btn-sm {
     @apply text-[18px] leading-[1] tracking-[0.015em] font-[700];
     @apply normal-case;
+
+    /* Resp. sizes */
+    @apply max-sm:text-[calc(18px*0.9)] tracking-[0.02em];
 }
 
 /* Shared styles */

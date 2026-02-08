@@ -6,14 +6,16 @@
 
 {# MARKUP #}
 {##########}
-<article class="item-card group col-span-1 px-6 py-5.25 
+<article class="item-card group col-span-1 
+                px-3 py-3 pt-2
+                sm:px-6 sm:py-5.25
                 border border-bauturbo-blau
                 transition-shadow hover:shadow-md"
 
         {% for filter in dir.filters %}
         {% set value = item[filter.field] %}
         {% if value %}
-        data-{{ filter.field }}="{{ value | attrSafe }}"
+            data-{{ filter.field }}="{{ value | attrSafe }}"
         {% endif %}
         {% endfor %}>
 
