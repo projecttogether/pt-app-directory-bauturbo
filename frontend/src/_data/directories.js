@@ -83,7 +83,8 @@ module.exports = async function () {
                 });
 
                 // Filter items based on publish status
-                const publishedItems = allItems.filter((item) => isPublished(item[publishField]));
+                // const publishedItems = allItems.filter((item) => isPublished(item[publishField]));
+                const publishedItems = allItems; // temporary disabling publish filter as field is not being included
 
                 // Warn if all items were filtered out (likely configuration issue)
                 if (allItems.length > 0 && publishedItems.length === 0) {
