@@ -3,19 +3,23 @@
 {# SETUP #}
 {#########}
 
-{% set mb = mb or "mb-50" %}
 {% set section_id = section.anchor or section_id or "praxiswissen" %}
+
+{# Spacing/sizing #}
+{% set mb = mb or 17.5 %}
 
 {# MARKUP #}
 {##########}
 
 <section id="{{ section_id }}"
          data-directory-tabs-root
-         class="relative w-full">
+         class="relative w-full"
+         style="--mb: {{ mb }}rem;
+                --pb-inner: 2rem;">
 
     {# Inner wrapper for placement of top/bottom horizontal border #}
     <div class="before:content-['_'] before:absolute before:top-0 before:w-full before:h-px before:bg-bauturbo-blau
-                after:content-['_'] after:absolute after:bottom-50 after:w-full after:h-px after:bg-bauturbo-blau">
+                after:content-['_'] after:absolute after:bottom-(--mb) after:w-full after:h-px after:bg-bauturbo-blau">
 
         {# Inner layout wrapper #}
         <div class="relative max-w-page-content mx-auto">

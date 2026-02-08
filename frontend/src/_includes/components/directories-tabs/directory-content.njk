@@ -11,7 +11,7 @@
     data-tab-panel="{{ dir.id }}"
     role="tabpanel"
     aria-labelledby="tab-{{ dir.id }}"
-    class="pb-[200px] 
+    class="pb-[calc(var(--pb-inner)+var(--mb))]
            border-x border-bauturbo-blau
            {% if not is_first %} hidden {% endif %}">
     

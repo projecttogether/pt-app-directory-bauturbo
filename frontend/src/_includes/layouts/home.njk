@@ -35,18 +35,19 @@ layout: layouts/base.njk
             
         {# Intro section #}
         {% elseif section.type == "intro" %}
+            {% set mb = 17.5 %}
             {% include path_sectionComps + "page-section-intro.njk" %}
 
         {# Text block section #}
         {% elseif section.type == "text_block" %}
-            {% set mb = "mb-0" %}
+            {% set mb = 0 %}
             {% set without_innerBottomPadd = true %}
             {% set with_border_b = false %}
             {% include path_sectionComps + "page-section-text-block.njk" %}
 
             {# temporary work-around to render preview cards section in 3rd section #}
             {% if loop.index === 3 %}
-                {% set mb = "mb-50" %}
+                {% set mb = 17.5 %}
                 {% set with_border_t = false %}
                 {% set with_border_b = true %}
                 {% set cards = previewCardsItems %}
@@ -55,14 +56,17 @@ layout: layouts/base.njk
 
         {# Directory tabs section #}
         {% elseif section.type == "directory_tabs" %}
+            {% set mb = 17.5 %}
             {% include path_sectionComps + "page-section-directory-tabs.njk" %}
 
         {# Call to action section #}
         {% elseif section.type == "call_to_action" %}
+            {% set mb = 17.5 %}
             {% include path_sectionComps + "page-section-call-to-action.njk" %}
 
         {# About section #}
         {% elseif section.type == "about" %}
+            {% set mb = 25 %}
             {% include path_sectionComps + "page-section-about.njk" %}
 
         {% endif %}
