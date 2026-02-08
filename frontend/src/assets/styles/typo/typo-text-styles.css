@@ -5,14 +5,14 @@
 /* ------------------ */
 
 .text-xs {
-    @apply text-[18px] leading-[1.42] tracking-[0.0225em];
+    @apply text-[17.85px] leading-[1.42] tracking-[0.0225em];
 }
 
 /* sm */
 /* ------------------ */
 
 .text-sm {
-    @apply text-[20px] leading-[1.42] tracking-[0.0225em];
+    @apply text-[19.35px] leading-[1.42] tracking-[0.0225em];
 }
 
 .text-sm-plus {

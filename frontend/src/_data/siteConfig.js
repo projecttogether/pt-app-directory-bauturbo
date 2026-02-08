@@ -8,7 +8,7 @@ module.exports = function () {
         const configPath = path.join(__dirname, "../../config.yml");
         const fileContents = fs.readFileSync(configPath, "utf8");
         const config = yaml.load(fileContents);
-        
+
         // Return full config with all properties flattened for easier template access
         return {
             name: config.site.name,
@@ -25,7 +25,7 @@ module.exports = function () {
         console.error("Error loading site config:", e);
         return {
             name: "Directory",
-            error: e.message
+            error: e.message,
         };
     }
 };
