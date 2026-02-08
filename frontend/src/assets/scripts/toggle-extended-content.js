@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
     btns_toggleExtended.forEach((btn) => {
         btn.addEventListener("click", function () {
             // Find extended content wrapper
-            const wrpr_extendedContent = document.querySelector('[data-ref="extended-content"]');
+            const comp = btn.closest("[data-comp='ExtendedContent']");
+            const wrpr_extendedContent = comp.querySelector('[data-ref="extended-content"]');
             if (!wrpr_extendedContent) {
                 console.warn("Extended content div not found");
                 return;

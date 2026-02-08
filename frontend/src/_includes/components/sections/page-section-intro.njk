@@ -25,6 +25,9 @@
 {% set has_extendedContent = hasContent(section.text_extended) %}
 {% set length_extendedText = section.text_extended | trim | length if has_extendedContent else 0 %}
 
+{# Data for hardcoded content markup #}
+{% set text_extended_praxiswissen %}{% include "content/praxiswissen-intro.md" %}{% endset %}
+
 {# MARKUP #}
 {##########}
 
@@ -83,38 +86,23 @@
 
                 {# Extended content #}
                 {% if has_extendedContent %}
-                    <div class="col-span-12 mt-10 grid grid-cols-12">
+                    <div class="col-span-12 mt-10 grid grid-cols-12 gap-5">
 
-                        {# Extended content toggle btn. #}
-                        <button data-ref="btn-toggle-extended"
-                                data-active="false"
-                                class="group/btn col-span-12 pb-3 flex justify-start items-center gap-x-4 
-                                       cursor-pointer focus:outline-none! focus:ring-0!"> 
-                            {% set size = "sm" %}
-                            {% set text = "Arbeitshilfen für die Umsetzung" %}
-                            {% include "components/headlines/headline.njk" %}
+                        {# "Arbeitshilfen" ext. content #}
+                        {% set headline = "Arbeitshilfen für die Umsetzung" %}
+                        {% set content = section.text_extended %}
+                        {% set colCount = 2 if length_extendedText > 750 else 1 %}
+                        {% set ctaText = "Mehr erfahren" %}
+                        {% set ctaUrl = "#arbeitshilfen" %}
+                        {% include "components/extended-content-toggle/extended-content-toggle.njk" %}
 
-                            <svg class="h-2.25 translate-y-1 fill-bauturbo-blau
-                                        group-data-[active=true]/btn:rotate-180" viewBox="0 0 14 7" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14,0l-7,7L0,0"/>
-                            </svg>
-                        </button>
-                    
-                        {# Hidden extended content wrapper #}
-                        <div data-ref="extended-content"
-                             data-hidden="true"
-                             class="mt-5 col-span-(--col-span) flex flex-col items-start data-[hidden=true]:hidden"
-                             style="--col-span: {{ 12 if length_extendedText > 750 else 9 }}">
-
-                            {% set size = "sm" %}
-                            {% set colCount = 2 if length_extendedText > 750 else 1 %}
-                            {% set text = section.text_extended %}
-                            {% include "components/texts/text.njk" %}
-
-                            {% set text = "Mehr erfahren" %}
-                            {% set class = "mt-7" %}
-                            {% include "components/btns/btn-cta.njk" %}
-                        </div>
+                        {# "Praxiswissen" ext. content #}
+                        {% set headline = "Praxiswissen zum Bau-Turbo" %}
+                        {% set content = text_extended_praxiswissen %}
+                        {% set colCount = 1 %}
+                        {% set ctaText = "Mehr erfahren" %}
+                        {% set ctaUrl = "#praxiswissen" %}
+                        {% include "components/extended-content-toggle/extended-content-toggle.njk" %}
 
                     </div>
                 {% endif %}
