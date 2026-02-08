@@ -6,7 +6,9 @@
 {% if with_border_b is not defined %}{% set with_border_b = true %}{% endif %}
 
 {# MARKUP #}
-<section class="relative w-full">
+<section class="relative w-full"
+         style="--mb: {{ mb }}rem;
+                --pb-inner: 4.5rem;">
 
     {# Inner wrapper for placement of top/bottom horizontal border #}
     <div class="{% if with_border_t %}
@@ -14,7 +16,7 @@
                 {% endif %}
                 
                 {% if with_border_b %}
-                    after:content-['_'] after:absolute after:bottom-50 after:w-full after:h-px after:bg-bauturbo-blau
+                    after:content-['_'] after:absolute after:bottom-(--mb) after:w-full after:h-px after:bg-bauturbo-blau
                 {% endif %}">
 
         {# Inner layout wrapper #}
@@ -22,7 +24,7 @@
     
             <div class="px-5 sm:px-pad-content-section-x-tblt md:px-pad-content-section-x
                         py-5 sm:py-pad-content-section-y-tblt md:py-pad-content-section-y
-                        pb-[260px]
+                        pb-[calc(var(--pb-inner)+var(--mb))]!
                         grid grid-cols-12 md:gap-x-10 
                         border-x border-bauturbo-blau">
                 
