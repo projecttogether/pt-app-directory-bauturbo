@@ -1,0 +1,49 @@
+{# Footer with logos for homepage #}
+
+{# SETUP #}
+{#########}
+
+{# MARKUP #}
+{##########}
+
+<section class="relative">
+    
+    {# Inner wrapper for placement of top/bottom horizontal border #}
+    <div class="before:content-['_'] before:absolute before:top-0 before:w-full before:h-px before:bg-bauturbo-blau
+                after:content-['_'] after:absolute after:bottom-0 after:w-full after:h-px after:bg-bauturbo-blau">
+
+        {# Inner layout wrapper #}
+        <div class="relative max-w-page-content mx-auto">
+
+            {# Footer section tag #}
+            {% set text_tag = "Initiiert von" %}
+            {% set color_bg = "var(--color-bauturbo-blau)" %}
+            {% include "components/tags/tag-page-section.njk" %}
+
+            {# Footer logo grid #}
+            <div class="grid grid-cols-12
+                        border-x border-bauturbo-blau">
+
+                <div class="col-span-4 p-[14%] border-r border-bauturbo-blau">
+                    <a href="https://www.bmwsb.bund.de/" target="_blank" rel="noopener">
+                        <img src="/assets/logos/logo_bmwsb.png" alt="logo-bmwsb">
+                    </a>
+                </div>
+
+                <div class="col-span-4 p-[14%] border-r border-bauturbo-blau">
+                    <a href="https://www.difu.de/" target="_blank" rel="noopener">
+                        <img src="/assets/logos/logo_difu.png" alt="logo-difu">
+                    </a>
+                </div>
+
+                <div class="col-span-4 p-[14%]">
+                    <a href="https://projecttogether.org/" target="_blank" rel="noopener">
+                        <img src="/assets/logos/logo_pt.png" alt="logo-pt">
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
