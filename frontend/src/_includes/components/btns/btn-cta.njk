@@ -1,6 +1,11 @@
 {# SETUP #}
 {#########}
 
+{% set tagName = "a" if url else "button" %}
+
+{# Size config. #}
+{% set size = size or "sm" %}
+
 {# Color config. #}
 {% set color_text = color_text or "var(--color-bauturbo-blau)" %}
 {% set color_text_hover = color_text_hover or "#fff" %}
@@ -11,10 +16,14 @@
 {# MARKUP #}
 {##########}
 
-<button 
-    type="button"
+<{{ tagName }}
+    {% if url %}href="{{ url }}"{% else %}type="button"{% endif %}
 
-    class="px-1.75 pt-px pb-1.75
+    class="{% if    size == 'sm' %} p-btn-cta-sm 
+           {% elif  size == 'md' %} p-btn-cta-md 
+           {% elif  size == 'lg' %} p-btn-cta-lg {% endif %}
+
+           {% if url %} inline-block {% endif %}
            text-btn-sm border
            text-(--color-text) bg-(--color-bg) border-(--color-border)
            hover:bg-(--color-bg-active) hover:text-(--color-text-hover)
@@ -36,4 +45,4 @@
 
     {{ text }}
 
-</button>
+</{{ tagName }}>
