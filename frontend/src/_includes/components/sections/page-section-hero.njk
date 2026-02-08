@@ -3,15 +3,25 @@
 {# SETUP #}
 {#########}
 
-{% set mb = mb or "mb-50" %}
 {% set section_id = section.anchor or section_id or "hero" %}
+
+{# Spacing/sizing #}
+{% set mb = mb or 17.5 %}
 
 {# MARKUP #}
 {##########}
 
-<div id="{{ section_id }}"
-     class="relative w-full max-w-page-content mx-auto {{ mb }}
-            border-y border-bauturbo-blau">
+<section id="{{ section_id }}"
+         class="relative w-full"
+         style="--mb: {{ mb }}rem;
+                --pb-inner: 3.75rem;">
+
+    {# Inner wrapper for placement of top/bottom horizontal border #}
+    <div class="before:content-['_'] before:absolute before:top-0 before:w-full before:h-px before:bg-bauturbo-blau
+                after:content-['_'] after:absolute after:bottom-(--mb) after:w-full after:h-px after:bg-bauturbo-blau">
+
+        {# Inner layout wrapper #}
+        <div class="relative max-w-page-content mx-auto">
 
     {# Section tag #}
     {% if section.tag %}
@@ -20,11 +30,12 @@
     {% endif %}
 
     {# Section content #}
-    <div class="px-pad-content-section-x py-pad-content-section-y 
+    <div class="px-[3.5rem] pt-[1.75rem]
+                pb-[calc(var(--pb-inner)+var(--mb))]
                 grid grid-cols-12 gap-x-10
                 border-x border-bauturbo-blau">
 
-        <div class="col-span-9">
+        <div class="col-span-12">
             {# Headline #}
             {% set has_mb = section.text %}
             <div class="{% if has_mb %} mb-10 {% endif %}">
@@ -35,7 +46,9 @@
                     {% include "components/headlines/headline.njk" %}
                 {% endif %}
             </div>
+        </div>
 
+        <div class="col-span-9">
             {# Text #}
             {% if section.text %}
                 {% set has_mb = section.cta_label %}
@@ -60,5 +73,7 @@
         </div>
 
     </div>
+    </div>
+    </div>
 
-</div>
+</section>
