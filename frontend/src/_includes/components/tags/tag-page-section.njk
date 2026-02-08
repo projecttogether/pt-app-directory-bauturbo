@@ -1,12 +1,13 @@
 {# SETUP #}
 
-{# ... #}
+{% set color_bg = color_bg or "var(--color-bauturbo-rot)" %}
 
 {# MARKUP #}
 
 <div class="absolute top-0 left-section-tag-left -translate-y-[calc(100%-1px)]
             px-2.5 pt-0.75 pb-2.25
             text-tag-sm
-            bg-bauturbo-rot text-white">
+            bg-(--color-bg) text-white"
+     style="--color-bg: {{ color_bg }};">
     <span>{{ text_tag or "Default text" }}</span>
 </div>
