@@ -48,7 +48,7 @@ header_menu:
 
 # Footer configuration
 footer:
-    text: "© Umsetzungslabor Bauturbo"
+    text: "© Bauwende Allianz und Bundesministerium für Wohnen, Stadtentwicklung und Bauwesen, 2026"
     menu:
         - label: "Impressum"
           url: "https://bauwende-allianz.org/impressum"
