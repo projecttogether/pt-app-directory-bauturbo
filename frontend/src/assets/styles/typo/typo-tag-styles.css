@@ -20,7 +20,6 @@
 /* Shared styles */
 /* ------------------ */
 
-/* .text-sm,*/
-/* [class*="text-"] {
-    @apply font-[Gravity_Condensed] font-[400];
-} */
+[class*="text-tag"] {
+    @apply font-[600];
+}
