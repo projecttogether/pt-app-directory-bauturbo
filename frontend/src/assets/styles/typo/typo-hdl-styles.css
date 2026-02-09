@@ -35,6 +35,12 @@
 
 .hdl-xl {
     @apply text-[107px] leading-[1] tracking-[-0.025em] font-[700];
+
+    /* Resp. sizes */
+    @apply max-xl:text-[calc(107px*0.9)];
+    @apply max-lg:text-[calc(107px*0.8)];
+    @apply max-md:text-[calc(107px*0.7)];
+    @apply max-sm:text-[calc(107px*0.45)];
 }
 
 /* Shared styles */

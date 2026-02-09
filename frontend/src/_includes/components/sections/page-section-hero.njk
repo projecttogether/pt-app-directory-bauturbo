@@ -30,9 +30,11 @@
     {% endif %}
 
     {# Section content #}
-    <div class="px-[3.5rem] pt-[1.75rem]
+    <div class="px-5 pt-5
+                sm:px-[2.5rem] sm:pt-[1.5rem]
+                md:px-[3.5rem] md:pt-[1.75rem]
                 pb-[calc(var(--pb-inner)+var(--mb))]
-                grid grid-cols-12 gap-x-10
+                grid grid-cols-12 md:gap-x-10
                 border-x border-bauturbo-blau">
 
         <div class="col-span-12">
@@ -48,7 +50,7 @@
             </div>
         </div>
 
-        <div class="col-span-9">
+        <div class="col-span-12 md:col-span-9">
             {# Text #}
             {% if section.text %}
                 {% set has_mb = section.cta_label %}
