@@ -1,0 +1,60 @@
+<div id="site-nav"
+     data-hidden-mobile="true"
+     class="fixed top-0 left-0 
+            z-50
+            w-full md:pl-[calc((100vw-1150px)/2)] md:pr-(--pr)
+            max-md:transition-transform max-md:duration-300
+            max-md:z-52
+            max-md:data-[hidden-mobile=true]:translate-y-[-100%]"
+     style="--pr: auto;">
+
+    {# Inner layout wrpr. #}
+    <div class="w-auto px-6 pb-4 pt-4 max-sm:pt-16
+                grid grid-cols-12 gap-4
+                border-x border-b border-bauturbo-blau bg-white
+                transition-[padding] duration-300
+                group-data-[near-top=true]/body:pt-20">
+
+        {# Menu #}
+        <nav class="col-span-12">
+            <div class="w-full flex justify-start flex-wrap gap-4">
+                {% if siteConfig.header_menu %}
+                    {% for item in siteConfig.header_menu %}
+                        {% if item.is_btn %}
+                            {% set text = item.label %}
+                            {% set url = item.url %}
+                            {% set color_text = "#fff" %}
+                            {% set color_bg = "var(--color-bauturbo-rot)" %}
+                            {% set color_border = "transparent" %}
+                            {% include "components/btns/btn-cta.njk" %}
+                        {% else %}
+                            <a  data-ref="nav-link"
+                                href="{{ item.url }}"
+                                {% if item.external %} target="_blank" rel="noopener noreferrer" {% endif %}
+                                class="text-link-sm text-bauturbo-blau">
+                                {{ item.label }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </nav>
+
+    </div>
+
+</div>
+
+{# Mobile menu btn. #}
+<button id="mobile-menu-btn"
+        data-active="false"
+        class="fixed top-0 left-0 z-52 
+               px-6 pb-4 pt-2
+               text-btn-sm text-bauturbo-blau
+               bg-white border border-bauturbo-blau
+               focus:outline-none! focus:ring-0!
+               
+               after:content-['Menü']
+               data-[active=true]:after:content-['schließen']
+               
+               md:hidden">
+</button>

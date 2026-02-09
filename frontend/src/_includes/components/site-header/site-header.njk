@@ -1,55 +1,26 @@
-{# SETUP #}
-
-{# MARKUP #}
-
-{# Site nav #}
-<div class="sticky top-0 left-0 z-50
-            w-screen pl-40 pr-50 ">
+<header class="w-screen pl-[calc((100vw-1150px)/2)]">
 
     {# Inner layout wrpr. #}
-    <div class="size-full pl-10 pb-4 pt-2 grid grid-cols-12 gap-x-10
-                border-x border-b border-bauturbo-blau
-                bg-white">
-
-        {# Menu #}
-        <nav class="col-span-10">
-            <div class="w-full flex justify-between flex-wrap">
-                {% if siteConfig.header_menu %}
-                    {% for item in siteConfig.header_menu %}
-                        <a  href="{{ item.url }}"
-                            {% if item.external %} target="_blank" rel="noopener noreferrer" {% endif %}
-                            class="text-link-sm text-bauturbo-blau">
-                            {{ item.label }}
-                        </a>
-                    {% endfor %}
-                {% endif %}
-            </div>
-        </nav>
-
-    </div>
-
-</div>
-
-<header class="w-screen pl-40">
-
-    {# Inner layout wrpr. #}
-    <div class="w-full flex justify-between items-stretch">
-
-        <div class="h-full border-l border-bauturbo-blau">
-        </div>
+    <div class="w-full flex justify-end items-stretch
+                border-l border-bauturbo-blau">
 
         {# Logo #}
-        <div class="p-10 border-l border-bauturbo-blau">
+        <div id="site-logo"
+             class="relative z-51
+                    pl-6.5 pr-6 pt-5 pb-6
+                    sm:pl-9 sm:pr-8 sm:pt-7 sm:pb-8
+                    md:pl-13 md:pr-11 md:pt-10 md:pb-13
+                    border-l border-bauturbo-blau bg-white">
             <a href="/" class="inline-flex items-center">
                 {% if siteConfig.branding.logo %}
                     <img src="{{ siteConfig.branding.logo }}" 
                          alt="{{ siteConfig.name }}"
-                         class="w-[337px]">
+                         class="w-[150px] sm:w-[225px] md:w-[275px] xl:w-[320px]">
                 {% endif %}
             </a>
         </div>
-
     </div>
+
 
 </header>
 

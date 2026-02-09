@@ -24,27 +24,23 @@ branding:
 
 # Header navigation
 header_menu:
-    - label: "Einstieg"
-      url: "#"
-      external: false
     - label: "Arbeitshilfen"
-      url: "#"
+      url: "#arbeitshilfen"
       external: false
-    - label: "Verzeichnis"
-      url: "#"
+    - label: "Praxiswissen"
+      url: "#praxiswissen"
       external: false
     - label: "Über das Projekt"
-      url: "/ueber/"
+      url: "#about"
       external: false
-    - label: "FAQ Bau-Turbo"
-      url: "https://www.bmwsb.bund.de/DE/bauen/baurecht/bau-turbo/bau-turbo.html"
-      external: true
+    - label: "Wissen einbringen"
+      url: "#mitmachen"
+      external: false
+      is_btn: true
     - label: "Kontakt"
       url: "/kontakt/"
       external: false
-    - label: "Leichte Sprache"
-      url: "/leichte-sprache/"
-      external: false
+      is_btn: true
 
 # Footer configuration
 footer:
