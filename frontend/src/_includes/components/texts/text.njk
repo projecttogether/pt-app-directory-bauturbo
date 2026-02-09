@@ -22,7 +22,8 @@
 {% set color = color or '#000'  %}
 
 {# MARKUP #}
-<div class="{{ sizeClasses }} text-(--color) lg:columns-(--col-count) gap-10"
+<div class="{{ sizeClasses }} text-(--color) lg:columns-(--col-count) gap-10
+            {{ class or "" }}"
      style="--color: {{ color }};
             --col-count: {{ colCount }};">
     <p>{{ text or "Default text" }}</p>
