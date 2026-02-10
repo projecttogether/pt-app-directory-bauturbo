@@ -1,4 +1,5 @@
 {# SETUP #}
+{#########}
 
 {# Size config./classes #}
 {% if size == 'xs' %}
@@ -21,10 +22,20 @@
 {# Color config. #}
 {% set color = color or '#000'  %}
 
+{# Render config. #}
+{% set is_markdown = is_markdown or false  %}
+
 {# MARKUP #}
+{##########}
+
 <div class="{{ sizeClasses }} text-(--color) lg:columns-(--col-count) gap-10
             {{ class or "" }}"
      style="--color: {{ color }};
             --col-count: {{ colCount }};">
-    <p>{{ text or "Default text" }}</p>
+
+    {% if is_markdown %}
+        {{ text | markdown | safe }}
+    {% else %}
+         <p>{{ text }}</p>
+    {% endif %}
 </div>
