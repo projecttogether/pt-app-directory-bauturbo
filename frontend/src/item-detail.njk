@@ -122,24 +122,28 @@ eleventyComputed:
                         {% include "components/headlines/headline.njk" %}
                         
                         {# Files #}
-                        <div class="space-y-3">
+                        <div>
                             {% for field in detailFields %}
                                 {% if field.section == 'files' %}
-                                    
                                     {% set value = item[field.field] %}
                                     {% if value and value != '' and value != 'null' and value != 'undefined' %}
-                                        <div class="text-sm">
-                                            <span class="">{{ field.label }}:</span>
-                                            <span class="ml-2">
-                                            {% if field.type == 'file' %}
+                                        <div>
+                                            <span>
+                                                {% if field.type == 'file' %}
                                                     {% set fileUrl = value | attachmentUrl %}
                                                     {% if fileUrl %}
-                                                        <a class="text-primary hover:underline" href="{{ fileUrl }}" target="_blank" rel="noopener noreferrer">{{ fileUrl }}</a>
+                                                        {% set text = 'Datei herunterladen' %}
+                                                        {% set url = fileUrl %}
+                                                        {% set is_external = true %}
+                                                        {% include "components/btns/btn-cta.njk" %}
                                                     {% else %}
-                                                    {{ value }}
+                                                        {{ value }}
                                                     {% endif %}
                                                 {% else %}
-                                                    {{ value }}
+                                                    {% set text = 'Datei herunterladen' %}
+                                                    {% set url = value %}
+                                                    {% set is_external = true %}
+                                                    {% include "components/btns/btn-cta.njk" %}
                                                 {% endif %}
                                             </span>
                                         </div>
@@ -160,7 +164,10 @@ eleventyComputed:
                                             {% if field.type == 'url' %}
                                                     {% set linkUrl = value | attachmentUrl %}
                                                     {% if linkUrl %}
-                                                        <a class="" href="{{ linkUrl }}" target="_blank" rel="noopener noreferrer">{{ linkUrl }}</a>
+                                                        {% set text = field.label %}
+                                                        {% set url = linkUrl %}
+                                                        {% set is_external = true %}
+                                                        {% include "components/btns/btn-cta.njk" %}
                                                     {% else %}
                                                         {{ value }}
                                                     {% endif %}
