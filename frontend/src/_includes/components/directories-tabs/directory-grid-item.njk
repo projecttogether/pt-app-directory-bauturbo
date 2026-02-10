@@ -6,6 +6,7 @@
 
 {# MARKUP #}
 {##########}
+
 <article class="item-card group col-span-1 
                 px-3 py-3 pt-2
                 sm:px-6 sm:py-5.25
@@ -31,12 +32,37 @@
             {% include "components/headlines/headline.njk" %}
 
             {# Tags #}
-            {% if zielgruppe %}
-                <div class="mt-5 flex items-center gap-2">
-                        {% set text_tag = zielgruppe %}
-                        {% include "components/tags/tag.njk" %}
-                </div>
-            {% endif %}
+            <div class="mt-5 flex items-center gap-1 flex-wrap">
+                {# Main tag #}
+                {% if dir.name === 'Umsetzungslabor' %}
+                    {% set text_tag = item['formate-ergebnisse'] %}
+                {% elif dir.name === 'Grundsatzbeschlüsse' %}
+                    {% set text_tag = item['from'] %}
+                {% elif dir.name === 'Kommunale Praxis' %}
+                    {% set text_tag = item['themenschwerpunkte'] %}
+                {% elif dir.name === 'Anwendungsbeispiele' %}
+                    {% set text_tag = item['status'] %}
+                {% elif dir.name === 'Publikationen' %}
+                    {% set text_tag = item['thematische-schwerpunkte'] %}
+                {% elif dir.name === 'Veranstaltungen' %}
+                    {% set text_tag = item['start_date'] | formatDate(true) %}
+                {% elif dir.name === 'FAQ' %}
+                    {% set text_tag = item['staatliche-ebene']%}
+                {% elif dir.name === 'Auf dem Laufenden bleiben' %}
+                    {% set text_tag = item['format']%}
+                {% endif %}
+                {% include "components/tags/tag.njk" %}
+                
+                {# Secondary tag #}
+                {% if dir.name === 'Kommunale Praxis' %}
+                    {% set text_tag = item['dokumentart'] %}
+                    {% include "components/tags/tag.njk" %}
+                {% endif %}
+                {% if dir.name === 'Veranstaltungen' %}
+                    {% set text_tag = item['teilnahme'] %}
+                    {% include "components/tags/tag.njk" %}
+                {% endif %}
+            </div>
         </header>
 
         {# Body #}
@@ -44,6 +70,7 @@
             {# Excerpt #}
             {% if dir.display.excerpt_field and item[dir.display.excerpt_field] %}
                 {% set size = "xs" %}
+                {% set class = null %}
                 {% set text = item[dir.display.excerpt_field] | truncateChars(200) %}
                 {% include "components/texts/text.njk" %}
             {% endif %}
