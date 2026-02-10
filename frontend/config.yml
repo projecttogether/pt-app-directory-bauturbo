@@ -156,7 +156,6 @@ directories:
       display:
           title_field: title
           excerpt_field: excerpt
-          status_field: status
           detail_fields:
               - field: from
                 label: "Herausgeber"
@@ -426,7 +425,7 @@ directories:
       display:
           title_field: title
           excerpt_field: excerpt
-          start_date_field: date
+          start_date_field: start_date
           detail_fields:
               - field: from
                 label: "Herausgeber"
