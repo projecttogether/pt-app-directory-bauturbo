@@ -26,6 +26,7 @@
                             {% set color_text = "#fff" %}
                             {% set color_bg = "var(--color-bauturbo-rot)" %}
                             {% set color_border = "transparent" %}
+                            {% set is_external = item.external %}
                             {% include "components/btns/btn-cta.njk" %}
                         {% else %}
                             <a  data-ref="nav-link"

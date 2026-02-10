@@ -38,7 +38,7 @@ header_menu:
       external: true
       is_btn: true
     - label: "Kontakt"
-      url: "/kontakt/"
+      url: "#mitgestalten"
       external: false
       is_btn: true
 
