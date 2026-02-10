@@ -1,0 +1,26 @@
+{# SETUP #}
+{#########}
+
+{# ... #}
+
+{# MARKUP #}
+{##########}
+
+<header class="col-span-12 mb-8">
+
+    {# Headline #}
+    {% set headingLevel = 1 %}
+    {% set size = "xl" %}
+    {% set text_hdl = item[dir.display.title_field] %}
+    {% set class = null %}
+    {% include "components/headlines/headline.njk" %}
+    
+    {# Excerpt #}
+    {% if item[dir.display.excerpt_field] %}
+        {% set size = "sm-plus" %}
+        {% set text = item[dir.display.excerpt_field] %}
+        {% set class = "mt-8" %}
+        {% include "components/texts/text.njk" %}
+    {% endif %}
+    
+</header>
