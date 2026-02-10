@@ -78,6 +78,7 @@
                         {% set size = "sm" %}
                         {% set colCount = 2 if length_text > 750 else 1 %}
                         {% set text = section.text %}
+                        {% set is_markdown = true %}
                         {% include "components/texts/text.njk" %}
                     </div>
                 {% endif %}

@@ -57,6 +57,7 @@
                 <div class="{% if has_mb %} mb-10 {% endif %}">
                     {% set size = "sm-plus" %}
                     {% set text = section.text %}
+                    {% set is_markdown = true %}
                     {% include "components/texts/text.njk" %}
                 </div>
             {% endif %}
