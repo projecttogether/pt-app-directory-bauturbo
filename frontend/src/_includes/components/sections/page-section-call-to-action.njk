@@ -69,12 +69,18 @@
 
                 {# CTA btn. #}
                 {% if section.cta_label and section.cta_url %}
-                    <footer class="col-span-12 mt-6 sm:mt-10">
+                    <footer class="col-span-12 mt-6 sm:mt-10 flex gap-x-2">
                         <a  class="inline-flex items-center px-4 py-2 text-sm font-semibold border directories-button"
                             href="{{ section.cta_url }}"
                             target="_blank"
                             rel="noopener noreferrer">
                             {{ section.cta_label }}
+                        </a>
+                        <a  class="inline-flex items-center px-4 py-2 text-sm font-semibold border directories-button"
+                            href="mailto:umsetzungslabor@projecttogether.org"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Kontakt aufnehmen
                         </a>
                     </footer>
                 {% endif %}

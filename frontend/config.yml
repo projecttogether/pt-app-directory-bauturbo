@@ -34,8 +34,8 @@ header_menu:
       url: "#about"
       external: false
     - label: "Wissen einbringen"
-      url: "#mitmachen"
-      external: false
+      url: "https://forms.projecttogether.org/r/bau-turbo-praxiswissen"
+      external: true
       is_btn: true
     - label: "Kontakt"
       url: "/kontakt/"
