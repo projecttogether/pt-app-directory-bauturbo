@@ -18,6 +18,14 @@
     {# Inner grid wrapper #}
     <div class="w-full grid grid-cols-12 gap-x-pad-directory-section-x">
 
+        <div class="col-span-12 px-5 sm:px-pad-directory-section-x 
+                    py-5 sm:py-pad-directory-section-x
+                    border-b border-bauturbo-blau">
+        {% if dir.description %}
+            <p class="text-sm">{{ dir.description }}</p>
+        {% endif %}
+    </div>
+
         {# Directory description + show-all link #}
         <div class="flex_ flex-col lg:flex-row lg:items-start lg:justify-between gap-4 hidden">
             <div class="max-w-3xl">
@@ -48,7 +56,6 @@
                     <span class="text-label-xs" data-results-count>
                         {{ itemCount }} {% if itemCount == 1 %}ERGEBNIS{% else %}ERGEBNISSE{% endif %}
                     </span>
-                    <div class="directories-pagination" data-pagination></div>
                 </div>
 
                 {# Grid wrapper #}
@@ -64,6 +71,11 @@
                             </div>
                     {% endfor %}
                 </div>
+
+                {# Pagination #}
+                <footer class="w-full mt-6 flex justify-end">
+                    <div class="directories-pagination" data-pagination></div>
+                </footer>
             </div>
         </div>
 
