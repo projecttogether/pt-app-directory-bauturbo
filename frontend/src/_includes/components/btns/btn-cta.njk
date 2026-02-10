@@ -2,6 +2,7 @@
 {#########}
 
 {% set tagName = "a" if url else "button" %}
+{% set is_external = is_external or false %}
 
 {# Size config. #}
 {% set size_btn = size_btn or "sm" %}
@@ -18,6 +19,7 @@
 
 <{{ tagName }}
     {% if url %}href="{{ url }}"{% else %}type="button"{% endif %}
+    {% if url and is_external %}target="_blank" rel="noopener noreferrer"{% endif %}
 
     class="{% if    size_btn == 'sm' %} p-btn-cta-sm 
            {% elif  size_btn == 'md' %} p-btn-cta-md 
