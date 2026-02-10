@@ -16,6 +16,9 @@
 
     /* Resp. sizes */
     @apply max-sm:text-[calc(19.35px*0.85)];
+
+    /* Nested element styles */
+    @apply [&>p]:mb-[1.42em];
 }
 
 .text-sm-plus {
@@ -23,6 +26,9 @@
 
     /* Resp. sizes */
     @apply max-sm:text-[calc(26px*0.85)];
+
+    /* Nested element styles */
+    @apply [&>p]:mb-[1.33em];
 }
 
 /* md */
@@ -30,6 +36,9 @@
 
 .text-md {
     @apply text-[34px] leading-[1.33] tracking-[0.04em];
+
+    /* Nested element styles */
+    @apply [&>p]:mb-[1.33em];
 }
 
 /* Shared styles */
@@ -38,4 +47,8 @@
 .text-sm,
 .text-md {
     @apply font-[Bundes_Sans_Web] font-[400];
+
+    /* Shared nested element styles */
+    @apply [&>p]:last:mb-[0] [&>p:last-child]:mb-[0] [&>p:last-of-type]:mb-[0];
+    @apply [&_a]:text-bauturbo-blau [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-bauturbo-blau;
 }
