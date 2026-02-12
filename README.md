@@ -153,6 +153,16 @@ To keep NocoDB content up to date, configure a **scheduled redeploy** in Coolify
 
 Click **"Redeploy"** in the Coolify UI to trigger an immediate rebuild with the latest NocoDB data.
 
+#### Health Check
+
+The Nginx config includes a liveness endpoint at `/-/healthz` that returns `200 OK` with a JSON body:
+
+```json
+{ "status": "OK", "timestamp": "2026-02-12T08:00:00+01:00" }
+```
+
+Configure the **Health Check Path** in Coolify to `/-/healthz` so the platform can verify the container is alive.
+
 </details>
 
 <details>
