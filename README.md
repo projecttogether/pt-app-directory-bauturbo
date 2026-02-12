@@ -127,7 +127,36 @@ Older Markdown-based pages under `frontend/src/pages/` are no longer used in thi
 ## Deployment
 
 <details>
-<summary>Deployment procedures and server setup</summary>
+<summary>Deployment via Coolify (recommended)</summary>
+
+### Coolify / Docker Deployment
+
+The site is deployed as a **Dockerfile-based** resource in Coolify.
+
+**How it works:** Every deployment triggers a Docker build that fetches fresh data from NocoDB and produces a new static site served by Nginx.
+
+#### Required Build Arguments (set in Coolify)
+
+| Variable | Description |
+|---|---|
+| `NOCODB_BASE_URL` | NocoDB instance URL (e.g. `https://nocodb.projecttogether.org`) |
+| `NOCODB_API_TOKEN` | NocoDB API token |
+| `NOCODB_PROJECT_ID` | NocoDB project ID |
+
+> **Important:** These must be configured as **Build Arguments** (not just runtime env vars) in Coolify, since the data is fetched during `npm run build`.
+
+#### Scheduled Rebuilds
+
+To keep NocoDB content up to date, configure a **scheduled redeploy** in Coolify (e.g. daily at 5:00 AM). Each redeploy re-runs the Docker build and fetches fresh data.
+
+#### Manual Rebuild
+
+Click **"Redeploy"** in the Coolify UI to trigger an immediate rebuild with the latest NocoDB data.
+
+</details>
+
+<details>
+<summary>Legacy deployment (bare-metal, deprecated)</summary>
 
 ### Local Build & Deploy
 
