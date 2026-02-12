@@ -6,8 +6,8 @@ type: app
 owner: IT
 server: pt-web-1
 frontend_path: /var/www/directory
-project_path: /srv/projects/pt-app-directory_bauturbo/
-github_repository: https://github.com/projecttogether/pt-app-directory_bauturbo
+project_path: /srv/projects/pt-app-directory-bauturbo/
+github_repository: https://github.com/projecttogether/pt-app-directory-bauturbo
 URL: https://praxiswissen.umsetzungslabor-bauturbo.de
 ---
 
@@ -167,7 +167,7 @@ Click **"Redeploy"** in the Coolify UI to trigger an immediate rebuild with the 
 
 ### Server Setup
 
-**Project location:** `/srv/projects/pt-app-directory_bauturbo/`
+**Project location:** `/srv/projects/pt-app-directory-bauturbo/`
 **Site served from:** `/var/www/directory`
 
 **Automated rebuilds:** Daily at 5 AM via cron
@@ -227,7 +227,7 @@ SSL: Managed by Certbot
 
 - Check file permissions: `ls -la /var/www/directory`
 - Verify nginx config: `sudo nginx -t`
-- View rebuild logs (server): `tail -f /srv/projects/pt-app-directory_bauturbo/rebuild.log`
+- View rebuild logs (server): `tail -f /srv/projects/pt-app-directory-bauturbo/rebuild.log`
 
 </details>
 
