@@ -34,6 +34,6 @@ COPY --from=builder /app/_site /usr/share/nginx/html
 # Copy nginx configuration
 COPY nginx.docker.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+EXPOSE 80 3000
 
 CMD ["nginx", "-g", "daemon off;"]
