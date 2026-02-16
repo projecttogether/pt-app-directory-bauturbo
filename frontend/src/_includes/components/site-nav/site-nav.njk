@@ -19,10 +19,14 @@
         <nav class="col-span-12">
             <div class="w-full flex justify-start flex-wrap gap-4">
                 {% if siteConfig.header_menu %}
+                    {% set on_frontPage = (page.url == "/") or (page.inputPath == "index.njk") %}
                     {% for item in siteConfig.header_menu %}
                         {% if item.is_btn %}
                             {% set text = item.label %}
                             {% set url = item.url %}
+                            {% if url.startsWith('#') and not on_frontPage %}
+                                {% set url = '/' + url %}
+                            {% endif %}
                             {% set color_text = "#fff" %}
                             {% set color_bg = "var(--color-bauturbo-rot)" %}
                             {% set color_border = "transparent" %}
@@ -30,7 +34,7 @@
                             {% include "components/btns/btn-cta.njk" %}
                         {% else %}
                             <a  data-ref="nav-link"
-                                href="{{ item.url }}"
+                                href="{% if item.url.startsWith('#') and not on_frontPage %}/{% endif %}{{ item.url }}"
                                 {% if item.external %} target="_blank" rel="noopener noreferrer" {% endif %}
                                 class="text-link-sm text-bauturbo-blau">
                                 {{ item.label }}
