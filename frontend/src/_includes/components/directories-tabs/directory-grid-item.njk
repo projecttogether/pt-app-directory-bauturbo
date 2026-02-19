@@ -34,33 +34,51 @@
             {# Tags #}
             <div class="mt-5 flex items-center gap-1 flex-wrap">
                 {# Main tag #}
+                {% set colorTheme_tag = 'blue-white' %}
                 {% if dir.name === 'Umsetzungslabor' %}
-                    {% set text_tag = item['formate-ergebnisse'] %}
+                    {% set text_tag_raw = item['formate-ergebnisse'] %}
                 {% elif dir.name === 'Grundsatzbeschlüsse' %}
-                    {% set text_tag = item['from'] %}
+                    {% set text_tag_raw = item['from'] %}
                 {% elif dir.name === 'Kommunale Praxis' %}
-                    {% set text_tag = item['themenschwerpunkte'] %}
+                    {% set text_tag_raw = item['themenschwerpunkte'] %}
                 {% elif dir.name === 'Anwendungsbeispiele' %}
-                    {% set text_tag = item['status'] %}
+                    {% set text_tag_raw = item['status'] %}
                 {% elif dir.name === 'Publikationen' %}
-                    {% set text_tag = item['thematische-schwerpunkte'] %}
+                    {% set text_tag_raw = item['thematische-schwerpunkte'] %}
                 {% elif dir.name === 'Veranstaltungen' %}
-                    {% set text_tag = item['start_date'] | formatDate(true) %}
+                    {% set text_tag_raw = item['start_date'] | formatDate(true) %}
+                    {% set colorTheme_tag = 'white-blue' %}
                 {% elif dir.name === 'FAQ' %}
-                    {% set text_tag = item['staatliche-ebene']%}
+                    {% set text_tag_raw = item['staatliche-ebene'] %}
                 {% elif dir.name === 'Auf dem Laufenden bleiben' %}
-                    {% set text_tag = item['format']%}
+                    {% set text_tag_raw = item['format'] %}
                 {% endif %}
-                {% include "components/tags/tag.njk" %}
-                
-                {# Secondary tag #}
-                {% if dir.name === 'Kommunale Praxis' %}
-                    {% set text_tag = item['dokumentart'] %}
-                    {% include "components/tags/tag.njk" %}
+                {% if text_tag_raw %}
+                    {% for text_tag in (text_tag_raw | string).split(',') %}
+                        {% set text_tag = text_tag | trim %}
+                        {% if text_tag %}
+                            {% include "components/tags/tag.njk" %}
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
-                {% if dir.name === 'Veranstaltungen' %}
-                    {% set text_tag = item['teilnahme'] %}
-                    {% include "components/tags/tag.njk" %}
+
+                {# Secondary tags #}
+                {% if dir.name === 'Kommunale Praxis' and item['dokumentart'] %}
+                    {% for text_tag in (item['dokumentart'] | string).split(',') %}
+                        {% set text_tag = text_tag | trim %}
+                        {% if text_tag %}
+                            {% include "components/tags/tag.njk" %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% if dir.name === 'Veranstaltungen' and item['teilnahme'] %}
+                    {% set colorTheme_tag = 'blue-white' %}
+                    {% for text_tag in (item['teilnahme'] | string).split(',') %}
+                        {% set text_tag = text_tag | trim %}
+                        {% if text_tag %}
+                            {% include "components/tags/tag.njk" %}
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
             </div>
         </header>

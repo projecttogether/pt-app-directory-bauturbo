@@ -1,11 +1,13 @@
 {# SETUP #}
 
-{# ... #}
+{% set colorTheme_tag = colorTheme_tag if colorTheme_tag else "blue-white" %}
+{% set colorClass_tag = "bg-bauturbo-blau text-white" if colorTheme_tag == "blue-white" 
+                                                      else "bg-white text-bauturbo-blau border border-bauturbo-blau" %}
 
 {# MARKUP #}
 
 <div class="px-1.5 pt-0.5 pb-1.25
             text-tag-xs
-            bg-bauturbo-blau text-white">
-    <span>{{ text_tag or "Default text" }}</span>
+            {{ colorClass_tag }}">
+    <span>{{ text_tag or "no tag text provided" }}</span>
 </div>
