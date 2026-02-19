@@ -121,6 +121,20 @@ module.exports = async function () {
                     );
                 }
 
+                // Sort items by start_date + start_time (ascending) for event directories
+                if (display && display.start_date_field) {
+                    const dateField = display.start_date_field;
+                    items.sort((a, b) => {
+                        const aDate = a[dateField] || "";
+                        const bDate = b[dateField] || "";
+                        const aTime = a.start_time || "00:00";
+                        const bTime = b.start_time || "00:00";
+                        const aMs = aDate ? new Date(`${aDate}T${aTime}`).getTime() : -Infinity;
+                        const bMs = bDate ? new Date(`${bDate}T${bTime}`).getTime() : -Infinity;
+                        return bMs - aMs;
+                    });
+                }
+
                 // Process filter configurations and extract unique options from data
                 const filterOptions = (filters || []).map((filter) => {
                     // Handle date range filters specially
