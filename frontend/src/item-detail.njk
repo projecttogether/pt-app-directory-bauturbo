@@ -123,33 +123,40 @@ eleventyComputed:
                         
                         {# Files #}
                         <div>
+                            {% set fileToDownload = null %}
+                            {% set fileType = null %}
                             {% for field in detailFields %}
-                                {% if field.section == 'files' %}
+                                {% if field.section == 'files' and not fileToDownload %}
                                     {% set value = item[field.field] %}
                                     {% if value and value != '' and value != 'null' and value != 'undefined' %}
-                                        <div>
-                                            <span>
-                                                {% if field.type == 'file' %}
-                                                    {% set fileUrl = value | attachmentUrl %}
-                                                    {% if fileUrl %}
-                                                        {% set text = 'Datei herunterladen' %}
-                                                        {% set url = fileUrl %}
-                                                        {% set is_external = true %}
-                                                        {% include "components/btns/btn-cta.njk" %}
-                                                    {% else %}
-                                                        {{ value }}
-                                                    {% endif %}
-                                                {% else %}
-                                                    {% set text = 'Datei herunterladen' %}
-                                                    {% set url = value %}
-                                                    {% set is_external = true %}
-                                                    {% include "components/btns/btn-cta.njk" %}
-                                                {% endif %}
-                                            </span>
-                                        </div>
+                                        {% set fileToDownload = value %}
+                                        {% set fileType = field.type %}
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
+
+                            {% if fileToDownload %}
+                                <div>
+                                    <span>
+                                        {% if fileType == 'file' %}
+                                            {% set fileUrl = fileToDownload | attachmentUrl %}
+                                            {% if fileUrl %}
+                                                {% set text = 'Datei herunterladen' %}
+                                                {% set url = fileUrl %}
+                                                {% set is_external = true %}
+                                                {% include "components/btns/btn-cta.njk" %}
+                                            {% else %}
+                                                {{ fileToDownload }}
+                                            {% endif %}
+                                        {% else %}
+                                            {% set text = 'Datei herunterladen' %}
+                                            {% set url = fileToDownload %}
+                                            {% set is_external = true %}
+                                            {% include "components/btns/btn-cta.njk" %}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            {% endif %}
                         </div>
 
                         {# Links #}
