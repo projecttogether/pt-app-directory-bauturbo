@@ -183,7 +183,7 @@ layout: layouts/base.njk
                         {% endif %}
                      {% endfor %}
                 >
-                    <a href="{{ directory.path }}/items/{{ item.Id }}/?from={{ page.url | default('/') }}" class="block p-6 hover:bg-gray-50 transition-colors">
+                    <a href="{{ directory.path }}/items/{{ item.id or item.Id }}/?from={{ page.url | default('/') }}" class="block p-6 hover:bg-gray-50 transition-colors">
                         <h3 class="text-lg font-semibold text-gray-900 mb-2">
                             {{ item[directory.display.title_field] }}
                         </h3>

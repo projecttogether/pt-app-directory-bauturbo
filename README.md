@@ -4,7 +4,6 @@ description: "directory platform with 11ty static site generation and NocoDB CMS
 
 type: app
 owner: IT
-server: pt-web-1
 frontend_path: /var/www/directory
 project_path: /srv/projects/pt-app-directory-bauturbo/
 github_repository: https://github.com/projecttogether/pt-app-directory-bauturbo
@@ -18,7 +17,7 @@ URL: https://praxiswissen.umsetzungslabor-bauturbo.de
 A directory website for Umsetzungslabor Bau-Turbo, built with 11ty for static site generation and NocoDB as a headless CMS.
 
 **Live Site:** https://praxiswissen.umsetzungslabor-bauturbo.de
-**NocoDB Admin:** https://nocodb.projecttogether.org
+**NocoDB Admin:** https://nocodb.umsetzungslabor-bauturbo.de/
 
 **Key Features:**
 
@@ -139,7 +138,7 @@ The site is deployed as a **Dockerfile-based** resource in Coolify.
 
 | Variable | Description |
 |---|---|
-| `NOCODB_BASE_URL` | NocoDB instance URL (e.g. `https://nocodb.projecttogether.org`) |
+| `NOCODB_BASE_URL` | NocoDB instance URL (e.g. `https://nocodb.umsetzungslabor-bauturbo.de`) |
 | `NOCODB_API_TOKEN` | NocoDB API token |
 | `NOCODB_PROJECT_ID` | NocoDB project ID |
 

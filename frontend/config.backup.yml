@@ -54,8 +54,8 @@ footer:
 # Pages configuration
 pages:
     nocodb:
-        table_id: m6bsb0bhilydrdd
-        view_id: vw52xovvwfpl9ewq
+        table_id: m0slsgsuwtzmzn9
+        view_id: vw8ca2dnu232dqhi
     max_sections: 8
     nocodb_fields:
         page_id: page_id
@@ -79,8 +79,8 @@ directories:
       path: /umsetzungslabor
       description: "Welche Erkenntnisse entstehen im Umsetzungslabor Bau-Turbo? Hier werden Ergebnisse, Aufzeichnungen, Präsentationen, Berichte und Videos aus den Formaten des Umsetzungslabors gesammelt und zugänglich gemacht. Der Bereich wächst fortlaufend mit neuen Materialien und dokumentiert den gemeinsamen Lernprozess rund um die Anwendung des Bau-Turbos."
       nocodb:
-          table_id: muzi9nd3952dvly
-          view_id: vwshwh1ilh9k9p1c
+          table_id: m1upwxd94s5tx1q
+          view_id: vw0efitq0kedrj5l
       display:
           title_field: title
           excerpt_field: excerpt
@@ -93,7 +93,7 @@ directories:
                 label: "Veröffentlichungsdatum"
                 type: month_year
                 section: meta
-              - field: formate_ergebnisse
+              - field: formate-ergebnisse
                 label: "Formate & Ergebnisse"
                 type: multi_select
                 section: meta
@@ -113,19 +113,19 @@ directories:
                 label: "Beschreibung"
                 type: markdown
                 section: body
-              - field: file_1
+              - field: file-1
                 label: "Datei"
                 type: file
                 section: files
-              - field: file_url
+              - field: file-url
                 label: "Datei"
                 type: url
                 section: files
-              - field: url_1
+              - field: url-1
                 label: "Link"
                 type: url
                 section: links
-              - field: url_2
+              - field: url-2
                 label: "Weiterer Link"
                 type: url
                 section: links
@@ -151,8 +151,8 @@ directories:
       path: /grundsatzbeschluesse
       description: "Wie können Kommunen den Bau-Turbo konkret politisch verankern? In dieser Sammlung finden sich Grundsatzbeschlüsse, die Kommunen bereits entwickelt oder beschlossen haben. Ob Entwurf oder verabschiedeter Beschluss: Die Beispiele geben Einblick in unterschiedliche Herangehensweisen und helfen, eigene Prozesse schneller und fundierter aufzusetzen."
       nocodb:
-          table_id: mync8m612f08twi
-          view_id: vwjb374rko69a3wn
+          table_id: mk0mt3yqjbo3o5h
+          view_id: vw64dhfjdahf1c1u
       display:
           title_field: title
           excerpt_field: excerpt
@@ -181,19 +181,19 @@ directories:
                 label: "Beschreibung"
                 type: markdown
                 section: body
-              - field: file_1
+              - field: file-1
                 label: "Datei"
                 type: file
                 section: files
-              - field: file_url
+              - field: file-url
                 label: "Datei"
                 type: url
                 section: files
-              - field: url_1
+              - field: url-1
                 label: "Link"
                 type: url
                 section: links
-              - field: url_2
+              - field: url-2
                 label: "Weiterer Link"
                 type: url
                 section: links
@@ -216,8 +216,8 @@ directories:
       path: /kommunale-praxis
       description: "Wie gehen Kommunen konkret mit dem Bau-Turbo um? In dieser Sammlung finden sich Einordnungen und praxisnahe Orientierung aus Städten und Gemeinden, die zeigen, wie politische Entscheidungen vorbereitet, bewertet und in konkrete Handlungsschritte übersetzt werden."
       nocodb:
-          table_id: mixe2wdekpar7ta
-          view_id: vwcvyh34q31v2lz1
+          table_id: ms90zlzln4yuxpb
+          view_id: vw77iek742yccbyw
       display:
           title_field: title
           excerpt_field: excerpt
@@ -254,19 +254,19 @@ directories:
                 label: "Beschreibung"
                 type: markdown
                 section: body
-              - field: file_1
+              - field: file-1
                 label: "Datei"
                 type: file
                 section: files
-              - field: file_url
+              - field: file-url
                 label: "Datei"
                 type: url
                 section: files
-              - field: url_1
+              - field: url-1
                 label: "Link"
                 type: url
                 section: links
-              - field: url_2
+              - field: url-2
                 label: "Weiterer Link"
                 type: url
                 section: links
@@ -295,8 +295,8 @@ directories:
       path: /anwendungsbeispiele
       description: "Wie wirkt der Bau-Turbo konkret vor Ort? Erste Städte und Gemeinden zeigen bereits, welche Verfahren sich in der Praxis bewähren und wie Lösungen für schnelles, ökologisches und sozial ausgewogenes Bauen entstehen. Dieser Bereich wächst mit neuen Beispielen aus der Umsetzung und lädt Kommunen ein, eigene Projekte einzubringen."
       nocodb:
-          table_id: mopbxt20xgby5hh
-          view_id: vwuy94dn8pgaf50v
+          table_id: m7qvtyirlntl70e
+          view_id: vwgm4aiiu4i7k1xq
       display:
           title_field: title
           excerpt_field: excerpt
@@ -326,19 +326,19 @@ directories:
                 label: "Beschreibung"
                 type: markdown
                 section: body
-              - field: file_1
+              - field: file-1
                 label: "Datei"
                 type: file
                 section: files
-              - field: file_url
+              - field: file-url
                 label: "Datei"
                 type: url
                 section: files
-              - field: url_1
+              - field: url-1
                 label: "Link"
                 type: url
                 section: links
-              - field: url_2
+              - field: url-2
                 label: "Weiterer Link"
                 type: url
                 section: links
@@ -362,8 +362,8 @@ directories:
       path: /publikationen
       description: "Welche Inhalte helfen, den Bau-Turbo besser einzuordnen und anzuwenden? Hier werden Dokumente, Studien und Fachbeiträge gesammelt, die den Bau-Turbo inhaltlich ergänzen und vertiefen – etwa zu Wohnungsbau und Wohnungsmarkt, Bestand und Innenentwicklung, Planung und Verfahren, Klimawandel, Baukultur sowie rechtlichen Fragestellungen. Die Sammlung wächst kontinuierlich und erweitert den Wissensrahmen für eine schnelle, ökologische und sozial gerechte Umsetzung."
       nocodb:
-          table_id: mujpzphpt0zzz6c
-          view_id: vw1mq5igc27bl7bb
+          table_id: mb28l9paom73egz
+          view_id: vwukhgreijdamava
       display:
           title_field: title
           excerpt_field: excerpt
@@ -376,7 +376,7 @@ directories:
                 label: "Veröffentlichungsdatum"
                 type: month_year
                 section: meta
-              - field: thematische_schwerpunkte
+              - field: thematische-schwerpunkte
                 label: "Thematische Schwerpunkte"
                 type: multi_select
                 section: meta
@@ -388,19 +388,19 @@ directories:
                 label: "Beschreibung"
                 type: markdown
                 section: body
-              - field: file_1
+              - field: file-1
                 label: "Datei"
                 type: file
                 section: files
-              - field: file_url
+              - field: file-url
                 label: "Datei"
                 type: url
                 section: files
-              - field: url_1
+              - field: url-1
                 label: "Link"
                 type: url
                 section: links
-              - field: url_2
+              - field: url-2
                 label: "Weiterer Link"
                 type: url
                 section: links
@@ -420,8 +420,8 @@ directories:
       path: /veranstaltungen
       description: "Wo kommen Akteur:innen rund um den Bau-Turbo zusammen? In dieser Sammlung finden sich aktuelle und vergangene Formate aus dem Umsetzungslabor ebenso wie weitere Veranstaltungen, die sich mit der Anwendung des Bau-Turbos befassen. Der Bereich wächst kontinuierlich und ist offen für Hinweise auf eigene Veranstaltungen und relevante Formate."
       nocodb:
-          table_id: msps8l0f2aux45d
-          view_id: vwau2rt5q0rnkdao
+          table_id: m8jasn9y31wte9c
+          view_id: vwg88z6exd0oialo
       display:
           title_field: title
           excerpt_field: excerpt
@@ -459,19 +459,19 @@ directories:
                 label: "Beschreibung"
                 type: markdown
                 section: body
-              - field: file_1
+              - field: file-1
                 label: "Datei"
                 type: file
                 section: files
-              - field: file_url
+              - field: file-url
                 label: "Weiterer Link"
                 type: url
                 section: links
-              - field: url_1
+              - field: url-1
                 label: "Link"
                 type: url
                 section: links
-              - field: url_2
+              - field: url-2
                 label: "Weiterer Link"
                 type: url
                 section: links
@@ -494,8 +494,8 @@ directories:
       path: /faq
       description: "Welche Fragen zum Bau-Turbo werden aktuell gestellt? In dieser Sammlung werden häufige Fragen von Privatpersonen, Kommunen und der Wirtschaft gesammelt – einschließlich Antworten und Einordnungen von Bundesministerien, Ländern und Landkreisen. Der Bereich wird fortlaufend ergänzt und aktualisiert, sobald neue Klarstellungen, Hinweise oder Auslegungen veröffentlicht werden."
       nocodb:
-          table_id: m0ltb722vfraknr
-          view_id: vwxfma3c6x18fd8v
+          table_id: mw88pkvygadluh5
+          view_id: vwd8pxnkbyatokrb
       display:
           title_field: title
           excerpt_field: excerpt
@@ -508,7 +508,7 @@ directories:
                 label: "Veröffentlichungsdatum"
                 type: month_year
                 section: meta
-              - field: staatliche_ebene
+              - field: staatliche-ebene
                 label: "Staatliche Ebene"
                 type: multi_select
                 section: meta
@@ -528,23 +528,23 @@ directories:
                 label: "Beschreibung"
                 type: markdown
                 section: body
-              - field: file_1
+              - field: file-1
                 label: "Datei"
                 type: file
                 section: files
-              - field: file_url
+              - field: file-url
                 label: "Datei"
                 type: url
                 section: files
-              - field: url_1
+              - field: url-1
                 label: "Link"
                 type: url
                 section: links
-              - field: url_2
+              - field: url-2
                 label: "Weiterer Link"
                 type: url
                 section: links
-              - field: url_3
+              - field: url-3
                 label: "Weiterer Link"
                 type: url
                 section: links
@@ -570,8 +570,8 @@ directories:
       path: /auf-dem-laufenden-bleiben
       description: "Welche aktuellen Entwicklungen rund um den Bau-Turbo sind relevant? In dieser Sammlung finden sich Newsletter, Pressemitteilungen und aktuelle Hinweise, die Informationen, Einordnungen und Neuigkeiten zur Anwendung des Bau-Turbos bündeln. Der Bereich wird fortlaufend aktualisiert und unterstützt dabei, Entwicklungen, Debatten und neue Inhalte im Blick zu behalten."
       nocodb:
-          table_id: m7oqw7ekpnqm4ff
-          view_id: vwlenhjjg0buzifg
+          table_id: miby5vur4hjiqkl
+          view_id: vwb4w0jdsg4fhi0j
       display:
           title_field: title
           excerpt_field: excerpt
@@ -592,19 +592,19 @@ directories:
                 label: "Beschreibung"
                 type: markdown
                 section: body
-              - field: file_1
+              - field: file-1
                 label: "Datei"
                 type: file
                 section: files
-              - field: file_url
+              - field: file-url
                 label: "Datei"
                 type: url
                 section: files
-              - field: url_1
+              - field: url-1
                 label: "Link"
                 type: url
                 section: links
-              - field: url_2
+              - field: url-2
                 label: "Link"
                 type: url
                 section: links

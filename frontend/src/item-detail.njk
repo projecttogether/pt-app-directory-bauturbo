@@ -4,7 +4,7 @@ pagination:
     size: 1
     alias: itemData
 layout: layouts/base.njk
-permalink: "{{ itemData.directory.path }}/items/{{ itemData.item.Id }}/"
+permalink: "{{ itemData.directory.path }}/items/{{ itemData.item.id or itemData.item.Id }}/"
 eleventyComputed:
     title: "{{ itemData.item[itemData.directory.display.title_field] }}"
 ---

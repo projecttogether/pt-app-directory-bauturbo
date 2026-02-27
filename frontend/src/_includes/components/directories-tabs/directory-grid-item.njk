@@ -1,7 +1,7 @@
 {# SETUP #}
 {#########}
 
-{% set url_entryPage = dir.path ~ "/items/" ~ item.Id ~ "/?from=" ~ (page.url | default('/')) %}
+{% set url_entryPage = dir.path ~ "/items/" ~ (item.id or item.Id) ~ "/?from=" ~ (page.url | default('/')) %}
 {% set zielgruppe = item.zielgruppe.split(',')[0].trim() if item.zielgruppe else null %}
 
 {# MARKUP #}
