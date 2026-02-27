@@ -125,15 +125,33 @@ eleventyComputed:
                         <div>
                             {% set fileToDownload = null %}
                             {% set fileType = null %}
+                            
+                            {# First try to find a file type field (e.g. file_1) #}
                             {% for field in detailFields %}
-                                {% if field.section == 'files' and not fileToDownload %}
+                                {% if field.section == 'files' and field.type == 'file' and not fileToDownload %}
                                     {% set value = item[field.field] %}
                                     {% if value and value != '' and value != 'null' and value != 'undefined' %}
-                                        {% set fileToDownload = value %}
-                                        {% set fileType = field.type %}
+                                        {# For NocoDB array of files, ensure it's not empty #}
+                                        {% if value | length > 0 %}
+                                            {% set fileToDownload = value %}
+                                            {% set fileType = field.type %}
+                                        {% endif %}
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
+                            
+                            {# If no file type found, fallback to url type (e.g. file_url) #}
+                            {% if not fileToDownload %}
+                                {% for field in detailFields %}
+                                    {% if field.section == 'files' and field.type == 'url' and not fileToDownload %}
+                                        {% set value = item[field.field] %}
+                                        {% if value and value != '' and value != 'null' and value != 'undefined' %}
+                                            {% set fileToDownload = value %}
+                                            {% set fileType = field.type %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
 
                             {% if fileToDownload %}
                                 <div>
