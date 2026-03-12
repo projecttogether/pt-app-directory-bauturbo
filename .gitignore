@@ -72,6 +72,13 @@ coverage/
 .dockerignore
 docker-compose.override.yml
 
+# NocoDB Data
+!docs/nocodb-data/
+docs/nocodb-data/*
+!docs/nocodb-data/*.json
+!docs/nocodb-data/*.csv
+!docs/nocodb-data/*.md
+
 # Backup files
 *.bak
 *.backup

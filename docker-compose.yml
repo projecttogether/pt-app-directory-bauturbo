@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: nocodb
+      POSTGRES_USER: nocodb
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nocodb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - local_net
+
+  nocodb:
+    image: nocodb/nocodb:latest
+    ports:
+      - "8080:8080"
+    environment:
+      NC_DB: "pg://db:5432?u=nocodb&p=password&d=nocodb"
+      NC_AUTH_JWT_SECRET: "localdockercomposejwtsecretpleaseupdatethis"
+      XC_UPDATE_DISABLE: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - nc_data:/usr/app/data
+    networks:
+      - local_net
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80"
+    environment:
+      # NocoDB instance base URL inside docker compose network for build, 
+      # or you can use localhost if running npm run build locally natively.
+      # For a local native build, `localhost:8080` works.
+      # For docker build inside this compose, it would be `http://nocodb:8080`.
+      NOCODB_BASE_URL: "http://nocodb:8080"
+      NOCODB_API_TOKEN: "${NOCODB_API_TOKEN:-}"
+      NOCODB_PROJECT_ID: "${NOCODB_PROJECT_ID:-}"
+    depends_on:
+      - nocodb
+    networks:
+      - local_net
+    profiles:
+      - frontend
+
+volumes:
+  db_data:
+  nc_data:
+
+networks:
+  local_net:

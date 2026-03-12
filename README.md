@@ -1,286 +1,124 @@
+<div align="center">
+  <h1>Bauturbo Directory</h1>
+  <p>
+    <strong>A high-performance, static directory platform built with 11ty and powered by NocoDB.</strong>
+  </p>
+  <p>
+    <a href="https://praxiswissen.umsetzungslabor-bauturbo.de">Live Site</a> •
+    <a href="#-quick-start">Quick Start</a> •
+    <a href="#-documentation">Documentation</a> •
+    <a href="CONTRIBUTING.md">Contributing</a>
+  </p>
+  <p>
+    <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg" />
+    <img alt="Node Version" src="https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg" />
+    <img alt="11ty" src="https://img.shields.io/badge/11ty-Static_Site_Generator-black.svg" />
+    <img alt="TailwindCSS" src="https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC.svg?logo=tailwind-css" />
+  </p>
+</div>
+
 ---
-name: "directory-bauturbo"
-description: "directory platform with 11ty static site generation and NocoDB CMS"
 
-type: app
-owner: IT
-frontend_path: /var/www/directory
-project_path: /srv/projects/pt-app-directory-bauturbo/
-github_repository: https://github.com/projecttogether/pt-app-directory-bauturbo
-URL: https://praxiswissen.umsetzungslabor-bauturbo.de
+## 📖 Overview
+
+The **Bauturbo Directory** is a customizable, high-performance static website originally designed for the "Umsetzungslabor Bau-Turbo" project. It leverages **Eleventy (11ty)** for lightning-fast static site generation and uses **NocoDB** as a headless CMS for seamless content management.
+
+Whether you're hosting resources, publications, or event listings, this platform is designed to be fully configurable via YAML, enabling deep customization without writing code.
+
 ---
 
-# Bauturbo Directory – Directory Platform
+## ✨ Key Features
 
-## Overview
+- 🎨 **Custom Theming:** Easily configure colors, fonts, and branding via a central `config.yml`.
+- 🧩 **Component-Driven Architecture:** Build rich, modular pages using reusable Nunjucks components fed directly from NocoDB sections.
+- 🔍 **Dynamic Filtering:** Configurable, client-side filters (by category, date, etc.) that adapt automatically to your NocoDB columns.
+- ⚡ **Static Site Generation:** Outputs pure HTML/CSS/JS for blazing-fast performance, maximum security, and easy CDN hosting.
+- 🗄️ **Headless CMS integration:** Content authors can manage everything in a familiar spreadsheet-like interface via NocoDB.
 
-A directory website for Umsetzungslabor Bau-Turbo, built with 11ty for static site generation and NocoDB as a headless CMS.
+---
 
-**Live Site:** https://praxiswissen.umsetzungslabor-bauturbo.de
-**NocoDB Admin:** https://nocodb.umsetzungslabor-bauturbo.de/
+## 🛠️ Tech Stack
 
-**Key Features:**
+- **Frontend:** [Eleventy (11ty)](https://www.11ty.dev/), [Nunjucks](https://mozilla.github.io/nunjucks/), Vanilla JS
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **Backend/CMS:** [NocoDB](https://nocodb.com/), PostgreSQL
+- **Deployment:** Docker, [Coolify](https://coolify.io/)
 
-- ✅ **Custom theming** - Colors, fonts, logos configured in YAML
-- ✅ **Component-driven pages** - Reusable Nunjucks components fed by NocoDB sections
-- ✅ **Per-directory filters** - Configurable filter fields
-- ✅ **Static site generation** - Fast, secure, CDN-ready
-- ✅ **NocoDB CMS** - Content managed via NocoDB interface
+---
 
-## Architecture
+## 🚀 Quick Start
 
-<details>
-<summary>View system architecture</summary>
+The fastest way to get the entire stack—including the CMS, Database, and Frontend—running locally is by using Docker Compose.
 
-```
-NocoDB (CMS)
-    ↓
-11ty Build (local/server)
-    ↓
-Static Files (_site/)
-    ↓
-Nginx (pt-web-1)
-    ↓
-Public Website
-```
-
-</details>
-
-## Quick Start
-
-<details>
-<summary>Development setup and commands</summary>
-
-### Development
-
+### 1. Start the Stack
+Spin up NocoDB, PostgreSQL, and the 11ty frontend in the background:
 ```bash
-cd frontend
+docker-compose up -d
+```
 
-# Install dependencies
+### 2. Setup the CMS
+1. Navigate to **[http://localhost:8080](http://localhost:8080)** to access the NocoDB Admin UI.
+2. Complete the setup wizard to create an admin account and a new project/base.
+3. Import the initial project schema and data from the `docs/nocodb-data/` folder (via *Settings -> Import Base*).
+4. Generate an **API token** in your NocoDB profile settings (you will need the token and the base **Project ID**).
+
+### 3. Connect the Frontend
+1. Navigate to the `frontend` directory:
+   ```bash
+   cd frontend
+   ```
+2. Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
+3. Update `.env` with your newly created `NOCODB_API_TOKEN` and `NOCODB_PROJECT_ID`.
+
+### 4. Build and Run the Frontend
+If you prefer running the frontend natively (outside of Docker for development):
+```bash
 npm install
+npm run dev
+```
+The frontend will be accessible at **[http://localhost:8080/](http://localhost:8080/)** (or whichever port Eleventy assigns, since 8080 might be in use by NocoDB, it usually falls back to `8081`).
 
-# Run dev server
-npm run dev      # http://localhost:8080/
+*Alternatively, you can build the frontend via Docker Compose using `docker-compose --profile frontend up --build` which will expose it on port 8081.*
 
-# Build for production
-npm run build
+---
+
+## 📚 Documentation
+
+For developers looking to maintain, configure, or extend the platform, please review our comprehensive guides located in the `docs/` directory:
+
+- **[Frontend Architecture Guide](docs/frontend.md):** Deep dive into the 11ty build lifecycle, Nunjucks components, and client-side logic.
+- **[Configuration Guide](docs/config.md):** Learn how to edit `config.yml` to change themes, setup navigation, and map NocoDB directories.
+- **[NocoDB Authoring Guide](docs/nocodb.md):** Instructions for content authors on creating pages and troubleshooting the CMS.
+- **[NocoDB Schema Requirements](docs/schema.md):** Detailed breakdown of mandatory and optional database columns necessary to prevent build failures.
+- **[Coolify Deployment Guide](docs/coolify.md):** Step-by-step instructions for deploying the platform into production.
+- **[Scripts & Utilities](docs/scripts.md):** Overview of the helper scripts bundled in this repository.
+
+---
+
+## 🗂️ Project Structure
+
+```text
+.
+├── docker-compose.yml        # Local full-stack orchestration
+├── docs/                     # Developer documentation and guides
+│   └── nocodb-data/          # JSON schema and CSV data dumps for NocoDB
+└── frontend/                 # 11ty Static Site Source
+    ├── config.yml            # Main application configuration
+    ├── .env.example          # Sample environment variables
+    ├── src/
+    │   ├── _data/            # Build-time API calls (Node.js)
+    │   ├── _includes/        # Reusable UI components & layouts (Nunjucks)
+    │   ├── assets/           # CSS, Fonts, Images
+    │   ├── pages.njk         # CMS-driven root pages renderer
+    │   └── item-detail.njk   # Directory detail pages renderer
+    └── package.json          # Node dependencies and build scripts
 ```
 
-</details>
+---
 
-## Project Structure
+## 📄 License
 
-<details>
-<summary>Explore project file organization</summary>
-
-```
-frontend/
-├── config.yml                # Main configuration (site, theme, directories)
-├── .env                      # NocoDB credentials (not in git)
-├── src/
-│   ├── _data/
-│   │   ├── siteConfig.js     # Loads site config
-│   │   ├── directories.js    # Fetches NocoDB data
-│   │   ├── pages.js          # Fetches NocoDB pages
-│   │   └── pagesList.js      # Pages array for pagination
-│   ├── _includes/
-│   │   ├── components/       # Reusable UI components
-│   │   └── layouts/          # Page layouts
-│   ├── pages.njk             # CMS-driven page rendering (pagination)
-│   └── assets/               # Static assets
-│       └── content.css/      # Shared CSS
-├── scripts/
-│   ├── rebuild-and-deploy.sh # Local build & deploy
-│   └── rebuild-on-server.sh  # Server rebuild
-└── _site/                    # Build output (gitignored)
-```
-
-</details>
-
-## Page Authoring (NocoDB-driven)
-
-<details>
-<summary>How to create and manage content</summary>
-
-- Pages are defined in NocoDB (one row per page) and rendered by `frontend/src/pages.njk`.
-- Sections are described via `section_*` fields and rendered through `frontend/src/_includes/components/sections/page-sections.njk`.
-- Page data is loaded in `frontend/src/_data/pages.js` and exposed as a list in `frontend/src/_data/pagesList.js`.
-- Shared content and component styles live in `frontend/src/assets/styles/content.css`.
-
-### Legacy Markdown Authoring (Deprecated)
-
-Older Markdown-based pages under `frontend/src/pages/` are no longer used in this branch and should be considered deprecated.
-
-</details>
-
-## Configuration
-
-<details>
-<summary>Configuration options and settings</summary>
-
-- Main Configuration via `config.yml`
-- Environment Variables via `.env`
-
-</details>
-
-## Deployment
-
-<details>
-<summary>Deployment via Coolify (recommended)</summary>
-
-### Coolify / Docker Deployment
-
-The site is deployed as a **Dockerfile-based** resource in Coolify.
-
-**How it works:** Every deployment triggers a Docker build that fetches fresh data from NocoDB and produces a new static site served by Nginx.
-
-#### Required Build Arguments (set in Coolify)
-
-| Variable | Description |
-|---|---|
-| `NOCODB_BASE_URL` | NocoDB instance URL (e.g. `https://nocodb.umsetzungslabor-bauturbo.de`) |
-| `NOCODB_API_TOKEN` | NocoDB API token |
-| `NOCODB_PROJECT_ID` | NocoDB project ID |
-
-> **Important:** These must be configured as **Build Arguments** (not just runtime env vars) in Coolify, since the data is fetched during `npm run build`.
-
-#### Scheduled Rebuilds
-
-To keep NocoDB content up to date, configure a **scheduled redeploy** in Coolify (e.g. daily at 5:00 AM). Each redeploy re-runs the Docker build and fetches fresh data.
-
-#### Manual Rebuild
-
-Click **"Redeploy"** in the Coolify UI to trigger an immediate rebuild with the latest NocoDB data.
-
-#### Health Check
-
-The Nginx config includes a liveness endpoint at `/-/healthz` that returns `200 OK` with a JSON body:
-
-```json
-{ "status": "OK", "timestamp": "2026-02-12T08:00:00+01:00" }
-```
-
-Configure the **Health Check Path** in Coolify to `/-/healthz` so the platform can verify the container is alive.
-
-</details>
-
-<details>
-<summary>Legacy deployment (bare-metal, deprecated)</summary>
-
-### Local Build & Deploy
-
-```bash
-# Build locally and deploy to server
-./frontend/scripts/rebuild-and-deploy.sh
-```
-
-### Server Setup
-
-**Project location:** `/srv/projects/pt-app-directory-bauturbo/`
-**Site served from:** `/var/www/directory`
-
-**Automated rebuilds:** Daily at 5 AM via cron
-
-### Nginx Configuration
-
-Site served from: `/var/www/directory`
-
-SSL: Managed by Certbot
-
-</details>
-
-## Adding a New Directory
-
-<details>
-<summary>Steps to create a new directory section</summary>
-
-1. **Create table/view in NocoDB**
-2. **Edit `config.yml`:**
-    ```yaml
-    directories:
-        - id: new-directory
-          name: New Directory
-          path: /new
-          nocodb:
-              table_id: your_table_id
-              view_id: your_view_id
-          display:
-              title_field: Title
-              excerpt_field: Description
-          filters:
-              - field: Category
-                type: single
-    ```
-3. **Rebuild:** `npm run build`
-
-</details>
-
-## Troubleshooting
-
-<details>
-<summary>Common issues and solutions</summary>
-
-**Build failures:**
-
-- Check YAML syntax: `npx js-yaml config.yml`
-- Verify `.env` credentials
-- Clear cache: `rm -rf .cache _site`
-
-**Data not showing:**
-
-- Verify NocoDB token in `.env`
-- Check table/view IDs in `config.yml`
-- Clear cache and rebuild
-
-**Deployment issues:**
-
-- Check file permissions: `ls -la /var/www/directory`
-- Verify nginx config: `sudo nginx -t`
-- View rebuild logs (server): `tail -f /srv/projects/pt-app-directory-bauturbo/rebuild.log`
-
-</details>
-
-## Branch Naming Conventions
-
-<details>
-<summary>Git branch naming guidelines</summary>
-
-To maintain consistency and clarity in the development workflow, please follow these branch naming patterns:
-
-### New Features
-
-```bash
-feature/name-of-new-feature
-```
-
-Use this pattern when implementing a completely new feature or functionality.
-
-**Example:** `feature/search-functionality`
-
-### Feature Revisions
-
-```bash
-revision/name-of-existing-feature
-```
-
-Use this pattern when making significant changes or improvements to an existing feature.
-
-**Example:** `revision/directory-tabs`
-
-### Bug Fixes
-
-```bash
-fix/name-of-existing-feature
-```
-
-Use this pattern when fixing bugs or issues in existing functionality.
-
-**Example:** `fix/pagination-navigation`
-
-### Guidelines
-
-- Use lowercase letters with hyphens to separate words
-- Keep branch names descriptive but concise
-- Reference the feature/component being worked on, not the specific technical implementation
-
-</details>
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.

@@ -12,7 +12,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": "Bauturbo Directory - Single directory site with 11ty and NocoDB",
   "dependencies": {
     "@11ty/eleventy": "^3.1.2",
