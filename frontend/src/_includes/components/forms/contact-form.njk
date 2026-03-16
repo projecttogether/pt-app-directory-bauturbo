@@ -9,7 +9,8 @@
 <form 
     action="{{ form_action }}"
     method="{{ form_method }}"
-    novalidate>
+    novalidate
+    data-contact-form>
 
     <div class="grid grid-cols-12 gap-y-6 sm:gap-x-8 sm:gap-y-8">
 
@@ -64,15 +65,26 @@
         {# Submit #}
         <footer class="col-span-12 mt-2 sm:mt-4">
             <button type="submit"
+                    data-contact-form-submit
+                    data-label-default="{{ section.cta_label or 'Nachricht senden' }}"
                     class="p-btn-cta-md
                             text-btn-sm border
                             text-bauturbo-blau bg-white border-bauturbo-blau
                             hover:bg-bauturbo-blau hover:text-white
+                            disabled:opacity-50 disabled:cursor-not-allowed
                             transition-colors duration-150">
                 {{ section.cta_label or "Nachricht senden" }}
             </button>
         </footer>
 
+        {# Status message #}
+        <div class="col-span-12"
+             data-contact-form-status
+             hidden></div>
+
     </div>
 
 </form>
+
+{# Contact form script #}
+<script type="text/javascript" src="/assets/scripts/contact-form.js"></script>
