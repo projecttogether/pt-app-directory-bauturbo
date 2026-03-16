@@ -34,6 +34,7 @@ Whether you're hosting resources, publications, or event listings, this platform
 - 🔍 **Dynamic Filtering:** Configurable, client-side filters (by category, date, etc.) that adapt automatically to your NocoDB columns.
 - ⚡ **Static Site Generation:** Outputs pure HTML/CSS/JS for blazing-fast performance, maximum security, and easy CDN hosting.
 - 🗄️ **Headless CMS integration:** Content authors can manage everything in a familiar spreadsheet-like interface via NocoDB.
+- 📬 **Contact Form with Email Delivery:** A static-site-compatible contact form that securely submits messages via a Cloudflare Worker proxy to the MailerSend API — no backend server required.
 
 ---
 
@@ -51,37 +52,44 @@ Whether you're hosting resources, publications, or event listings, this platform
 The fastest way to get the entire stack—including the CMS, Database, and Frontend—running locally is by using Docker Compose.
 
 ### 1. Start the Stack
+
 Spin up NocoDB, PostgreSQL, and the 11ty frontend in the background:
+
 ```bash
 docker-compose up -d
 ```
 
 ### 2. Setup the CMS
+
 1. Navigate to **[http://localhost:8080](http://localhost:8080)** to access the NocoDB Admin UI.
 2. Complete the setup wizard to create an admin account and a new project/base.
-3. Import the initial project schema and data from the `docs/nocodb-data/` folder (via *Settings -> Import Base*).
+3. Import the initial project schema and data from the `docs/nocodb-data/` folder (via _Settings -> Import Base_).
 4. Generate an **API token** in your NocoDB profile settings (you will need the token and the base **Project ID**).
 
 ### 3. Connect the Frontend
+
 1. Navigate to the `frontend` directory:
-   ```bash
-   cd frontend
-   ```
+    ```bash
+    cd frontend
+    ```
 2. Copy the example environment file:
-   ```bash
-   cp .env.example .env
-   ```
+    ```bash
+    cp .env.example .env
+    ```
 3. Update `.env` with your newly created `NOCODB_API_TOKEN` and `NOCODB_PROJECT_ID`.
 
 ### 4. Build and Run the Frontend
+
 If you prefer running the frontend natively (outside of Docker for development):
+
 ```bash
 npm install
 npm run dev
 ```
+
 The frontend will be accessible at **[http://localhost:8080/](http://localhost:8080/)** (or whichever port Eleventy assigns, since 8080 might be in use by NocoDB, it usually falls back to `8081`).
 
-*Alternatively, you can build the frontend via Docker Compose using `docker-compose --profile frontend up --build` which will expose it on port 8081.*
+_Alternatively, you can build the frontend via Docker Compose using `docker-compose --profile frontend up --build` which will expose it on port 8081._
 
 ---
 
@@ -95,6 +103,7 @@ For developers looking to maintain, configure, or extend the platform, please re
 - **[NocoDB Schema Requirements](docs/schema.md):** Detailed breakdown of mandatory and optional database columns necessary to prevent build failures.
 - **[Coolify Deployment Guide](docs/coolify.md):** Step-by-step instructions for deploying the platform into production.
 - **[Scripts & Utilities](docs/scripts.md):** Overview of the helper scripts bundled in this repository.
+- **[Contact Form Guide](docs/contact-form.md):** How the static-compatible contact form works, how to deploy and configure the Cloudflare Worker proxy, and how to manage MailerSend secrets.
 
 ---
 
