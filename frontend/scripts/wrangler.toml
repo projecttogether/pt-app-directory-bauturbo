@@ -1,0 +1,6 @@
+name = "mailersend-proxy"
+main = "mailersend-worker.js"
+compatibility_date = "2024-01-01"
+
+# Secrets are NOT stored here — set them via `wrangler secret put` (see README above the worker file).
+# This file is safe to commit.

@@ -76,15 +76,20 @@
                             rel="noopener noreferrer">
                             {{ section.cta_label }}
                         </a>
-                        <a  class="inline-flex items-center px-4 py-2 text-sm font-semibold border directories-button"
-                            href="mailto:umsetzungslabor@projecttogether.org"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            Kontakt aufnehmen
-                        </a>
                     </footer>
                 {% endif %}
 
+                {# Contact form #}
+                <div class="col-span-12 mt-12">
+                    <div class="w-full mb-6 sm:mb-10">
+                        {% set size = "md" %}
+                        {% set lvl = 3 %}
+                        {% set text_hdl = 'Kontakt aufnehmen' %}
+                        {% include "components/headlines/headline.njk" %}
+                    </div>
+
+                    {% include "components/forms/contact-form.njk" %}
+                </div>
         
             </div>
         </div>
