@@ -14,16 +14,23 @@ app.use(express.json());
 // CORS configuration based on ALLOWED_ORIGIN env var
 const allowedOrigins = (process.env.ALLOWED_ORIGIN || "")
     .split(",")
-    .map((o) => o.trim())
+    .map((o) => o.trim().replace(/\/$/, "")) // Strip trailing slash for safer matching
     .filter(Boolean);
 
 if (allowedOrigins.length > 0) {
     app.use(cors({
         origin: function (origin, callback) {
             // Allow requests with no origin (like mobile apps or curl requests)
-            if (!origin || allowedOrigins.includes(origin)) {
+            if (!origin) {
+                return callback(null, true);
+            }
+            
+            const originClean = origin.replace(/\/$/, "");
+            if (allowedOrigins.includes(originClean)) {
                 callback(null, true);
             } else {
+                console.error(`[CORS BLOCKED] Request from origin: '${origin}'. Allowed origins are: ${JSON.stringify(allowedOrigins)}`);
+                // Reject with a plain Error (express will return 500 but cors headers are omitted so browser blocks it anyway)
                 callback(new Error('Not allowed by CORS'));
             }
         }
