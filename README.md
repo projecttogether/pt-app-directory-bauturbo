@@ -34,7 +34,7 @@ Whether you're hosting resources, publications, or event listings, this platform
 - 🔍 **Dynamic Filtering:** Configurable, client-side filters (by category, date, etc.) that adapt automatically to your NocoDB columns.
 - ⚡ **Static Site Generation:** Outputs pure HTML/CSS/JS for blazing-fast performance, maximum security, and easy CDN hosting.
 - 🗄️ **Headless CMS integration:** Content authors can manage everything in a familiar spreadsheet-like interface via NocoDB.
-- 📬 **Contact Form with Email Delivery:** A static-site-compatible contact form that securely submits messages via a Cloudflare Worker proxy to the MailerSend API — no backend server required.
+- 📬 **Contact Form with Email Delivery:** A static-site-compatible contact form that securely submits messages via a locally hosted Node.js microservice to the MailerSend API — keeping everything within your own infrastructure.
 
 ---
 
@@ -103,7 +103,7 @@ For developers looking to maintain, configure, or extend the platform, please re
 - **[NocoDB Schema Requirements](docs/schema.md):** Detailed breakdown of mandatory and optional database columns necessary to prevent build failures.
 - **[Coolify Deployment Guide](docs/coolify.md):** Step-by-step instructions for deploying the platform into production.
 - **[Scripts & Utilities](docs/scripts.md):** Overview of the helper scripts bundled in this repository.
-- **[Contact Form Guide](docs/contact-form.md):** How the static-compatible contact form works, how to deploy and configure the Cloudflare Worker proxy, and how to manage MailerSend secrets.
+- **[Contact Form Guide](docs/contact-form.md):** How the static-compatible contact form works, how to deploy and configure the Node.js microservice in Coolify, and how to manage MailerSend secrets.
 
 ---
 
