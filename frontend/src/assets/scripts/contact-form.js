@@ -25,6 +25,9 @@
     ///////////////////////////////////////////////////////////
 
     function bindForm(form) {
+        if (form.dataset.isBound) return;
+        form.dataset.isBound = "true";
+
         var btn = form.querySelector("[data-contact-form-submit]");
         var statusEl = form.querySelector("[data-contact-form-status]");
 
@@ -92,7 +95,13 @@
             el.className = "block mt-1.5 text-xs text-bauturbo-rot";
             el.setAttribute("role", "alert");
             el.textContent = message;
-            field.parentNode.appendChild(el);
+            
+            var wrapper = field.closest(".form-field-wrapper");
+            if (wrapper) {
+                wrapper.appendChild(el);
+            } else {
+                field.parentNode.appendChild(el);
+            }
         }
         field.setAttribute("aria-describedby", errorId);
         field.classList.add("border-bauturbo-rot");

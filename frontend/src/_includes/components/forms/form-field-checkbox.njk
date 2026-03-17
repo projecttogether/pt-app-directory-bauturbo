@@ -12,25 +12,27 @@
 {# MARKUP #}
 {##########}
 
-<div class="flex gap-x-3 items-start {{ class or "" }}">
+<div class="flex flex-col gap-y-1 {{ class or "" }} form-field-wrapper">
+    <div class="flex gap-x-3 items-start">
 
-    <input  type="checkbox"
-            id="{{ field_id }}"
-            name="{{ field_name }}"
-            value="{{ field_value }}"
-            {% if field_checked %}checked{% endif %}
-            {% if field_required %}required aria-required="true"{% endif %}
-            class="mt-1 shrink-0 size-4
-                   border border-(--color-accent)
-                   accent-(--color-accent)
-                   cursor-pointer"
-            style="--color-accent: {{ color_accent }};">
+        <input  type="checkbox"
+                id="{{ field_id }}"
+                name="{{ field_name }}"
+                value="{{ field_value }}"
+                {% if field_checked %}checked{% endif %}
+                {% if field_required %}required aria-required="true"{% endif %}
+                class="mt-1 shrink-0 size-4
+                       border border-(--color-accent)
+                       accent-(--color-accent)
+                       cursor-pointer"
+                style="--color-accent: {{ color_accent }};">
 
-    {% if field_label %}
-        <label for="{{ field_id }}"
-               class="text-sm text-bauturbo-blau leading-snug cursor-pointer">
-            {{ field_label | safe }}{% if field_required %}<span class="text-bauturbo-rot ml-1" aria-hidden="true">*</span>{% endif %}
-        </label>
-    {% endif %}
+        {% if field_label %}
+            <label for="{{ field_id }}"
+                   class="text-sm text-bauturbo-blau leading-snug cursor-pointer">
+                {{ field_label | safe }}{% if field_required %}<span class="text-bauturbo-rot ml-1" aria-hidden="true">*</span>{% endif %}
+            </label>
+        {% endif %}
 
+    </div>
 </div>
