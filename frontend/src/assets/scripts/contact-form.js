@@ -7,7 +7,7 @@
     // CONFIG
     ///////////////////////////////////////////////////////////
 
-    var WORKER_ENDPOINT = "https://mailersend-proxy.bauturbo.workers.dev";
+    var WORKER_ENDPOINT = window.CONTACT_API_URL || "https://mailersend-proxy.bauturbo.workers.dev";
 
     ///////////////////////////////////////////////////////////
     // INIT

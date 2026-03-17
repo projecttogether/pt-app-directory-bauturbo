@@ -54,6 +54,22 @@ services:
     profiles:
       - frontend
 
+  contact-api:
+    build:
+      context: ./services/contact-form
+    ports:
+      - "3000:3000"
+    environment:
+      - ALLOWED_ORIGIN=http://localhost:8081,http://localhost:8080
+      - MAILERSEND_API_KEY=${MAILERSEND_API_KEY:-}
+      - MAILERSEND_FROM_EMAIL=${MAILERSEND_FROM_EMAIL:-}
+      - MAILERSEND_FROM_NAME=${MAILERSEND_FROM_NAME:-}
+      - MAILERSEND_TO_EMAIL=${MAILERSEND_TO_EMAIL:-}
+    networks:
+      - local_net
+    profiles:
+      - frontend
+
 volumes:
   db_data:
   nc_data:
