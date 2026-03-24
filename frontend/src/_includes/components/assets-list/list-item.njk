@@ -1,0 +1,122 @@
+{# SETUP #}
+{#########}
+
+{# ... #}
+
+{# MARKUP #}
+{##########}
+
+<div data-ref="item"
+     class="select-none border border-bauturbo-blau">
+    
+    {# Title (collapsible header) #}
+    {##############################}
+
+    <div data-ref="header"
+         data-active="false"
+         class="group/header relative px-3 py-3 pt-1.75 flex justify-between items-center cursor-pointer
+                hover:bg-bauturbo-blau hover:**:text-white transition-colors
+                data-[active=true]:bg-bauturbo-blau data-[active=true]:**:text-white">
+
+        {% set size = "sm" %}
+        {% set lvl = 3 %}
+        {% set text_hdl = item.title if item and item.title else "Kein Titel" %}
+        {% set class = "font-bold!" %}
+        {% include "components/headlines/headline.njk" %}
+
+        <span class="hdl-sm text-bauturbo-blau translate-y-0.75
+                     group-data-[active=true]/header:rotate-45">
+            <svg viewBox="0 0 24 24" class="size-5 fill-none stroke-current stroke-2">
+                <path d="M12 5v14M5 12h14" vector-effect="non-scaling-stroke"/>
+            </svg>
+        </span>
+    </div>
+
+    {# Collapsible content #}
+    {#######################}
+
+    <div data-ref="content"
+         data-hidden="true"
+         class="px-3 py-3 pt-2
+                sm:px-6 sm:py-5.25 sm:pb-5.75
+                grid grid-cols-12 gap-3 sm:gap-6
+                data-[hidden=true]:hidden">
+        
+        {# Short descr. #}
+        {################}
+
+        {% if item.description_short %}
+            <div class="col-span-12 md:col-span-9 flex flex-col gap-y-2">
+                {# Label #}
+                <span>
+                    {% set text_label = "Beschreibung" %}
+                    {% include "components/labels/label.njk" %}
+                </span>
+
+                {# Text #}
+                {% set size = "sm" %}
+                {% set text = item.description_short %}
+                {% set is_markdown = true %}
+                {% set class = "" %}
+                {% include "components/texts/text.njk" %}
+            </div>
+        {% endif %}
+
+        {# Last official updt. #}
+        {#######################}
+
+        {% if item.last_official_update %}
+            <div class="col-span-12 md:col-span-3 flex flex-col gap-y-2">
+                {# Label #}
+                <span>
+                    {% set text_label = "Stand" %}
+                    {% include "components/labels/label.njk" %}
+                </span>
+
+                {# Text #}
+                {% set size = "sm" %}
+                {% set text = item.last_official_update %}
+                {% set is_markdown = false %}
+                {% set class = "" %}
+                {% include "components/texts/text.njk" %}
+            </div>
+        {% endif %}
+
+        {# Downloads #}
+        {#############}
+
+        {% if item.file or item.file_checklist %}
+            <div class="col-span-12 flex flex-col items-start gap-y-2">
+                {# Label #}
+                <span>
+                    {% set text_label = "Downloads" %}
+                    {% include "components/labels/label.njk" %}
+                </span>
+
+                {# Download btns. #}
+                <div class="flex flex-col sm:flex-row items-start gap-2">
+                    {% if item.file %}
+                        {% set url_file = item.file[0].signedUrl if item.file and item.file.length > 0 else "" %}
+                        {% if url_file %}
+                            {% set text = 'Arbeitshilfe herunterladen' %}
+                            {% set url = url_file %}
+                            {% set is_external = true %}
+                            {% include "components/btns/btn-cta.njk" %}
+                        {% endif %}
+                    {% endif %}
+
+                    {% if item.file_checklist %}
+                        {% set url_file_checklist = item.file_checklist[0].signedUrl if item.file_checklist and item.file_checklist.length > 0 else "" %}
+                        {% if url_file_checklist %}
+                            {% set text = "Checkliste herunterladen" %}
+                            {% set url = url_file_checklist %}
+                            {% set is_external = true %}
+                            {% include "components/btns/btn-cta.njk" %}
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+</div>

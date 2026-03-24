@@ -1,0 +1,34 @@
+{# SETUP #}
+{#########}
+
+{% set arbeitshilfenItems = [] %}
+{% for directory in directories %}
+    {% if directory.id == 'arbeitshilfen' %}
+        {% set arbeitshilfenItems = directory.items %}
+    {% endif %}
+{% endfor %}
+
+{# MARKUP #}
+{##########}
+
+<div data-comp="assets-list"
+     class="flex flex-col gap-y-4">
+
+    {# Items #}
+    {#########}
+    
+    {% if arbeitshilfenItems.length > 0 %}
+        {% for item in arbeitshilfenItems %}
+            {% include "components/assets-list/list-item.njk" %}
+        {% endfor %}
+    {% else %}
+        <div class="flex items-start justify-start text-start">
+            <div>
+                <h3 class="text-sm-plus leading-[1.17]! italic text-bauturbo-blau mb-2">Demnächst verfügbar…</h3>
+                <p class="text-sm text-gray-600">Arbeitshilfen werden in Kürze hier zur Verfügung gestellt.</p>
+            </div>
+        </div>
+    {% endif %}
+
+
+</div>
