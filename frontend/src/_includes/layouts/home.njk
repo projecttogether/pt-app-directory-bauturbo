@@ -45,13 +45,13 @@ layout: layouts/base.njk
             {% set with_border_b = false %}
             {% include path_sectionComps + "page-section-text-block.njk" %}
 
-            {# temporary work-around to render preview cards section in 3rd section #}
+            {# temporary work-around to render »Arbeitshilfen« assets list in 3rd section #}
             {% if loop.index === 3 %}
                 {% set mb = 17.5 %}
                 {% set with_border_t = false %}
                 {% set with_border_b = true %}
                 {% set cards = previewCardsItems %}
-                {% include path_sectionComps + "page-section-preview-cards.njk" %}
+                {% include path_sectionComps + "page-section-assets-list.njk" %}
             {% endif %}
 
         {# Directory tabs section #}

@@ -146,6 +146,34 @@ directories:
             label: Veröffentlichungsdatum
             type: date_range
 
+    - id: arbeitshilfen
+      name: "Arbeitshilfen"
+      path: /arbeitshilfen
+      description: "Welche praktischen Hilfsmittel unterstützen bei der Umsetzung? Diese Sammlung stellt Leitfäden, Checklisten, Vorlagen und Tools bereit, die Kommunen bei der praktischen Anwendung des Bau-Turbos unterstützen."
+      nocodb:
+          table_id: ml5v04r9vl19gve
+          view_id: vwkvobl3cxanqb0l
+      display:
+          title_field: title
+          excerpt_field: excerpt
+          details_fields:
+              - field: description_short
+                label: "Kurzbeschreibung"
+                type: markdown
+                section: body
+              - field: last_official_update
+                label: "Stand des Dokuments"
+                type: text
+                section: meta
+              - field: file
+                label: "Datei"
+                type: file
+                section: files
+              - field: file_checklist
+                label: "Datei Checkliste"
+                type: file
+                section: files
+
     - id: grundsatzbeschluesse
       name: "Grundsatzbeschlüsse"
       path: /grundsatzbeschluesse

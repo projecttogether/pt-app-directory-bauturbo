@@ -1,14 +1,22 @@
 {# SETUP #}
 {#########}
 
-{% set directoryList = directories | default([]) %}
+{# Filter out "arbeitshilfen" directory; #}
+{# "arbeitshilfen" items are displayed in the assets list component instead #}
+{% set allDirectories = directories | default([]) %}
+{% set directoryList = [] %}
+{% for dir in allDirectories %}
+    {% if dir.id != 'arbeitshilfen' %}
+        {% set directoryList = directoryList.concat([dir]) %}
+    {% endif %}
+{% endfor %}
 
 {# MARKUP #}
 {##########}
 
 <section class="border-t border-bauturbo-blau">
     
-    {% if directoryList.length > 0 %}
+    {% if directoryList and directoryList.length > 0 %}
 
         {# Tab buttons #}
         <div class="px-5 sm:px-pad-directory-section-x 
