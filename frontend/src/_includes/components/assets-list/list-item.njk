@@ -96,7 +96,7 @@
                 {# Download btns. #}
                 <div class="flex flex-col sm:flex-row items-start gap-2">
                     {% if item.file %}
-                        {% set url_file = item.file[0].signedUrl if item.file and item.file.length > 0 else "" %}
+                        {% set url_file = item.file[0].url if item.file and item.file.length > 0 else "" %}
                         {% if url_file %}
                             {% set text = 'Arbeitshilfe herunterladen' %}
                             {% set url = url_file %}
@@ -106,7 +106,7 @@
                     {% endif %}
 
                     {% if item.file_checklist %}
-                        {% set url_file_checklist = item.file_checklist[0].signedUrl if item.file_checklist and item.file_checklist.length > 0 else "" %}
+                        {% set url_file_checklist = item.file_checklist[0].url if item.file_checklist and item.file_checklist.length > 0 else "" %}
                         {% if url_file_checklist %}
                             {% set text = "Checkliste herunterladen" %}
                             {% set url = url_file_checklist %}

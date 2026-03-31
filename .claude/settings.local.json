@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -r \"file\\\\|attach\\\\|url\\\\|cdn\\\\|s3\\\\|bucket\" /Users/simon/dev/work/projecttogether/pt-apps/directory-bauturbo/frontend/src/_data --include=*.js)"
+    ]
+  }
+}
