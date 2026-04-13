@@ -6,6 +6,9 @@
 
 .text-xs {
     @apply text-[17.85px] leading-[1.42] tracking-[0.0225em];
+
+    /* Resp. sizes */
+    @apply max-sm:text-[calc(17.85px*0.85)];
 }
 
 /* sm */

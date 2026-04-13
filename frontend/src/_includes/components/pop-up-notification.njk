@@ -1,0 +1,77 @@
+{# SETUP #}
+{#########}
+
+{# Pop-up configuration #}
+{% set popup_id = popup_id or "notification-popup" %}
+
+{# Content configuration #}
+{% set popup_headline = popup_headline or "Wichtiger Hinweis" %}
+{% set popup_text = popup_text or "Dies ist eine wichtige Benachrichtigung für Besucher der Website." %}
+{% set popup_button_text = popup_button_text or "Mehr erfahren" %}
+{% set popup_button_url = popup_button_url or "#" %}
+{% set close_button_text = close_button_text or "Schließen" %}
+
+{# MARKUP #}
+{##########}
+
+<div id="{{ popup_id }}"
+     data-comp="pop-up-notification" 
+     class="
+        fixed bottom-6 right-6 z-50
+        w-[calc(100%-3rem)]
+        md:max-w-lg md:w-full
+        bg-white border border-bauturbo-blau shadow-lg
+        transition-transform duration-500 ease-out transform translate-y-[120%]" >
+    
+    {# Close button #}
+    <button type="button" 
+            class="
+                absolute top-0 right-0 p-2 
+                text-bauturbo-blau hover:bg-bauturbo-blau hover:[&>svg]:text-white
+                border-l border-b border-bauturbo-blau"
+            onclick="closePopup('{{ popup_id }}')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path 
+                d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                vector-effect="non-scaling-stroke" />
+        </svg>
+    </button>
+    
+    {# Pop-up content #}
+    <div class="px-3 py-3 pt-2
+                sm:px-6 sm:py-5.25 sm:pt-4">
+        
+        {# Headline #}
+        {% if popup_headline %}
+            <div class="mb-4">
+                {% set size = "sm" %}
+                {% set lvl = 2 %}
+                {% set text_hdl = popup_headline %}
+                {% include "components/headlines/headline.njk" %}
+            </div>
+        {% endif %}
+        
+        {# Text content #}
+        {% if popup_text %}
+            <div class="mb-6">
+                {% set size = "xs" %}
+                {% set text = popup_text %}
+                {% set is_markdown = true %}
+                {% include "components/texts/text.njk" %}
+            </div>
+        {% endif %}
+        
+        {# CTA #}
+        {% if popup_button_text and popup_button_url %}
+            <div class="flex items-start">
+                {% set text = popup_button_text %}
+                {% set url = popup_button_url %}
+                {% set size_btn = "sm" %}
+                {% set is_external = ('http' in popup_button_url) %}
+                {% include "components/btns/btn-cta.njk" %}
+            </div>
+        {% endif %}
+
+    </div>
+
+</div>

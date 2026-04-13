@@ -228,9 +228,18 @@
         {% include "components/site-footer/site-footer.njk" %}
 
     </div>
+    
+    {# Global pop-up notification #}
+    {% set popup_headline = "Wir ziehen um!" %}
+    {% set popup_text = "Sie nutzten diese Webseite und möchten auch weiterhin Zugang zu Inhalten, Arbeitshilfen und Angeboten haben? Alle Informationen stehen Ihnen ab Anfang Juni auf der Webseite des BMWSB weiterhin zur Verfügung." %}
+    {% set popup_button_text = "Mehr erfahren" %}
+    {% set popup_button_url = "https://www.bmwsb.bund.de/DE/bauen/baurecht/bau-turbo/bau-turbo.html" %}
+    {% include "components/pop-up-notification.njk" %}
+    
     <script type="text/javascript" src="/assets/scripts/scroll-tracker.js"></script>
     <script type="text/javascript" src="/assets/scripts/toggle-extended-content.js"></script>
     <script type="text/javascript" src="/assets/scripts/site-nav.js"></script>
+    <script type="text/javascript" src="/assets/scripts/pop-up-notification.js"></script>
     <script type="text/javascript" src="/assets/scripts/assets-list.js"></script>
 </body>
 </html>
