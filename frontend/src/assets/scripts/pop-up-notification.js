@@ -15,7 +15,7 @@
     function init_popupNotification() {
         // Check if current date is 28.04.2026
         const today = new Date();
-        const targetDate = new Date(2026, 3, 13); // Month is 0-indexed, so April is 3
+        const targetDate = new Date(2026, 3, 28); // Month is 0-indexed, so April is 3
         const isTargetDate =
             today.getFullYear() === targetDate.getFullYear() &&
             today.getMonth() === targetDate.getMonth() &&
